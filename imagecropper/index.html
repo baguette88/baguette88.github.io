@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Image Cropper</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f0f4f8;
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+        }
+        body, html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            height: 100%;
+        }
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 90%;
+            width: 800px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .btn {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        #homeBtn {
+            background-color: var(--primary-color);
+        }
+        #saveBtn {
+            background-color: var(--secondary-color);
+        }
+        #saveBtn:hover {
+            background-color: #27ae60;
+        }
+        #cropArea {
+            max-width: 100%;
+            max-height: 400px;
+            margin-top: 1rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.3s;
+        }
+        #cropArea.dragover {
+            border-color: var(--primary-color);
+        }
+        .hidden {
+            display: none !important;
+        }
+        #previewArea {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        #previewImage {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            .btn {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Cozy Image Cropper</h1>
+            <button id="homeBtn" class="btn">Home</button>
+        </header>
+        <main>
+            <div class="container">
+                <p>Drag and drop an image here or click to select</p>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+                <div id="cropArea">
+                    <button class="btn" onclick="document.getElementById('fileInput').click()">Select Image</button>
+                </div>
+                <div id="previewArea" class="hidden">
+                    <h3>Preview</h3>
+                    <img id="previewImage" alt="Cropped image preview">
+                </div>
+                <button id="saveBtn" class="btn hidden">Save Cropped Image</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script>
+        let cropper;
+        const cropArea = document.getElementById('cropArea');
+        const fileInput = document.getElementById('fileInput');
+        const saveBtn = document.getElementById('saveBtn');
+        const previewArea = document.getElementById('previewArea');
+        const previewImage = document.getElementById('previewImage');
+
+        function handleImage(file) {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    cropArea.innerHTML = '';
+                    cropArea.appendChild(img);
+                    cropper = new Cropper(img, {
+                        aspectRatio: NaN,
+                        viewMode: 1,
+                        crop: updatePreview
+                    });
+                    saveBtn.classList.remove('hidden');
+                    previewArea.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updatePreview() {
+            if (cropper) {
+                const canvas = cropper.getCroppedCanvas();
+                previewImage.src = canvas.toDataURL();
+            }
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            handleImage(e.target.files[0]);
+        });
+
+        cropArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            cropArea.classList.add('dragover');
+        });
+
+        cropArea.addEventListener('dragleave', function(e) {
+            cropArea.classList.remove('dragover');
+        });
+
+        cropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            cropArea.classList.remove('dragover');
+            handleImage(e.dataTransfer.files[0]);
+        });
+
+        document.getElementById('homeBtn').addEventListener('click', function() {
+            alert('Navigating to home page');
+            // Add actual navigation logic here
+        });
+
+        saveBtn.addEventListener('click', function() {
+            if (cropper) {
+                cropper.getCroppedCanvas().toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'cropped-image.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
