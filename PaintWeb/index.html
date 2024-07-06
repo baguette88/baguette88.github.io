@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Paint Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="paint-app">
+        <div class="toolbar">
+            <button id="undoBtn" disabled>Undo</button>
+            <button id="redoBtn" disabled>Redo</button>
+            <button id="clearCanvas">Clear Canvas</button>
+            <button id="addLayerBtn">Add Layer</button>
+            <button id="saveBtn">Save</button>
+        </div>
+        <div class="main-content">
+            <div class="canvas-container">
+                <canvas id="mainCanvas"></canvas>
+            </div>
+            <div class="sidebar">
+                <div class="tool-section">
+                    <h3>Tools</h3>
+                    <div class="tool-options">
+                        <div class="tool active" data-tool="pen">✏️</div>
+                        <div class="tool" data-tool="brush">🖌️</div>
+                        <div class="tool" data-tool="eraser">🧽</div>
+                        <div class="tool" data-tool="fill">🪣</div>
+                        <div class="tool" data-tool="rectangle">□</div>
+                        <div class="tool" data-tool="circle">○</div>
+                    </div>
+                </div>
+                <div class="tool-section">
+                    <h3>Size</h3>
+                    <input type="range" id="sizeSlider" min="1" max="50" value="5">
+                </div>
+                <div class="tool-section">
+                    <h3>Colors</h3>
+                    <div class="color-palette">
+                        <div class="color active" style="background-color: black;"></div>
+                        <div class="color" style="background-color: red;"></div>
+                        <div class="color" style="background-color: blue;"></div>
+                        <div class="color" style="background-color: green;"></div>
+                        <div class="color" style="background-color: yellow;"></div>
+                        <div class="color" style="background-color: purple;"></div>
+                        <div class="color" style="background-color: orange;"></div>
+                        <div class="color" style="background-color: pink;"></div>
+                    </div>
+                    <input type="color" id="colorPicker" value="#000000">
+                </div>
+                <div class="tool-section">
+                    <h3>Layers</h3>
+                    <ul class="layers" id="layersList"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="console-output" id="consoleOutput"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
