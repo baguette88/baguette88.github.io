@@ -21,30 +21,7 @@ if (!gl) {
 // Shader Templates
 const shaderTemplates = {
     glsl: {
-        color: `
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform vec2 u_resolution;
-uniform vec3 u_color;
-
-void main() {
-    gl_FragColor = vec4(u_color, 1.0);
-}`,
-        gradient: `
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform vec2 u_resolution;
-uniform vec3 u_color;
-
-void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    vec3 color = mix(vec3(0.0), u_color, st.x);
-    gl_FragColor = vec4(color, 1.0);
-}`
+        vec2 p=FC.xy/1e2,v=fract(p+ceil(p.y*=2.)*.5);o=vec4(min(v,.9)!=v);o.r+=v.y;`
     },
     hlsl: {
         color: `
