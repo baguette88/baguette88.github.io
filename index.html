@@ -27,6 +27,7 @@
             color: var(--text-color);
             display: flex;
             min-height: 100vh;
+            position: relative;
         }
 
         .sidebar {
@@ -36,12 +37,24 @@
             padding: 2rem;
             display: flex;
             flex-direction: column;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+            padding: 1rem;
         }
 
         .sidebar h1 {
             font-size: 1.8rem;
             margin-bottom: 2rem;
             font-weight: 300;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed h1 {
+            opacity: 0;
         }
 
         .sidebar nav ul {
@@ -58,16 +71,28 @@
             font-size: 1.1rem;
             display: flex;
             align-items: center;
+            transition: padding 0.3s ease;
+        }
+
+        .sidebar.collapsed nav ul li a {
+            padding-left: 0;
         }
 
         .sidebar nav ul li a svg {
             margin-right: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed nav ul li a svg {
+            opacity: 0;
         }
 
         .content {
             flex-grow: 1;
             padding: 2rem;
             overflow-y: auto;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
         }
 
         .home-section {
@@ -152,6 +177,16 @@
             padding: 0.5rem;
             font-size: 1.5rem;
             cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: var(--secondary-color);
+        }
+
+        .color-picker {
+            margin-top: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -232,6 +267,10 @@
                 </li>
             </ul>
         </nav>
+        <div class="color-picker">
+            <label for="colorWheel">Background Color:</label>
+            <input type="color" id="colorWheel" value="#ecf0f1">
+        </div>
     </aside>
     <main class="content">
         <section class="home-section">
@@ -291,10 +330,19 @@
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const sidebar = document.querySelector('.sidebar');
+        const colorWheel = document.getElementById('colorWheel');
 
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
+            sidebar.classList.toggle('collapsed');
+            document.querySelector('.content').style.marginLeft = sidebar.classList.contains('active') ? 'var(--sidebar-width)' : '0';
         });
+
+        function updateColorWheel() {
+            document.body.style.backgroundColor = colorWheel.value;
+        }
+
+        colorWheel.addEventListener('input', updateColorWheel);
     </script>
     
 </body>
