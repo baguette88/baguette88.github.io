@@ -189,6 +189,10 @@
             margin-top: 1rem;
         }
 
+        .voronoi-slider {
+            margin-top: 1rem;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -221,7 +225,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="/shadermachine">
+                    <a href="/shadermachine" target="_blank">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -233,7 +237,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/imagecropper">
+                    <a href="/imagecropper" target="_blank">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 2V14H18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M18 10V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -245,7 +249,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/DocSigner">
+                    <a href="/DocSigner" target="_blank">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M12 12H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -256,7 +260,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://lazymaze.netlify.app/">
+                    <a href="https://lazymaze.netlify.app/" target="_blank">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -270,6 +274,10 @@
         <div class="color-picker">
             <label for="colorWheel">Background Color:</label>
             <input type="color" id="colorWheel" value="#ecf0f1">
+        </div>
+        <div class="voronoi-slider">
+            <label for="voronoiRange">Voronoi Level (0-10):</label>
+            <input type="range" id="voronoiRange" min="0" max="10" value="0">
         </div>
     </aside>
     <main class="content">
@@ -289,7 +297,7 @@
                 </svg>
                 <h3>Shader Machine</h3>
                 <p>Create stunning visual effects with our powerful shader programming tool.</p>
-                <a href="/shadermachine">Learn More</a>
+                <a href="/shadermachine" target="_blank">Learn More</a>
             </div>
             <div class="tool-card">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -301,7 +309,7 @@
                 </svg>
                 <h3>Image Cropper</h3>
                 <p>Easily crop and resize your images with our intuitive image manipulation tool.</p>
-                <a href="/imagecropper">Learn More</a>
+                <a href="/imagecropper" target="_blank">Learn More</a>
             </div>
             <div class="tool-card">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -312,7 +320,7 @@
                 </svg>
                 <h3>DocSigner</h3>
                 <p>Securely sign and manage your documents with our advanced document signing tool.</p>
-                <a href="/DocSigner">Learn More</a>
+                <a href="/DocSigner" target="_blank">Learn More</a>
             </div>
             <div class="tool-card">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -322,7 +330,7 @@
                 </svg>
                 <h3>LazyMaze</h3>
                 <p>Generate complex mazes for level design with our easy-to-use maze generator.</p>
-                <a href="https://lazymaze.netlify.app/">Learn More</a>
+                <a href="https://lazymaze.netlify.app/" target="_blank">Learn More</a>
             </div>
         </section>
     </main>
