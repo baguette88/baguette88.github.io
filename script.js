@@ -11,4 +11,29 @@ function loadShader(shaderName) {
 }
 
 // Example of dynamically setting shader description
-document.querySelector('.shader-display p').textContent = 'Select a shader to see its effects.';
+const shaderDescription = document.querySelector('.shader-display p');
+if (shaderDescription) {
+    shaderDescription.textContent = 'Select a shader to see its effects.';
+} else {
+    // Updated error handling for shader description element
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = 'Shader description element not found.';
+    errorMessage.style.color = 'red';
+    document.body.appendChild(errorMessage);
+}
+
+const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+const colorWheel = document.getElementById('colorWheel');
+
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    sidebar.classList.toggle('collapsed');
+    document.querySelector('.content').style.marginLeft = sidebar.classList.contains('active') ? 'var(--sidebar-width)' : '0';
+});
+
+function updateColorWheel() {
+    document.body.style.backgroundColor = colorWheel.value;
+}
+
+colorWheel.addEventListener('input', updateColorWheel);
