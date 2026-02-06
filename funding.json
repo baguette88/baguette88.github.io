@@ -1,0 +1,201 @@
+{
+  "$schema": "https://floss.fund/schema/v1/funding.json",
+  "version": "1.0.0",
+  "$comment": "FLOSS/fund application - baguette88 SKILLS repository",
+  "entity": {
+    "type": "individual",
+    "role": "maintainer",
+    "name": "baguette88",
+    "email": "REMOVED",
+    "phone": null,
+    "description": "Open source developer maintaining SKILLS: a comprehensive knowledge base and automation framework for AI agents, trading systems, and business automation. 20+ production modules with focus on recursive improvement methodology and operational excellence.",
+    "webpageUrl": {
+      "url": "https://github.com/baguette88",
+      "wellKnown": null
+    }
+  },
+  "projects": [
+    {
+      "guid": "skills",
+      "name": "SKILLS",
+      "description": "Comprehensive open source knowledge base and automation framework supporting 20+ specialized modules: AI agent architecture, algorithmic trading systems, business automation (Elite Answer Tech), tutoring platforms, game development tools, and reference implementations. Production-proven systems running 24/7 across multiple domains.",
+      "webpageUrl": {
+        "url": "https://github.com/baguette88/SKILLS/blob/main/README.md",
+        "wellKnown": null
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/baguette88/SKILLS",
+        "wellKnown": null
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "automation",
+        "ai-agents",
+        "trading",
+        "reference-implementation",
+        "open-source",
+        "knowledge-base",
+        "python",
+        "operational-excellence"
+      ]
+    },
+    {
+      "guid": "bot-architect",
+      "name": "Bot Architect",
+      "description": "Infrastructure framework for unified tracking, logging, config standardization, and operational excellence across trading bot fleets. Provides PnL tracking, debugging utilities, and uptime optimization patterns for Polymarket and other prediction market bots.",
+      "webpageUrl": {
+        "url": "https://github.com/baguette88/SKILLS/blob/main/bot-architect/SKILL.md",
+        "wellKnown": null
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/baguette88/SKILLS",
+        "wellKnown": null
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "trading",
+        "bots",
+        "infrastructure",
+        "monitoring",
+        "logging"
+      ]
+    },
+    {
+      "guid": "polymarket-bots",
+      "name": "Polymarket Trading Bots",
+      "description": "Production prediction market trading bots for Polymarket CLOB. Implements strategies for binary outcome markets, condition tokens, and HIP-3 assets. Includes position management, funding rate arbitrage, and recursive risk management.",
+      "webpageUrl": {
+        "url": "https://github.com/baguette88/SKILLS/blob/main/polymarket/SKILL.md",
+        "wellKnown": null
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/baguette88/SKILLS",
+        "wellKnown": null
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "trading",
+        "prediction-markets",
+        "polymarket",
+        "defi",
+        "bots"
+      ]
+    },
+    {
+      "guid": "tutoring-platform",
+      "name": "TutorConnect",
+      "description": "Full-stack tutoring platform for scheduling, payments, and student management. Reference implementation for SaaS platforms using Node.js, Stripe, Auth0, and MongoDB. Production system supporting subscription-based tutoring business.",
+      "webpageUrl": {
+        "url": "https://github.com/baguette88/tutoring/blob/main/README.md",
+        "wellKnown": null
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/baguette88/tutoring",
+        "wellKnown": null
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "saas",
+        "tutoring",
+        "education",
+        "nodejs",
+        "stripe",
+        "scheduling"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/baguette88",
+        "description": "GitHub Sponsors for recurring monthly support"
+      },
+      {
+        "guid": "bank-transfer",
+        "type": "bank",
+        "address": "Contact for banking details via email",
+        "description": "Bank wire transfer for institutional grants (FLOSS/fund, etc.)"
+      }
+    ],
+    "plans": [
+      {
+        "guid": "floss-fund-grant-2026",
+        "status": "active",
+        "name": "FLOSS/fund Grant Request",
+        "description": "Institutional grant from Zerodha's FLOSS/fund ($1M annual initiative) to support SKILLS development: agent architecture improvements, comprehensive documentation, cross-project tooling, and community infrastructure.",
+        "amount": 50000,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "bank-transfer"
+        ]
+      },
+      {
+        "guid": "github-sponsors-supporter",
+        "status": "active",
+        "name": "GitHub Sponsors - Supporter",
+        "description": "Monthly sponsor supporting SKILLS maintenance and development",
+        "amount": 5,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "github-sponsors"
+        ]
+      },
+      {
+        "guid": "github-sponsors-contributor",
+        "status": "active",
+        "name": "GitHub Sponsors - Core Contributor",
+        "description": "Monthly sponsor with priority access to new modules and consultation",
+        "amount": 25,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "github-sponsors"
+        ]
+      },
+      {
+        "guid": "github-sponsors-enterprise",
+        "status": "active",
+        "name": "GitHub Sponsors - Enterprise",
+        "description": "Monthly sponsor with dedicated support for custom implementations",
+        "amount": 150,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "github-sponsors"
+        ]
+      },
+      {
+        "guid": "one-time-contribution",
+        "status": "active",
+        "name": "One-Time Support",
+        "description": "One-time contribution to support specific SKILLS modules or initiatives",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "github-sponsors"
+        ]
+      }
+    ],
+    "history": [
+      {
+        "year": 2026,
+        "description": "Expanding SKILLS infrastructure with focus on bot architecture, cross-project integration, and comprehensive documentation. Pursuing institutional funding from FLOSS/fund and other OSS grant programs.",
+        "amount": 50000,
+        "currency": "USD"
+      }
+    ]
+  }
+}
