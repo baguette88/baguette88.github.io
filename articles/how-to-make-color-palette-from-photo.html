@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Make a Color Palette from a Photo: Extract Colors from Any Image</title>
+    <meta name="description" content="Learn how to extract a color palette from any photo. Step-by-step guide covering Color Thief, color clustering, and applying palettes to design projects.">
+    <meta name="author" content="Baguette Tools">
+    <meta property="og:title" content="How to Make a Color Palette from a Photo: Extract Colors from Any Image">
+    <meta property="og:description" content="Extract beautiful color palettes from photos for design, branding, and web projects. Free tools and practical techniques.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://baguette.art/articles/how-to-make-color-palette-from-photo.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to Make a Color Palette from a Photo: Extract Colors from Any Image",
+        "description": "A step-by-step guide to extracting color palettes from photographs using browser-based tools, understanding how color clustering algorithms work, and applying extracted palettes to design, branding, and web projects.",
+        "datePublished": "2026-02-26T12:00:00Z",
+        "dateModified": "2026-02-26T12:00:00Z",
+        "author": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://baguette.art/articles/how-to-make-color-palette-from-photo.html"
+        },
+        "keywords": ["color palette from photo", "extract colors from image", "color thief", "dominant color extraction", "image color picker", "photo color palette generator"],
+        "mentions": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Color Thief",
+                "url": "https://colorthief.netlify.app",
+                "applicationCategory": "DesignApplication",
+                "description": "Browser-based tool for extracting dominant color palettes from images"
+            }
+        ]
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .article-meta {
+            color: #6b6b6b;
+            font-size: 0.85em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        h2 {
+            font-size: 1.4em;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #292929;
+        }
+        a {
+            color: #1a8917;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        blockquote {
+            border-left: 3px solid #1a8917;
+            padding-left: 20px;
+            margin: 28px 0;
+            color: #555;
+            font-style: italic;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0 28px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 28px;
+            font-size: 0.9em;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        th {
+            font-weight: 600;
+            color: #1a1a1a;
+            background: #f9f9f9;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>How to Make a Color Palette from a Photo</h1>
+        <div class="article-meta">
+            Baguette Tools &middot; February 2026 &middot; 10 min read
+            <br>
+            <span class="tag">Design</span>
+            <span class="tag">Color</span>
+            <span class="tag">How-To</span>
+            <span class="tag">Tools</span>
+        </div>
+
+        <p>You see a photograph that has exactly the mood you want for a project. A sunset over the ocean with warm amber fading into deep navy. A moss-covered stone wall with sage greens and slate grays. A street market bursting with saffron, crimson, and turquoise. The colors are perfect, but you have no idea what their hex codes are or how to turn that vague sense of "I want my website to feel like this photo" into an actual usable palette.</p>
+
+        <p>Extracting a color palette from a photograph is one of the most practical shortcuts in design. Instead of staring at a color wheel trying to pick harmonious combinations from scratch, you let a photograph that already has visual harmony do the work for you. Nature, professional photography, and well-composed scenes have already solved the color relationship problem. You just need to pull those colors out.</p>
+
+        <h2>Why Extract Colors from Photos?</h2>
+
+        <p>This technique is not just a novelty. It solves real problems across multiple disciplines.</p>
+
+        <h3>Branding and Identity</h3>
+
+        <p>When a client says "I want my brand to feel like a California vineyard" or "think Nordic minimalism," they are describing a mood, not specific colors. Pulling a palette from a reference photograph translates that mood into concrete values. You get five or six colors that objectively evoke the feeling the client described, with no subjective back-and-forth about whether a particular blue is "right."</p>
+
+        <h3>Web and UI Design</h3>
+
+        <p>Cohesive color schemes are the difference between a website that looks professional and one that looks like a ransom note. Extracting colors from a single photograph guarantees that your palette has built-in harmony, because the colors already coexist in a real scene. This is especially useful for landing pages and marketing sites where the hero image sets the visual tone for the entire page.</p>
+
+        <h3>Interior Design, Art, and Illustration</h3>
+
+        <p>Interior designers extract palettes from inspiration photos to specify paint colors, fabrics, and accent pieces. A photo of a Moroccan riad produces warm terracotta, deep indigo, and ivory. Digital artists use the same technique to ground their work in realistic color relationships, painting from a limited palette drawn from a real scene for more naturalistic results.</p>
+
+        <h2>Step-by-Step: Extract a Palette Using Color Thief</h2>
+
+        <p>The fastest way to pull colors from a photograph is to use a browser-based extraction tool. <a href="https://colorthief.netlify.app">Color Thief</a> is a free tool that analyzes any image and returns its dominant colors as a palette. Here is the process:</p>
+
+        <ol>
+            <li><strong>Open Color Thief</strong> in any modern browser. The tool runs entirely client-side, so your image is not uploaded to any server.</li>
+            <li><strong>Load your photo.</strong> Drag and drop an image file onto the page, or use the file picker. JPEG, PNG, and WebP are all supported.</li>
+            <li><strong>View the dominant color.</strong> The tool immediately identifies the single most prevalent color in the image and displays it with its RGB values.</li>
+            <li><strong>View the full palette.</strong> Below the dominant color, you get a palette of 8-10 supporting colors ranked by how much of the image they represent. Each color shows its RGB value.</li>
+            <li><strong>Copy the values.</strong> Click or note the RGB values for each color you want to use. Convert to hex, HSL, or any format you need.</li>
+        </ol>
+
+        <p>The entire process takes under a minute. You go from a photograph to a ready-to-use palette with no color theory knowledge required.</p>
+
+        <h2>How the Algorithm Works: Color Clustering</h2>
+
+        <p>Understanding what happens behind the scenes helps you get better results and troubleshoot when the extracted palette does not match your expectations.</p>
+
+        <p>Color Thief uses a technique called the <strong>median cut algorithm</strong>, which is a form of color quantization. Here is what it does, simplified:</p>
+
+        <ol>
+            <li><strong>Sample the pixels.</strong> The algorithm reads every pixel in the image (or a downsampled version for performance). Each pixel is a point in three-dimensional color space, defined by its red, green, and blue values.</li>
+            <li><strong>Find the range.</strong> It identifies which color channel (R, G, or B) has the widest range of values across all pixels.</li>
+            <li><strong>Split the space.</strong> It divides all the pixels into two groups along the median of that widest channel. Now you have two clusters of colors.</li>
+            <li><strong>Repeat.</strong> The algorithm repeats the splitting process on each group, always choosing the channel with the widest range. After enough splits, you have a set of color clusters.</li>
+            <li><strong>Average each cluster.</strong> The final step averages all the pixels in each cluster to produce one representative color per group. These averages become your palette.</li>
+        </ol>
+
+        <p>This approach is called "clustering" because it groups similar colors together and then represents each group with a single value. The reason it works well for palette extraction is that it naturally identifies the major color regions in an image while ignoring noise and minor variations.</p>
+
+        <p>An alternative approach used by some tools is k-means clustering, which starts with random color centers and iteratively adjusts them. The results are similar. If you want a deeper understanding of why these extracted color relationships work, the <a href="color-theory-for-web-developers-practical-guide.html">color theory guide for web developers</a> covers complementary, analogous, and triadic schemes.</p>
+
+        <h2>Tips for Better Palette Extraction</h2>
+
+        <p>Not every photograph produces a useful palette. The quality of your input directly determines the quality of your output. Here is how to get better results.</p>
+
+        <h3>Choose Photos with Distinct Color Regions</h3>
+
+        <p>A photo with large, clearly defined areas of different colors produces a clean palette. A sunset with a band of orange, a band of pink, and a band of blue gives you three distinct, usable colors. A photo of a gray overcast sky gives you five slightly different shades of gray, which is technically accurate but not helpful.</p>
+
+        <h3>Avoid Overly Busy Images</h3>
+
+        <p>Photos with dozens of small colored objects (a candy store, a crowded market from a distance) tend to produce muddy palettes. The algorithm averages nearby colors, and when every pixel is different, the averages converge toward brown and gray. Close-up shots with fewer distinct elements work better.</p>
+
+        <h3>Watch Your Lighting</h3>
+
+        <p>Harsh shadows and blown-out highlights skew the palette toward black and white. Photos taken in soft, diffused light (overcast days, golden hour, shade) preserve the actual colors of the subject and produce more accurate palettes. If your photo has a large bright spot or deep shadow, consider cropping it out before extraction. A quick crop using a tool like <a href="https://baguette.art/imagecropper/cropperhub.html">Image Cropper</a> lets you isolate just the region with the colors you want.</p>
+
+        <h3>Crop to the Region That Matters</h3>
+
+        <p>If you love the colors in a specific part of a photo but not the whole image, crop first and extract second. A landscape photo might have a gorgeous sky palette, but if the bottom third is a dark foreground, the extraction will include those dark tones. Cropping to just the sky before running the extraction gives you exactly the colors you want.</p>
+
+        <h3>Try Multiple Photos of the Same Subject</h3>
+
+        <p>Different photos of the same scene or concept produce different palettes. A photo of the ocean at sunrise gives warm golds and soft pinks. The same ocean at noon gives bright teal and white. The ocean at sunset gives deep purple and amber. If one extraction does not capture the mood you want, try a different photo of the same subject rather than trying to force the palette.</p>
+
+        <h2>Applying Extracted Palettes to Web Design</h2>
+
+        <p>You have your palette. Now what? Here is a practical framework for turning five or six extracted colors into a functional web design system.</p>
+
+        <h3>Assign Roles to Each Color</h3>
+
+        <p>Not every color in the palette plays the same role. Assign each one a function:</p>
+
+        <ul>
+            <li><strong>Primary:</strong> The dominant color from the extraction. Use for headers, navigation, and brand elements.</li>
+            <li><strong>Secondary:</strong> The second most prominent color. Use for supporting sections, secondary buttons, and accents.</li>
+            <li><strong>Background:</strong> The lightest color in the palette, or a tinted version of it. Use for the page background and card surfaces.</li>
+            <li><strong>Text:</strong> The darkest color. Use for body text and headings. If the darkest extracted color is not dark enough for readable text (contrast ratio below 4.5:1 against your background), darken it manually.</li>
+            <li><strong>Accent:</strong> A vivid color from the palette, used sparingly for calls to action, links, and interactive elements.</li>
+        </ul>
+
+        <h3>Generate Tints, Shades, and Check Contrast</h3>
+
+        <p>For each color, generate lighter tints and darker shades to create a full range. In CSS, adjust the lightness value in HSL: <code>hsl(215, 65%, 85%)</code> for a light tint, <code>hsl(215, 65%, 25%)</code> for a dark shade. Then check every text-background combination against WCAG AA standards (4.5:1 for normal text). Adjust lightness without changing the hue to preserve the palette's character while meeting accessibility requirements.</p>
+
+        <h2>Exporting Palettes for Different Tools</h2>
+
+        <p>Once you have your colors, you need them in the right format for your workflow. CSS and Tailwind use hex codes (<code>#3B82F6</code>) or HSL values. Figma and Adobe tools accept hex and RGB. For print work, match extracted colors to Pantone swatches using a bridge book.</p>
+
+        <p>For web work, HSL is the most practical format because it lets you adjust lightness and saturation independently. Convert RGB extraction values to HSL and use that as your working format. Many palette generators, including those compared in the <a href="free-color-palette-generators-compared-2026.html">color palette generators guide</a>, offer export in multiple formats.</p>
+
+        <h2>Common Mistakes to Avoid</h2>
+
+        <ul>
+            <li><strong>Using the palette without testing contrast.</strong> Extracted colors look great together as swatches but may fail accessibility checks when used for text. Always verify contrast ratios before deploying.</li>
+            <li><strong>Extracting from low-resolution images.</strong> Compression artifacts in small or heavily compressed JPEGs introduce false colors that pollute the palette. Use the highest quality source image available.</li>
+            <li><strong>Ignoring context.</strong> A palette extracted from a warm sunset photo may not suit a medical website or a legal firm's identity, regardless of how beautiful the colors are. Match the source photo's mood to your project's tone.</li>
+            <li><strong>Using too many colors.</strong> An extraction tool might return ten colors, but most designs work best with three to five. Pick the colors that best serve your layout and leave the rest.</li>
+            <li><strong>Extracting from screenshots.</strong> Screenshots of other websites give you someone else's palette, but they also include UI chrome, text, and artifacts that contaminate the extraction. If you want to reference another site's colors, use a color picker tool directly rather than screenshotting and extracting.</li>
+        </ul>
+
+        <h2>Summary</h2>
+
+        <p>Extracting a color palette from a photograph is one of the fastest paths from inspiration to implementation. Find a photo that captures the mood you want, run it through a tool like <a href="https://colorthief.netlify.app">Color Thief</a>, assign roles to the extracted colors, generate tints and shades, check your contrast ratios, and build. The photograph has already done the hard work of finding colors that look good together. You just need to translate that harmony into your project.</p>
+
+        <p>The best part is that this technique gets better with practice. As you extract palettes from more photos, you develop an intuition for which images will produce useful color sets and which will not. You start noticing color relationships in the world around you, and that awareness makes every design decision faster and more confident.</p>
+
+    </article>
+</body>
+</html>
