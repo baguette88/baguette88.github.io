@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Galactic RTS Simulation with Improved AI and Visuals</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #000020, #000010, #000000);
+    }
+    canvas {
+      display: block;
+    }
+    #resetButton, #returnButton {
+      position: absolute;
+      top: 10px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 10;
+    }
+    #resetButton {
+      right: 10px;
+    }
+    #returnButton {
+      left: 10px;
+    }
+    #minimap {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      border: 2px solid #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    #gameUI {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+      border-radius: 5px;
+      z-index: 5;
+    }
+    @media (max-width: 600px) {
+      #gameUI {
+        top: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  <canvas id="minimap" width="200" height="200"></canvas>
+  <div id="gameUI">
+    <span id="redScore">Red Score: 0</span> | <span id="blueScore">Blue Score: 0</span>
+  </div>
+  <button id="resetButton">Reset Battle</button>
+  <button id="returnButton">Return to Main</button>
+
+  <script>
+    // Get canvas and context
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const minimap = document.getElementById('minimap');
+    const minimapCtx = minimap.getContext('2d');
+
+    // Resize canvas to fit window
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Game variables
+    const factions = {
+      RED: 'red',
+      BLUE: 'blue'
+    };
+
+    let units = [];
+    let projectiles = [];
+    let particles = [];
+    let bases = [];
+    let explosions = [];
+    let gameScores = {
+      red: 0,
+      blue: 0
+    };
+    let gameOver = false;
+
+    // Sound effects
+    const laserSound = new Audio('https://freesound.org/data/previews/66/66717_634166-lq.mp3');
+    const explosionSound = new Audio('https://freesound.org/data/previews/174/174422_2398405-lq.mp3');
+
+    // Function to generate random army parameters
+    function generateArmyParameters() {
+      return {
+        fighters: Math.floor(Math.random() * 15) + 5,  // 5 to 20 fighters
+        cruisers: Math.floor(Math.random() * 10) + 1,   // 1 to 10 cruisers
+        destroyers: Math.floor(Math.random() * 5) + 1   // 1 to 5 destroyers
+      };
+    }
+
+    // Function to initialize units
+    function initializeUnits() {
+      units = [];
+      const redArmy = generateArmyParameters();
+      const blueArmy = generateArmyParameters();
+
+      // Initialize red units
+      for (let i = 0; i < redArmy.fighters; i++) {
+        units.push(new Fighter(150 + Math.random() * 100, canvas.height / 2 + (Math.random() - 0.5) * 200, factions.RED));
+      }
+      for (let i = 0; i < redArmy.cruisers; i++) {
+        units.push(new Cruiser(150 + Math.random() * 100, canvas.height / 2 + (Math.random() - 0.5) * 200, factions.RED));
+      }
+      for (let i = 0; i < redArmy.destroyers; i++) {
+        units.push(new Destroyer(150 + Math.random() * 100, canvas.height / 2 + (Math.random() - 0.5) * 200, factions.RED));
+      }
+
+      // Initialize blue units
+      for (let i = 0; i < blueArmy.fighters; i++) {
+        units.push(new Fighter(canvas.width - 150 - Math.random() * 100, canvas.height / 2 + (Math.random() - 0.5) * 200, factions.BLUE));
+      }
+      for (let i = 0; i < blueArmy.cruisers; i++) {
+        units.push(new Cruiser(canvas.width - 150 - Math.random() * 100, canvas.height / 2 + (Math.random() - 0.5) * 200, factions.BLUE));
+      }
+      for (let i = 0; i < blueArmy.destroyers; i++) {
+        units.push(new Destroyer(canvas.width - 150 - Math.random() * 100, canvas.height / 2 + (Math.random() - 0.5) * 200, factions.BLUE));
+      }
+    }
+
+    // Base class
+    class Base {
+      constructor(x, y, faction) {
+        this.x = x;
+        this.y = y;
+        this.faction = faction;
+        this.health = 2000;
+        this.maxHealth = 2000;
+        this.unitTimer = 0;
+        this.unitInterval = 200; // Produce unit every 200 frames
+        this.shieldAngle = 0;
+        this.shieldOpacity = 0.3;
+      }
+
+      update() {
+        this.unitTimer++;
+        if (this.unitTimer >= this.unitInterval) {
+          this.unitTimer = 0;
+          this.produceUnit();
+        }
+        this.shieldAngle += 0.02;
+        this.draw();
+      }
+
+      produceUnit() {
+        const rand = Math.random();
+        let UnitType;
+        if (rand < 0.5) {
+          UnitType = Fighter;
+        } else if (rand < 0.8) {
+          UnitType = Cruiser;
+        } else {
+          UnitType = Destroyer;
+        }
+        units.push(new UnitType(this.x + (Math.random() - 0.5) * 40, this.y + (Math.random() - 0.5) * 40, this.faction));
+      }
+
+      draw() {
+        // Draw base
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, 40);
+        gradient.addColorStop(0, this.faction);
+        gradient.addColorStop(1, 'black');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 30, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw energy rings
+        for (let i = 0; i < 3; i++) {
+          ctx.strokeStyle = this.faction === factions.RED ? `rgba(255, 0, 0, ${0.7 - i * 0.2})` : `rgba(0, 0, 255, ${0.7 - i * 0.2})`;
+          ctx.lineWidth = 3 - i;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 35 + i * 8, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // Draw rotating shield
+        ctx.strokeStyle = this.faction === factions.RED ? `rgba(255, 100, 100, ${this.shieldOpacity})` : `rgba(100, 100, 255, ${this.shieldOpacity})`;
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 50, this.shieldAngle, this.shieldAngle + Math.PI, false);
+        ctx.stroke();
+
+        // Draw health bar
+        const healthPercentage = this.health / this.maxHealth;
+        const barWidth = 60;
+        const barHeight = 8;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(this.x - barWidth / 2, this.y + 40, barWidth, barHeight);
+        ctx.fillStyle = healthPercentage > 0.6 ? 'lime' : healthPercentage > 0.3 ? 'yellow' : 'red';
+        ctx.fillRect(this.x - barWidth / 2, this.y + 40, barWidth * healthPercentage, barHeight);
+      }
+    }
+
+    // Unit base class
+    class Unit {
+      constructor(x, y, faction) {
+        this.x = x;
+        this.y = y;
+        this.faction = faction;
+        this.target = null;
+        this.health = 100;
+        this.velocity = { x: 0, y: 0 };
+        this.maxSpeed = 2;
+        this.neighbors = [];
+        this.isDestroyed = false;
+        this.rotation = Math.random() * Math.PI * 2;
+      }
+
+      update() {
+        if (this.health <= 0) {
+          this.isDestroyed = true;
+          createExplosion(this.x, this.y, this.faction);
+          return;
+        }
+
+        // Find nearby units for flocking
+        this.findNeighbors();
+
+        // Acquire target if none or target is invalid
+        if (!this.target || this.target.health <= 0) {
+          this.acquireTarget();
+        }
+
+        // Movement
+        this.flock();
+
+        // Move towards target if available
+        if (this.target) {
+          this.moveTowardsTarget();
+        }
+
+        // Attack if in range
+        this.attack();
+
+        // Confine to canvas
+        this.confineToCanvas();
+
+        // Draw unit
+        this.draw();
+      }
+
+      findNeighbors() {
+        this.neighbors = units.filter(u => u !== this && u.faction === this.faction && this.distanceTo(u) < 50);
+      }
+
+      flock() {
+        let alignment = { x: 0, y: 0 };
+        let cohesion = { x: 0, y: 0 };
+        let separation = { x: 0, y: 0 };
+
+        // Alignment: match velocity with neighbors
+        for (let neighbor of this.neighbors) {
+          alignment.x += neighbor.velocity.x;
+          alignment.y += neighbor.velocity.y;
+        }
+        if (this.neighbors.length > 0) {
+          alignment.x /= this.neighbors.length;
+          alignment.y /= this.neighbors.length;
+        }
+
+        // Cohesion: move towards the average position of neighbors
+        for (let neighbor of this.neighbors) {
+          cohesion.x += neighbor.x;
+          cohesion.y += neighbor.y;
+        }
+        if (this.neighbors.length > 0) {
+          cohesion.x = (cohesion.x / this.neighbors.length - this.x) * 0.01;
+          cohesion.y = (cohesion.y / this.neighbors.length - this.y) * 0.01;
+        }
+
+        // Separation: avoid crowding neighbors
+        for (let neighbor of this.neighbors) {
+          const distance = this.distanceTo(neighbor);
+          if (distance < 20) {
+            separation.x += (this.x - neighbor.x) / distance;
+            separation.y += (this.y - neighbor.y) / distance;
+          }
+        }
+
+        // Combine flocking forces
+        this.velocity.x += alignment.x + cohesion.x + separation.x;
+        this.velocity.y += alignment.y + cohesion.y + separation.y;
+
+        // Limit speed
+        const speed = Math.hypot(this.velocity.x, this.velocity.y);
+        if (speed > this.maxSpeed) {
+          this.velocity.x = (this.velocity.x / speed) * this.maxSpeed;
+          this.velocity.y = (this.velocity.y / speed) * this.maxSpeed;
+        }
+
+        // Update position
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+
+        // Update rotation
+        this.rotation = Math.atan2(this.velocity.y, this.velocity.x);
+      }
+
+      acquireTarget() {
+        const enemyUnits = units.filter(u => u.faction !== this.faction && u.health > 0);
+        const enemyBases = bases.filter(b => b.faction !== this.faction && b.health > 0);
+        const ownBase = bases.find(b => b.faction === this.faction);
+
+        // Check if enemy HQ is undefended
+        if (enemyBases.length > 0) {
+          const enemyHQ = enemyBases[0];
+          const defendersNearEnemyHQ = enemyUnits.filter(u => u.distanceTo(enemyHQ) < 200).length;
+          if (defendersNearEnemyHQ < 3) {
+            this.target = enemyHQ;
+            return;
+          }
+        }
+
+        // Defend own base if it's under attack
+        if (ownBase) {
+          const enemiesNearOwnBase = enemyUnits.filter(u => u.distanceTo(ownBase) < 200);
+          if (enemiesNearOwnBase.length > 0) {
+            this.target = enemiesNearOwnBase[0];
+            return;
+          }
+        }
+
+        // Default behavior: target closest enemy unit or base
+        if (enemyUnits.length > 0) {
+          enemyUnits.sort((a, b) => this.distanceTo(a) - this.distanceTo(b));
+          this.target = enemyUnits[0];
+        } else if (enemyBases.length > 0) {
+          this.target = enemyBases[0];
+        } else {
+          this.target = null;
+        }
+      }
+
+      moveTowardsTarget() {
+        const dx = this.target.x - this.x;
+        const dy = this.target.y - this.y;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > 0) {
+          this.velocity.x += (dx / dist) * 0.05;
+          this.velocity.y += (dy / dist) * 0.05;
+        }
+      }
+
+      attack() {
+        if (this.target && this.distanceTo(this.target) < this.attackRange) {
+          if (this.fireCooldown <= 0) {
+            this.fireCooldown = this.fireRate;
+            projectiles.push(new Projectile(this.x, this.y, this.target, this.faction, this.projectileColor));
+            // Remove the audio play call to prevent the error
+          } else {
+            this.fireCooldown--;
+          }
+        }
+      }
+
+      distanceTo(entity) {
+        return Math.hypot(this.x - entity.x, this.y - entity.y);
+      }
+
+      confineToCanvas() {
+        const margin = 20;
+        if (this.x < margin) this.x = margin;
+        if (this.x > canvas.width - margin) this.x = canvas.width - margin;
+        if (this.y < margin) this.y = margin;
+        if (this.y > canvas.height - margin) this.y = canvas.height - margin;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+
+        // Draw the unit based on type
+        ctx.fillStyle = this.faction;
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1;
+
+        if (this instanceof Fighter) {
+          // Fighter shape
+          ctx.beginPath();
+          ctx.moveTo(10, 0);
+          ctx.lineTo(-10, 5);
+          ctx.lineTo(-5, 0);
+          ctx.lineTo(-10, -5);
+          ctx.closePath();
+        } else if (this instanceof Cruiser) {
+          // Cruiser shape
+          ctx.beginPath();
+          ctx.moveTo(12, 0);
+          ctx.lineTo(-8, 8);
+          ctx.lineTo(-12, 0);
+          ctx.lineTo(-8, -8);
+          ctx.closePath();
+        } else if (this instanceof Destroyer) {
+          // Destroyer shape
+          ctx.beginPath();
+          ctx.moveTo(15, 0);
+          ctx.lineTo(-10, 10);
+          ctx.lineTo(-15, 0);
+          ctx.lineTo(-10, -10);
+          ctx.closePath();
+        }
+
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw health bar
+        const healthPercentage = this.health / this.maxHealth;
+        const barWidth = 20;
+        const barHeight = 3;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(this.x - barWidth / 2, this.y - 20, barWidth, barHeight);
+        ctx.fillStyle = healthPercentage > 0.6 ? 'lime' : healthPercentage > 0.3 ? 'yellow' : 'red';
+        ctx.fillRect(this.x - barWidth / 2, this.y - 20, barWidth * healthPercentage, barHeight);
+      }
+    }
+
+    // Fighter class
+    class Fighter extends Unit {
+      constructor(x, y, faction) {
+        super(x, y, faction);
+        this.maxSpeed = 3;
+        this.size = 5;
+        this.attackRange = 150;
+        this.fireRate = 50;
+        this.fireCooldown = 0;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
+        this.projectileColor = 'yellow';
+      }
+    }
+
+    // Cruiser class
+    class Cruiser extends Unit {
+      constructor(x, y, faction) {
+        super(x, y, faction);
+        this.maxSpeed = 2;
+        this.size = 10;
+        this.health = 200;
+        this.maxHealth = 200;
+        this.attackRange = 200;
+        this.fireRate = 80;
+        this.fireCooldown = 0;
+        this.projectileColor = 'orange';
+      }
+    }
+
+    // Destroyer class
+    class Destroyer extends Unit {
+      constructor(x, y, faction) {
+        super(x, y, faction);
+        this.maxSpeed = 1.5;
+        this.size = 15;
+        this.health = 400;
+        this.maxHealth = 400;
+        this.attackRange = 250;
+        this.fireRate = 120;
+        this.fireCooldown = 0;
+        this.projectileColor = 'red';
+      }
+    }
+
+    // Projectile class
+    class Projectile {
+      constructor(x, y, target, faction, color) {
+        this.x = x;
+        this.y = y;
+        this.target = target;
+        this.faction = faction;
+        this.speed = 6;
+        this.trail = [];
+        this.trailLength = 10;
+        this.color = color;
+      }
+
+      update() {
+        const dx = this.target.x - this.x;
+        const dy = this.target.y - this.y;
+        const dist = Math.hypot(dx, dy);
+        this.x += (dx / dist) * this.speed;
+        this.y += (dy / dist) * this.speed;
+
+        // Update trail
+        this.trail.unshift({ x: this.x, y: this.y });
+        if (this.trail.length > this.trailLength) {
+          this.trail.pop();
+        }
+
+        if (this.distanceTo(this.target) < 5) {
+          let damage = 20;
+          if (this.target instanceof Destroyer) {
+            damage = 30;
+          } else if (this.target instanceof Cruiser) {
+            damage = 25;
+          }
+          this.target.health -= damage;
+          this.destroy();
+          createExplosion(this.x, this.y, this.color);
+          // Remove the audio play call to prevent the error
+        } else {
+          this.draw();
+        }
+      }
+
+      distanceTo(entity) {
+        return Math.hypot(this.x - entity.x, this.y - entity.y);
+      }
+
+      draw() {
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(this.trail[0].x, this.trail[0].y);
+        for (let i = 1; i < this.trail.length; i++) {
+          ctx.lineTo(this.trail[i].x, this.trail[i].y);
+        }
+        ctx.stroke();
+
+        // Draw projectile head
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      destroy() {
+        const index = projectiles.indexOf(this);
+        if (index > -1) {
+          projectiles.splice(index, 1);
+        }
+      }
+    }
+
+    // Particle class for explosions
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.alpha = 1;
+        this.color = color;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+        if (this.alpha <= 0) {
+          this.destroy();
+        } else {
+          this.draw();
+        }
+      }
+
+      draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+
+      destroy() {
+        const index = particles.indexOf(this);
+        if (index > -1) {
+          particles.splice(index, 1);
+        }
+      }
+    }
+
+    // Create explosion effect
+    function createExplosion(x, y, color) {
+      for (let i = 0; i < 20; i++) {
+        particles.push(new Particle(x, y, color));
+      }
+    }
+
+    // Initialize bases
+    function initializeBases() {
+      bases = [];
+      bases.push(new Base(100, canvas.height / 2, factions.RED));
+      bases.push(new Base(canvas.width - 100, canvas.height / 2, factions.BLUE));
+    }
+
+    // Starfield background
+    const stars = [];
+    function createStars() {
+      for (let i = 0; i < 200; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2,
+          alpha: Math.random()
+        });
+      }
+    }
+    createStars();
+
+    // Nebula effect
+    const nebulaColors = ['rgba(128,0,128,0.1)', 'rgba(0,128,128,0.1)', 'rgba(128,128,0,0.1)'];
+    function drawNebula() {
+      for (let i = 0; i < 5; i++) {
+        const gradient = ctx.createRadialGradient(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height,
+          0,
+          Math.random() * canvas.width,
+          Math.random() * canvas.height,
+          canvas.width / 2
+        );
+        gradient.addColorStop(0, nebulaColors[Math.floor(Math.random() * nebulaColors.length)]);
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    // Update game UI
+    function updateGameUI() {
+      document.getElementById('redScore').textContent = `Red Score: ${gameScores.red}`;
+      document.getElementById('blueScore').textContent = `Blue Score: ${gameScores.blue}`;
+    }
+
+    // Draw minimap
+    function drawMinimap() {
+      minimapCtx.clearRect(0, 0, minimap.width, minimap.height);
+
+      // Scale factors
+      const scaleX = minimap.width / canvas.width;
+      const scaleY = minimap.height / canvas.height;
+
+      // Draw units
+      units.forEach(unit => {
+        minimapCtx.fillStyle = unit.faction;
+        minimapCtx.fillRect(unit.x * scaleX, unit.y * scaleY, 2, 2);
+      });
+
+      // Draw bases
+      bases.forEach(base => {
+        minimapCtx.fillStyle = base.faction;
+        minimapCtx.fillRect(base.x * scaleX - 5, base.y * scaleY - 5, 10, 10);
+      });
+    }
+
+    // Game loop
+    function gameLoop() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw background
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Draw stars
+      stars.forEach(star => {
+        ctx.globalAlpha = star.alpha;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(star.x, star.y, star.size, star.size);
+        ctx.globalAlpha = 1;
+      });
+      // Draw nebula
+      drawNebula();
+
+      // Update and draw bases
+      bases.forEach(base => {
+        if (base.health > 0) {
+          base.update();
+        } else {
+          createExplosion(base.x, base.y, base.faction);
+          bases.splice(bases.indexOf(base), 1);
+        }
+      });
+
+      // Update and draw units
+      units.forEach(unit => {
+        if (!unit.isDestroyed) {
+          unit.update();
+        } else {
+          units.splice(units.indexOf(unit), 1);
+          if (unit.faction === factions.RED) {
+            gameScores.blue += 10;
+          } else {
+            gameScores.red += 10;
+          }
+          updateGameUI();
+        }
+      });
+
+      // Update and draw projectiles
+      projectiles.forEach(projectile => projectile.update());
+
+      // Update and draw particles
+      particles.forEach(particle => particle.update());
+
+      // Draw minimap
+      drawMinimap();
+
+      // Check for victory condition
+      if (bases.length < 2) {
+        const winner = bases[0] ? bases[0].faction : (gameScores.red > gameScores.blue ? factions.RED : factions.BLUE);
+        endGame(winner);
+        return;
+      }
+
+      if (!gameOver) {
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+    // End game function
+    function endGame(winner) {
+      gameOver = true;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = winner;
+      ctx.font = '48px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${winner.toUpperCase()} WINS!`, canvas.width / 2, canvas.height / 2);
+    }
+
+    // Reset battle function
+    function resetBattle() {
+      location.reload();
+    }
+
+    // Add event listener to reset button
+    document.getElementById('resetButton').addEventListener('click', resetBattle);
+
+    // Add event listener to return button
+    document.getElementById('returnButton').addEventListener('click', function() {
+      window.location.href = '../index.html';
+    });
+
+    // Initialize game
+    initializeBases();
+    initializeUnits();
+    updateGameUI();
+
+    // Start game loop
+    gameLoop.isRunning = true;
+    gameLoop();
+  </script>
+</body>
+</html>

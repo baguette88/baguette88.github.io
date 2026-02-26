@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Image Cropper</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f0f4f8;
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+        }
+        body, html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            height: 100%;
+        }
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 90%;
+            width: 800px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+        .btn {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #saveBtn {
+            background-color: var(--secondary-color);
+        }
+        #saveBtn:hover {
+            background-color: #27ae60;
+        }
+        #cropArea {
+            max-width: 100%;
+            max-height: 400px;
+            margin-top: 1rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #cropArea.dragover {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        .hidden {
+            display: none !important;
+        }
+        #previewArea {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        #previewImage {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .return-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+            transition: color 0.3s;
+        }
+        .return-link:hover {
+            color: #2980b9;
+        }
+        .drag-text {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            .btn {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1><i class="fas fa-crop-alt"></i> Cozy Image Cropper</h1>
+            <div>
+                <a href="https://baguette88.github.io/" class="return-link"><i class="fas fa-home"></i> Return to Main Site</a>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div id="cropArea">
+                    <i class="fas fa-cloud-upload-alt icon"></i>
+                    <p class="drag-text">Drag and drop an image here or click to select</p>
+                    <button class="btn" onclick="document.getElementById('fileInput').click()"><i class="fas fa-file-image"></i> Select Image</button>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+                <div id="previewArea" class="hidden">
+                    <h3><i class="fas fa-eye"></i> Preview</h3>
+                    <img id="previewImage" alt="Cropped image preview">
+                </div>
+                <button id="saveBtn" class="btn hidden"><i class="fas fa-save"></i> Save Cropped Image</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script>
+        // The JavaScript code remains the same as in the previous version
+        let cropper;
+        const cropArea = document.getElementById('cropArea');
+        const fileInput = document.getElementById('fileInput');
+        const saveBtn = document.getElementById('saveBtn');
+        const previewArea = document.getElementById('previewArea');
+        const previewImage = document.getElementById('previewImage');
+
+        function handleImage(file) {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    cropArea.innerHTML = '';
+                    cropArea.appendChild(img);
+                    cropper = new Cropper(img, {
+                        aspectRatio: NaN,
+                        viewMode: 1,
+                        crop: updatePreview
+                    });
+                    saveBtn.classList.remove('hidden');
+                    previewArea.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updatePreview() {
+            if (cropper) {
+                const canvas = cropper.getCroppedCanvas();
+                previewImage.src = canvas.toDataURL();
+            }
+        }
+
+        function resetApp() {
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+            cropArea.innerHTML = '<button class="btn" onclick="document.getElementById(\'fileInput\').click()">Select Image</button>';
+            fileInput.value = '';
+            saveBtn.classList.add('hidden');
+            previewArea.classList.add('hidden');
+            previewImage.src = '';
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            handleImage(e.target.files[0]);
+        });
+
+        cropArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            cropArea.classList.add('dragover');
+        });
+
+        cropArea.addEventListener('dragleave', function(e) {
+            cropArea.classList.remove('dragover');
+        });
+
+        cropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            cropArea.classList.remove('dragover');
+            handleImage(e.dataTransfer.files[0]);
+        });
+
+        document.getElementById('homeBtn').addEventListener('click', function() {
+            resetApp();
+        });
+
+        saveBtn.addEventListener('click', function() {
+            if (cropper) {
+                cropper.getCroppedCanvas().toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'cropped-image.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

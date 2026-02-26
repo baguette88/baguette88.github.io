@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fractal Food Chain</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #gameCanvas {
+            display: block;
+        }
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        #ui h3 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+        #zoomLevel, #playerEnergy, #levelDisplay {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #FFC107;
+        }
+        .controls {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #BDBDBD;
+        }
+        /* Responsive design */
+        @media (max-width: 600px) {
+            #ui h3 {
+                font-size: 20px;
+            }
+            #zoomLevel, #playerEnergy, #levelDisplay {
+                font-size: 16px;
+            }
+            .controls {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="ui">
+        <h3>Fractal Food Chain</h3>
+        <div class="controls">
+            <p>Move: Arrow keys or WASD</p>
+            <p>Zoom: Scroll wheel</p>
+        </div>
+        <div id="zoomLevel">Current Scale: Macro</div>
+        <div id="levelDisplay">Level: 1</div>
+        <div id="playerEnergy">Energy: 100</div>
+    </div>
+
+    <script>
+        // Canvas Setup
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        resizeCanvas();
+
+        window.addEventListener('resize', resizeCanvas);
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        // Variables
+        let zoomLevel = 1; // 1 = Macro, 2 = Meso, 3 = Micro
+        let scaleFactor = 1;
+        let minScale = 0.1;
+        let maxScale = 10;
+        const zoomSpeed = 0.1;
+
+        const zoomLevelDisplay = document.getElementById('zoomLevel');
+        const playerEnergyDisplay = document.getElementById('playerEnergy');
+        const levelDisplay = document.getElementById('levelDisplay');
+
+        let level = 1;
+        let bites = 0;
+
+        // Player Class
+        class Player {
+            constructor(x, y, size, color) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.color = color;
+                this.speed = 2;
+                this.energy = 100;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.scale(scaleFactor, scaleFactor);
+                // Draw player body
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                // Draw eyes
+                ctx.beginPath();
+                ctx.arc(-this.size / 3, -this.size / 3, this.size / 5, 0, Math.PI * 2);
+                ctx.arc(this.size / 3, -this.size / 3, this.size / 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                // Draw mouth
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size / 2, 0, Math.PI);
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            update() {
+                // Movement based on keys
+                if (keys['ArrowUp'] || keys['w']) this.y -= this.speed;
+                if (keys['ArrowDown'] || keys['s']) this.y += this.speed;
+                if (keys['ArrowLeft'] || keys['a']) this.x -= this.speed;
+                if (keys['ArrowRight'] || keys['d']) this.x += this.speed;
+                // Boundary conditions
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+                // Update energy display
+                playerEnergyDisplay.textContent = `Energy: ${Math.round(this.energy)}`;
+            }
+        }
+
+        // Creature Class
+        class Creature {
+            constructor(x, y, size, color, type) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.color = color;
+                this.type = type; // 'prey' or 'predator'
+                this.speed = Math.random() * 1.5 + 0.5;
+                this.energy = 100;
+                this.alive = true;
+            }
+
+            draw() {
+                if (!this.alive) return;
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.scale(scaleFactor, scaleFactor);
+                if (this.type === 'prey') {
+                    // Draw prey as circle with eyes
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    // Eyes
+                    ctx.beginPath();
+                    ctx.arc(-this.size / 3, -this.size / 3, this.size / 5, 0, Math.PI * 2);
+                    ctx.arc(this.size / 3, -this.size / 3, this.size / 5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#000';
+                    ctx.fill();
+                } else if (this.type === 'predator') {
+                    // Draw predator as triangle
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size);
+                    ctx.lineTo(this.size, this.size);
+                    ctx.lineTo(-this.size, this.size);
+                    ctx.closePath();
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    // Eyes
+                    ctx.beginPath();
+                    ctx.arc(-this.size / 2.5, this.size / 4, this.size / 5, 0, Math.PI * 2);
+                    ctx.arc(this.size / 2.5, this.size / 4, this.size / 5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#fff';
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            update(player) {
+                if (!this.alive) return;
+                // Simple AI: move randomly or chase/flee from player
+                let dx = 0;
+                let dy = 0;
+
+                const distance = Math.hypot(player.x - this.x, player.y - this.y);
+                if (this.type === 'prey' && distance < 100) {
+                    // Flee from player
+                    dx = this.x - player.x;
+                    dy = this.y - player.y;
+                } else if (this.type === 'predator' && distance < 200) {
+                    // Chase player
+                    dx = player.x - this.x;
+                    dy = player.y - this.y;
+                } else {
+                    // Move randomly
+                    dx = Math.random() - 0.5;
+                    dy = Math.random() - 0.5;
+                }
+
+                // Normalize direction
+                const length = Math.hypot(dx, dy) || 1;
+                dx /= length;
+                dy /= length;
+
+                this.x += dx * this.speed;
+                this.y += dy * this.speed;
+
+                // Boundary conditions
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+
+                // Interaction with player
+                if (distance < (this.size + player.size) * scaleFactor) {
+                    if (this.type === 'prey') {
+                        this.alive = false; // Prey is eaten
+                        player.energy = Math.min(player.energy + 20, 100);
+                        bites++;
+                        if (bites >= 10) {
+                            levelUp();
+                        }
+                    } else if (this.type === 'predator') {
+                        player.energy = Math.max(player.energy - 5, 0); // Player is attacked
+                        if (player.energy <= 0) {
+                            // Game Over logic
+                            alert("Game Over! You ran out of energy.");
+                            resetGame();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Game Objects
+        const player = new Player(canvas.width / 2, canvas.height / 2, 15, '#00f');
+        let creatures = [];
+
+        function initializeCreatures() {
+            creatures = [];
+            const creatureCount = 20 * zoomLevel;
+            for (let i = 0; i < creatureCount; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 5 + 5;
+                const type = Math.random() > 0.7 ? 'predator' : 'prey';
+                const color = type === 'prey' ? '#0f0' : '#f00';
+                creatures.push(new Creature(x, y, size, color, type));
+            }
+        }
+
+        function resetGame() {
+            player.x = canvas.width / 2;
+            player.y = canvas.height / 2;
+            player.energy = 100;
+            level = 1;
+            bites = 0;
+            levelDisplay.textContent = `Level: ${level}`;
+            player.size = 15;
+            scaleFactor = 1;
+            initializeCreatures();
+        }
+
+        initializeCreatures();
+
+        // User Input
+        let keys = {};
+
+        window.addEventListener('keydown', function (e) {
+            keys[e.key] = true;
+        });
+
+        window.addEventListener('keyup', function (e) {
+            keys[e.key] = false;
+        });
+
+        // Zoom Handling
+        canvas.addEventListener('wheel', function (e) {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                scaleFactor = Math.min(scaleFactor + zoomSpeed, maxScale);
+            } else {
+                scaleFactor = Math.max(scaleFactor - zoomSpeed, minScale);
+            }
+            updateZoomLevel();
+        });
+
+        function updateZoomLevel() {
+            if (scaleFactor < 0.8) {
+                zoomLevel = 3; // Micro
+                zoomLevelDisplay.textContent = 'Current Scale: Micro';
+            } else if (scaleFactor < 1.5) {
+                zoomLevel = 2; // Meso
+                zoomLevelDisplay.textContent = 'Current Scale: Meso';
+            } else {
+                zoomLevel = 1; // Macro
+                zoomLevelDisplay.textContent = 'Current Scale: Macro';
+            }
+            // Re-initialize creatures when zoom level changes
+            initializeCreatures();
+        }
+
+        function levelUp() {
+            level++;
+            bites = 0;
+            levelDisplay.textContent = `Level: ${level}`;
+            // Increase size of everything
+            player.size *= 1.1;
+            creatures.forEach(creature => {
+                creature.size *= 1.1;
+            });
+            // Zoom out to compensate
+            scaleFactor /= 1.1;
+            // Ensure scaleFactor is within bounds
+            scaleFactor = Math.max(minScale, Math.min(maxScale, scaleFactor));
+            updateZoomLevel();
+        }
+
+        // Game Loop
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Background
+            drawBackground();
+
+            // Update and Draw Creatures
+            creatures.forEach(creature => {
+                creature.update(player);
+                creature.draw();
+            });
+
+            // Update and Draw Player
+            player.update();
+            player.draw();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function drawBackground() {
+            ctx.save();
+            ctx.scale(scaleFactor, scaleFactor);
+            
+            // Gradient background
+            let gradient = ctx.createRadialGradient(
+                canvas.width / (2 * scaleFactor), canvas.height / (2 * scaleFactor), 0,
+                canvas.width / (2 * scaleFactor), canvas.height / (2 * scaleFactor), canvas.width / (2 * scaleFactor)
+            );
+            gradient.addColorStop(0, "#2c3e50");
+            gradient.addColorStop(1, "#1a1a1a");
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width / scaleFactor, canvas.height / scaleFactor);
+
+            // Draw stars
+            for (let i = 0; i < 100; i++) {
+                ctx.beginPath();
+                ctx.arc(
+                    Math.random() * canvas.width / scaleFactor,
+                    Math.random() * canvas.height / scaleFactor,
+                    Math.random() * 1.5,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>
