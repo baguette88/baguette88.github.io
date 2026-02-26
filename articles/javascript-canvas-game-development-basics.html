@@ -53,6 +53,17 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://baguette.art/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://baguette.art/articles/"},
+            {"@type": "ListItem", "position": 3, "name": "JavaScript Canvas Game Development Basics"}
+        ]
+    }
+    </script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -151,7 +162,14 @@
 </head>
 <body>
     <article>
-        <h1>JavaScript Canvas Game Development Basics</h1>
+<nav aria-label="Breadcrumb" style="font-size:0.85em;margin-bottom:16px;color:#666;">
+    <a href="https://baguette.art/" style="color:#1a8917;text-decoration:none;">Home</a>
+    <span style="margin:0 6px;">/</span>
+    <a href="https://baguette.art/articles/" style="color:#1a8917;text-decoration:none;">Articles</a>
+    <span style="margin:0 6px;">/</span>
+    <span>JavaScript Canvas Game Development Basics</span>
+</nav>
+<h1>JavaScript Canvas Game Development Basics</h1>
         <div class="article-meta">
             Baguette Tools &middot; February 2026 &middot; 14 min read
             <br>
@@ -650,6 +668,15 @@ git push -u origin main
 
         <p>The platformer code in this tutorial is under 150 lines. A complete game with multiple levels, enemies, animations, and a scoring system might be 500 to 1,000 lines. That is remarkably compact for a fully functional game, and it is one of the reasons vanilla Canvas remains a compelling choice. No dependencies to manage, no build system to configure, no framework updates to track. Just JavaScript and pixels.</p>
 
-    </article>
+    
+    <section style="margin-top:48px;padding-top:32px;border-top:1px solid #e6e6e6;">
+        <h2 style="font-size:1.3em;margin-bottom:20px;">Related Articles</h2>
+        <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;"><a href="/articles/building-your-first-browser-game-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Building Your First Browser Game in 2026: A Beginner's Guide to HTML5 Game Development</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/webgl-shader-programming-getting-started.html" style="color:#1a8917;text-decoration:none;font-size:1em;">WebGL Shader Programming: Getting Started with GLSL for Beginners</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/procedural-generation-techniques-for-beginners.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code</a></li>
+        </ul>
+    </section>
+</article>
 </body>
 </html>

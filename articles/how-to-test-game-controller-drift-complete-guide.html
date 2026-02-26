@@ -119,6 +119,17 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://baguette.art/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://baguette.art/articles/"},
+            {"@type": "ListItem", "position": 3, "name": "How to Test Controller Drift: A Complete Guide"}
+        ]
+    }
+    </script>
 
     <style>
         *, *::before, *::after {
@@ -258,7 +269,14 @@
 <body>
 
 <article>
-    <header>
+        <nav aria-label="Breadcrumb" style="font-size:0.85em;margin-bottom:16px;color:#666;">
+            <a href="https://baguette.art/" style="color:#1a8917;text-decoration:none;">Home</a>
+            <span style="margin:0 6px;">/</span>
+            <a href="https://baguette.art/articles/" style="color:#1a8917;text-decoration:none;">Articles</a>
+            <span style="margin:0 6px;">/</span>
+            <span>How to Test Controller Drift: A Complete Guide</span>
+        </nav>
+<header>
         <h1>How to Test Controller Drift: A Complete Guide for Every Gamepad</h1>
         <div class="article-meta">
             By <strong>Baguette Tools</strong> &middot; <time datetime="2026-02-26">February 26, 2026</time> &middot; 9 min read
@@ -401,6 +419,16 @@
     <p>Controller drift is an inevitable consequence of the mechanical design used in nearly every analog stick since the mid-1990s. The good news is that testing for drift has never been easier. Browser-based tools give you precise, quantified data about your controller's health in seconds, no software installation required. Whether you are diagnosing a modern PS5 pad that just started pulling to the left or evaluating a 30-year-old N64 controller you found at a garage sale, the testing process is the same: connect, observe, measure, decide.</p>
 
     <p>For anyone building or maintaining a retro gaming setup, regular drift testing should be part of your routine. Catching drift early gives you more options for repair and helps you protect controllers that are no longer being manufactured. And with <a href="https://baguette.art">free browser-based tools</a> available, there is no reason not to test every controller in your collection today.</p>
+
+
+    <section style="margin-top:48px;padding-top:32px;border-top:1px solid #e6e6e6;">
+        <h2 style="font-size:1.3em;margin-bottom:20px;">Related Articles</h2>
+        <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;"><a href="/articles/ultimate-guide-n64-controller-maintenance-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">The Ultimate Guide to N64 Controller Maintenance and Joystick Replacement (2026)</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/switch-joy-con-drift-fix-guide-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">How to Fix Joy-Con Drift: Complete Switch Controller Repair Guide (2026)</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/best-retro-gaming-controllers-for-modern-pcs-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Best Retro Gaming Controllers for Modern PCs in 2026</a></li>
+        </ul>
+    </section>
 
     <div class="article-footer">
         <p>Published by <a href="https://baguette.art">Baguette Tools</a> &middot; Free browser-based tools for creators, gamers, and developers.</p>

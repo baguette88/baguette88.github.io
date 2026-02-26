@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>Baguette Tools — Guides &amp; Resources</title>
+    <link>https://baguette.art/articles/</link>
+    <description>Free guides on browser tools, retro gaming, game development, and design.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://baguette.art/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+        <title>Best CRT Alternatives for Retro Gaming in 2026: Upscalers, HDMI Mods, and FPGA</title>
+        <link>https://baguette.art/articles/best-crt-alternatives-for-retro-gaming-2026.html</link>
+        <description>Best CRT alternatives for retro gaming in 2026. RetroTINK, OSSC, mClassic, MiSTer FPGA, and HDMI mods compared by budget and performance.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-crt-alternatives-for-retro-gaming-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Best Free Apps Without Subscriptions in 2026: No Monthly Fees, No Catches</title>
+        <link>https://baguette.art/articles/best-free-apps-without-subscriptions-2026.html</link>
+        <description>Free apps with no subscriptions or monthly fees. One-time-purchase and truly free alternatives for image editing, documents, design, and productivity.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-free-apps-without-subscriptions-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Best Free Browser Tools for Indie Game Developers in 2026</title>
+        <link>https://baguette.art/articles/best-free-browser-tools-for-indie-game-developers.html</link>
+        <description>A curated list of the best free browser-based tools every indie game developer should know about in 2026, from shader editors to asset pipelines.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-free-browser-tools-for-indie-game-developers.html</guid>
+    </item>
+
+    <item>
+        <title>Best Free PDF Tools Online in 2026: Edit, Sign, Merge, Convert, and Compress</title>
+        <link>https://baguette.art/articles/best-free-pdf-tools-online-2026.html</link>
+        <description>Best free online PDF tools for 2026. Edit, sign, merge, split, convert, and compress PDFs without installing software or creating accounts.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-free-pdf-tools-online-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Best Free Tools for Remote Workers in 2026: The Complete Guide</title>
+        <link>https://baguette.art/articles/best-free-tools-for-remote-workers-2026.html</link>
+        <description>The best free tools for remote work in 2026. Covers communication, documents, design, project management, and browser-based alternatives to paid software.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-free-tools-for-remote-workers-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Best Free Tools for Teachers in 2026: Classroom Apps That Cost Nothing</title>
+        <link>https://baguette.art/articles/best-free-tools-for-teachers-2026.html</link>
+        <description>Free tools for teachers across every subject. Ecosystem simulators for science, maze generators for math, image editors for presentations, and more.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-free-tools-for-teachers-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Best N64 Games to Collect Ranked: Top 25 with Prices and Values (2026)</title>
+        <link>https://baguette.art/articles/best-n64-games-to-collect-ranked-2026.html</link>
+        <description>Top 25 N64 games ranked for collectors in 2026. Current market prices, condition grades, rising and falling values, hidden gems, and starter picks.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-n64-games-to-collect-ranked-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Best Retro Gaming Controllers for Modern PCs in 2026</title>
+        <link>https://baguette.art/articles/best-retro-gaming-controllers-for-modern-pcs-2026.html</link>
+        <description>The best retro controllers and adapters for PC gaming in 2026. N64, SNES, and Genesis pads on modern hardware with USB and Bluetooth.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/best-retro-gaming-controllers-for-modern-pcs-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Browser Tools vs Desktop Apps: Which Should You Use in 2026?</title>
+        <link>https://baguette.art/articles/browser-tools-vs-desktop-apps-which-should-you-use.html</link>
+        <description>Browser tools vs desktop apps compared across 10 categories. Find out where online tools win, where desktop still dominates, and how to choose.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/browser-tools-vs-desktop-apps-which-should-you-use.html</guid>
+    </item>
+
+    <item>
+        <title>Building Your First Browser Game in 2026: A Beginner&apos;s Guide to HTML5 Game Development</title>
+        <link>https://baguette.art/articles/building-your-first-browser-game-2026.html</link>
+        <description>Step-by-step guide to making your first browser game with HTML5 Canvas, Phaser, or Three.js. Covers game loops, sprites, collision, and deployment.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/building-your-first-browser-game-2026.html</guid>
+    </item>
+
+    <item>
+        <title>7 Best Canva Alternatives That Are Actually Free (2026)</title>
+        <link>https://baguette.art/articles/canva-alternatives-free-design-tools-2026.html</link>
+        <description>Looking for free Canva alternatives? Compare 7 design tools that rival Canva without the pricing tiers, including browser-based editors and color tools.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/canva-alternatives-free-design-tools-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Color Theory for Web Developers: A Practical Guide to Choosing Website Colors</title>
+        <link>https://baguette.art/articles/color-theory-for-web-developers-practical-guide.html</link>
+        <description>Practical color theory for web design. Learn color schemes, accessibility, contrast ratios, palette extraction, and modern CSS color functions.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/color-theory-for-web-developers-practical-guide.html</guid>
+    </item>
+
+    <item>
+        <title>Free Digital Art Tools for Students: Browser-Based Apps for Every Art Class (2026)</title>
+        <link>https://baguette.art/articles/digital-art-tools-for-students-free.html</link>
+        <description>Best free digital art tools for students. Browser-based apps for color, image editing, pixel art, shaders, and design with no installs required.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/digital-art-tools-for-students-free.html</guid>
+    </item>
+
+    <item>
+        <title>DocuSign Alternatives: 6 Free E-Signature Tools That Actually Work (2026)</title>
+        <link>https://baguette.art/articles/docusign-alternatives-free-esignature-tools.html</link>
+        <description>Free DocuSign alternatives compared. Sign documents without a subscription using browser-based tools, OS built-ins, and free-tier services.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/docusign-alternatives-free-esignature-tools.html</guid>
+    </item>
+
+    <item>
+        <title>Ecosystem Simulation for Education: A Teacher&apos;s Guide to Interactive Ecology (2026)</title>
+        <link>https://baguette.art/articles/ecosystem-simulation-guide-for-educators-2026.html</link>
+        <description>How to use browser-based ecosystem simulations to teach ecology, emergence, and complex systems. Practical lesson plans and tool recommendations.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/ecosystem-simulation-guide-for-educators-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Essential Browser Bookmarks Every Student Needs in 2026</title>
+        <link>https://baguette.art/articles/essential-browser-bookmarks-every-student-needs.html</link>
+        <description>The best free websites for college and high school students. Study tools, writing aids, design apps, and productivity sites you should bookmark today.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/essential-browser-bookmarks-every-student-needs.html</guid>
+    </item>
+
+    <item>
+        <title>Free Color Palette Generators Compared (2026): Extract Colors from Any Image</title>
+        <link>https://baguette.art/articles/free-color-palette-generators-compared-2026.html</link>
+        <description>Compare the best free color palette generators for 2026. Learn to extract colors from images and build palettes for web design, branding, and presentations.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/free-color-palette-generators-compared-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Free Document Signing Tools That Don&apos;t Require an Account (2026)</title>
+        <link>https://baguette.art/articles/free-document-signing-tools-no-signup-2026.html</link>
+        <description>Sign PDFs free without creating an account. Compare the best no-signup document signing tools and learn when you actually need a paid e-signature service.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/free-document-signing-tools-no-signup-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Free Maze Generator Tools for Game Designers: Algorithms, Tools, and Techniques</title>
+        <link>https://baguette.art/articles/free-maze-generator-tools-for-game-designers.html</link>
+        <description>Free maze generator tools for game design and level creation. Covers DFS, Prim&apos;s, and Kruskal&apos;s algorithms plus practical tools for dungeon generation.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/free-maze-generator-tools-for-game-designers.html</guid>
+    </item>
+
+    <item>
+        <title>Free Tools for Small Business Owners in 2026: The Zero-Cost Startup Stack</title>
+        <link>https://baguette.art/articles/free-tools-for-small-business-owners-2026.html</link>
+        <description>Essential free tools for small business owners in 2026. Document signing, image editing, branding, invoicing, and project management at zero cost.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/free-tools-for-small-business-owners-2026.html</guid>
+    </item>
+
+    <item>
+        <title>The Freelancer Toolkit: Free Browser Tools for Every Stage of Your Business</title>
+        <link>https://baguette.art/articles/freelancer-toolkit-free-browser-tools.html</link>
+        <description>Free browser tools every freelancer needs in 2026. Document signing, image editing, branding, invoicing, time tracking, and project management at zero cost.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/freelancer-toolkit-free-browser-tools.html</guid>
+    </item>
+
+    <item>
+        <title>Game Boy Color Buying Guide 2026: Is the GBC Still Worth It?</title>
+        <link>https://baguette.art/articles/gameboy-color-buying-guide-2026.html</link>
+        <description>Complete Game Boy Color buying guide for 2026. GBC vs GBA vs DMG, screen mods, must-have games with prices, and where to find quality units.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/gameboy-color-buying-guide-2026.html</guid>
+    </item>
+
+    <item>
+        <title>GIMP vs Photopea: Which Free Image Editor Should You Use in 2026?</title>
+        <link>https://baguette.art/articles/gimp-vs-photopea-which-free-editor-2026.html</link>
+        <description>GIMP vs Photopea compared head-to-head. Features, performance, UI, plugins, and which free editor is best for your workflow in 2026.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/gimp-vs-photopea-which-free-editor-2026.html</guid>
+    </item>
+
+    <item>
+        <title>GitHub Pages Portfolio and SEO Guide 2026: Free Hosting Done Right</title>
+        <link>https://baguette.art/articles/github-pages-portfolio-seo-guide-2026.html</link>
+        <description>Set up a GitHub Pages portfolio with proper SEO. Covers custom domains, meta tags, sitemaps, structured data, and performance optimization.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/github-pages-portfolio-seo-guide-2026.html</guid>
+    </item>
+
+    <item>
+        <title>How to Connect N64 to a Modern TV: Every Method Compared (2026)</title>
+        <link>https://baguette.art/articles/how-to-connect-n64-to-modern-tv.html</link>
+        <description>How to connect your N64 to a modern TV with HDMI. Composite, S-Video, RGB mod, RetroTINK, and EON Super 64 compared by picture quality and price.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-connect-n64-to-modern-tv.html</guid>
+    </item>
+
+    <item>
+        <title>How to Create a Website Without Coding in 2026: No-Code and Low-Code Options</title>
+        <link>https://baguette.art/articles/how-to-create-website-without-coding.html</link>
+        <description>Build a website without coding in 2026. Compare Carrd, Squarespace, Wix, WordPress, GitHub Pages templates, and Notion as a website.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-create-website-without-coding.html</guid>
+    </item>
+
+    <item>
+        <title>How to Crop Images Online Without Photoshop: Free Tools and Techniques</title>
+        <link>https://baguette.art/articles/how-to-crop-images-online-without-photoshop.html</link>
+        <description>Learn how to crop and resize images for free in your browser. Covers aspect ratios, social media dimensions, batch cropping, and quality tips.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-crop-images-online-without-photoshop.html</guid>
+    </item>
+
+    <item>
+        <title>How to Deploy a Website for Free in 2026: Every Option Compared</title>
+        <link>https://baguette.art/articles/how-to-deploy-website-free-2026.html</link>
+        <description>Compare free website hosting: GitHub Pages, Netlify, Vercel, Cloudflare Pages, and Firebase. Setup guides, custom domains, SSL, and limitations.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-deploy-website-free-2026.html</guid>
+    </item>
+
+    <item>
+        <title>How to Make a Color Palette from a Photo: Extract Colors from Any Image</title>
+        <link>https://baguette.art/articles/how-to-make-color-palette-from-photo.html</link>
+        <description>Learn how to extract a color palette from any photo. Step-by-step guide covering Color Thief, color clustering, and applying palettes to design projects.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-make-color-palette-from-photo.html</guid>
+    </item>
+
+    <item>
+        <title>How to Reduce Software Subscription Costs in 2026: Free Alternatives That Work</title>
+        <link>https://baguette.art/articles/how-to-reduce-software-subscription-costs-2026.html</link>
+        <description>Cut software subscription costs with free alternatives. Category-by-category replacements for Adobe, DocuSign, and more. Save $1,000+ per year.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-reduce-software-subscription-costs-2026.html</guid>
+    </item>
+
+    <item>
+        <title>How to Resize Images for Social Media in 2026: Complete Size Guide for Every Platform</title>
+        <link>https://baguette.art/articles/how-to-resize-images-for-social-media-2026.html</link>
+        <description>Complete 2026 image size guide for Instagram, TikTok, X, LinkedIn, Facebook, and YouTube. Resize without quality loss using free tools.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-resize-images-for-social-media-2026.html</guid>
+    </item>
+
+    <item>
+        <title>How to Sign a PDF for Free on Any Device: Mac, Windows, iPhone, Android, and Browser</title>
+        <link>https://baguette.art/articles/how-to-sign-pdf-free-any-device.html</link>
+        <description>Sign PDFs for free on any device. Step-by-step for Mac Preview, Windows, iPhone Markup, Android, and browser-based tools. No account needed.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-sign-pdf-free-any-device.html</guid>
+    </item>
+
+    <item>
+        <title>How to Spot Fake Retro Game Cartridges: A Complete Authentication Guide</title>
+        <link>https://baguette.art/articles/how-to-spot-fake-retro-game-cartridges.html</link>
+        <description>Learn how to tell if a game cartridge is real or fake. Visual inspection, circuit board checks, and the most commonly counterfeited retro games.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-spot-fake-retro-game-cartridges.html</guid>
+    </item>
+
+    <item>
+        <title>How to Test Controller Drift: Complete Guide for Every Gamepad (2026)</title>
+        <link>https://baguette.art/articles/how-to-test-game-controller-drift-complete-guide.html</link>
+        <description>Learn how to test controller drift on PS5, Xbox, Switch Joy-Con, and retro gamepads. Free browser-based drift testing tools and fix recommendations.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/how-to-test-game-controller-drift-complete-guide.html</guid>
+    </item>
+
+    <item>
+        <title>Interactive Science Simulations for the Classroom: The Complete Teacher&apos;s Toolkit (2026)</title>
+        <link>https://baguette.art/articles/interactive-science-simulations-for-classroom.html</link>
+        <description>Best interactive science simulations for classroom use. Free browser-based tools for biology, physics, chemistry, earth science, and math educators.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/interactive-science-simulations-for-classroom.html</guid>
+    </item>
+
+    <item>
+        <title>JavaScript Canvas Game Development Basics: Build Your First HTML5 Game</title>
+        <link>https://baguette.art/articles/javascript-canvas-game-development-basics.html</link>
+        <description>Build a JavaScript canvas game from scratch. Covers game loops, sprite rendering, keyboard input, collision detection, and a simple platformer example.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/javascript-canvas-game-development-basics.html</guid>
+    </item>
+
+    <item>
+        <title>N64 Collecting for Beginners: A Complete Guide for 2026</title>
+        <link>https://baguette.art/articles/n64-collecting-beginners-guide-2026.html</link>
+        <description>Start collecting Nintendo 64 consoles, games, and controllers in 2026. Pricing, condition grading, where to buy, and avoiding fakes.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/n64-collecting-beginners-guide-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Photoshop Alternatives That Run Entirely in Your Browser (2026)</title>
+        <link>https://baguette.art/articles/photoshop-alternatives-that-run-in-your-browser.html</link>
+        <description>Free browser-based photo editors that replace Photoshop for most tasks. Compare Photopea, Pixlr, Canva, and specialized tools for cropping and color.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/photoshop-alternatives-that-run-in-your-browser.html</guid>
+    </item>
+
+    <item>
+        <title>Pixel Art Tutorial for Beginners: Complete Guide to Getting Started in 2026</title>
+        <link>https://baguette.art/articles/pixel-art-tutorial-beginners-2026.html</link>
+        <description>Learn pixel art from scratch. Covers tools like Aseprite and Piskel, canvas sizes, palettes, dithering, animation, and exporting for games.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/pixel-art-tutorial-beginners-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Privacy-First Browser Tools That Work Without an Account (2026)</title>
+        <link>https://baguette.art/articles/privacy-first-browser-tools-no-account-required.html</link>
+        <description>Free browser tools that require no login or account. Image editing, document signing, color extraction, and more with zero data collection.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/privacy-first-browser-tools-no-account-required.html</guid>
+    </item>
+
+    <item>
+        <title>Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code</title>
+        <link>https://baguette.art/articles/procedural-generation-techniques-for-beginners.html</link>
+        <description>Learn procedural generation from scratch. Covers cellular automata, noise functions, L-systems, and wave function collapse with pseudocode examples.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/procedural-generation-techniques-for-beginners.html</guid>
+    </item>
+
+    <item>
+        <title>Retro Game Console Restoration Tips: How to Clean and Revive Old Hardware</title>
+        <link>https://baguette.art/articles/retro-game-console-restoration-tips.html</link>
+        <description>How to clean and restore retro game consoles. Cartridge slots, retrobrighting, capacitor replacement, controller repair, and display solutions.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/retro-game-console-restoration-tips.html</guid>
+    </item>
+
+    <item>
+        <title>Retro Game Room Setup Guide 2026: Planning, Displays, Storage, and Budget Tiers</title>
+        <link>https://baguette.art/articles/retro-game-room-setup-guide-2026.html</link>
+        <description>Complete retro game room setup guide for 2026. Plan your space, choose displays, organize consoles and controllers, and build the perfect setup at any budget.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/retro-game-room-setup-guide-2026.html</guid>
+    </item>
+
+    <item>
+        <title>SNES vs Genesis: Which Retro Console Should You Collect in 2026?</title>
+        <link>https://baguette.art/articles/snes-vs-genesis-which-retro-console-to-collect.html</link>
+        <description>SNES vs Genesis collecting guide. Hardware comparison, game libraries, market prices, condition grading, and which console is the better investment.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/snes-vs-genesis-which-retro-console-to-collect.html</guid>
+    </item>
+
+    <item>
+        <title>Streamline Your Design Workflow: Free Tools for 2026</title>
+        <link>https://baguette.art/articles/streamline-your-design-workflow-free-tools-2026.html</link>
+        <description>Optimize your design workflow with these free tools for 2026. From browser-based editors to hardware testing utilities, discover everything you need.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/streamline-your-design-workflow-free-tools-2026.html</guid>
+    </item>
+
+    <item>
+        <title>How to Fix Joy-Con Drift: Complete Switch Controller Repair Guide (2026)</title>
+        <link>https://baguette.art/articles/switch-joy-con-drift-fix-guide-2026.html</link>
+        <description>Fix Joy-Con drift with this step-by-step guide. DIY contact cleaner, stick replacement, Nintendo free repair, and third-party solutions compared.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/switch-joy-con-drift-fix-guide-2026.html</guid>
+    </item>
+
+    <item>
+        <title>Teach Coding to Kids with Browser Games: A Practical Guide for Educators (2026)</title>
+        <link>https://baguette.art/articles/teach-coding-with-browser-games.html</link>
+        <description>How to teach coding to kids using browser-based games. Scratch, Code.org, JavaScript Canvas, and project ideas organized by age group.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/teach-coding-with-browser-games.html</guid>
+    </item>
+
+    <item>
+        <title>Top Free Online Tools You Didn&apos;t Know Existed</title>
+        <link>https://baguette.art/articles/top-free-online-tools-you-didnt-know-existed.html</link>
+        <description>Discover hidden gem free online tools for creative work, productivity, and hardware testing that most people have never heard of.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/top-free-online-tools-you-didnt-know-existed.html</guid>
+    </item>
+
+    <item>
+        <title>The Ultimate Guide to N64 Controller Maintenance and Joystick Replacement (2026)</title>
+        <link>https://baguette.art/articles/ultimate-guide-n64-controller-maintenance-2026.html</link>
+        <description>Complete guide to fixing N64 controller joystick drift, replacing worn analog sticks, and maintaining your retro Nintendo 64 controller collection in 2026.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/ultimate-guide-n64-controller-maintenance-2026.html</guid>
+    </item>
+
+    <item>
+        <title>WebGL Shader Programming: Getting Started with GLSL for Beginners</title>
+        <link>https://baguette.art/articles/webgl-shader-programming-getting-started.html</link>
+        <description>Learn WebGL shader programming from scratch. Covers vertex and fragment shaders, GLSL basics, uniforms, varyings, and your first visual effects.</description>
+        <pubDate>Wed, 26 Feb 2026 00:00:00 +0000</pubDate>
+        <guid>https://baguette.art/articles/webgl-shader-programming-getting-started.html</guid>
+    </item>
+
+</channel>
+</rss>

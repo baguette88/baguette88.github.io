@@ -44,6 +44,17 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://baguette.art/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://baguette.art/articles/"},
+            {"@type": "ListItem", "position": 3, "name": "How to Make a Color Palette from a Photo"}
+        ]
+    }
+    </script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -158,7 +169,14 @@
 </head>
 <body>
     <article>
-        <h1>How to Make a Color Palette from a Photo</h1>
+<nav aria-label="Breadcrumb" style="font-size:0.85em;margin-bottom:16px;color:#666;">
+    <a href="https://baguette.art/" style="color:#1a8917;text-decoration:none;">Home</a>
+    <span style="margin:0 6px;">/</span>
+    <a href="https://baguette.art/articles/" style="color:#1a8917;text-decoration:none;">Articles</a>
+    <span style="margin:0 6px;">/</span>
+    <span>How to Make a Color Palette from a Photo</span>
+</nav>
+<h1>How to Make a Color Palette from a Photo</h1>
         <div class="article-meta">
             Baguette Tools &middot; February 2026 &middot; 10 min read
             <br>
@@ -286,6 +304,15 @@
 
         <p>The best part is that this technique gets better with practice. As you extract palettes from more photos, you develop an intuition for which images will produce useful color sets and which will not. You start noticing color relationships in the world around you, and that awareness makes every design decision faster and more confident.</p>
 
-    </article>
+    
+    <section style="margin-top:48px;padding-top:32px;border-top:1px solid #e6e6e6;">
+        <h2 style="font-size:1.3em;margin-bottom:20px;">Related Articles</h2>
+        <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;"><a href="/articles/free-color-palette-generators-compared-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Free Color Palette Generators Compared (2026): Extract Colors from Any Image</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/color-theory-for-web-developers-practical-guide.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Color Theory for Web Developers: A Practical Guide to Choosing Website Colors</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/how-to-crop-images-online-without-photoshop.html" style="color:#1a8917;text-decoration:none;font-size:1em;">How to Crop Images Online Without Photoshop: Free Tools and Techniques</a></li>
+        </ul>
+    </section>
+</article>
 </body>
 </html>

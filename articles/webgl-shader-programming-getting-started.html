@@ -45,6 +45,17 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://baguette.art/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://baguette.art/articles/"},
+            {"@type": "ListItem", "position": 3, "name": "WebGL Shader Programming: Getting Started with"}
+        ]
+    }
+    </script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -143,7 +154,14 @@
 </head>
 <body>
     <article>
-        <h1>WebGL Shader Programming: Getting Started with GLSL</h1>
+<nav aria-label="Breadcrumb" style="font-size:0.85em;margin-bottom:16px;color:#666;">
+    <a href="https://baguette.art/" style="color:#1a8917;text-decoration:none;">Home</a>
+    <span style="margin:0 6px;">/</span>
+    <a href="https://baguette.art/articles/" style="color:#1a8917;text-decoration:none;">Articles</a>
+    <span style="margin:0 6px;">/</span>
+    <span>WebGL Shader Programming: Getting Started with</span>
+</nav>
+<h1>WebGL Shader Programming: Getting Started with GLSL</h1>
         <div class="article-meta">
             Baguette Tools &middot; February 2026 &middot; 14 min read
             <br>
@@ -448,6 +466,15 @@ float noise(vec2 p) {
 
         <p>The shader programming learning curve is steep at first because the mental model is different from sequential programming. You are not telling the computer what to do step by step. You are defining a function that runs independently for every pixel, with no knowledge of what neighboring pixels are doing. Once that mental shift clicks, shaders become one of the most rewarding areas of programming because the feedback loop is immediate and visual. Write code, see pixels change, iterate.</p>
 
-    </article>
+    
+    <section style="margin-top:48px;padding-top:32px;border-top:1px solid #e6e6e6;">
+        <h2 style="font-size:1.3em;margin-bottom:20px;">Related Articles</h2>
+        <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;"><a href="/articles/javascript-canvas-game-development-basics.html" style="color:#1a8917;text-decoration:none;font-size:1em;">JavaScript Canvas Game Development Basics: Build Your First HTML5 Game</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/procedural-generation-techniques-for-beginners.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/building-your-first-browser-game-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Building Your First Browser Game in 2026: A Beginner's Guide to HTML5 Game Development</a></li>
+        </ul>
+    </section>
+</article>
 </body>
 </html>

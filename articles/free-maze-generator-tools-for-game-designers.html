@@ -55,6 +55,17 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://baguette.art/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://baguette.art/articles/"},
+            {"@type": "ListItem", "position": 3, "name": "Free Maze Generator Tools for Game Designers:"}
+        ]
+    }
+    </script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -140,7 +151,14 @@
 </head>
 <body>
     <article>
-        <h1>Free Maze Generator Tools for Game Designers: Algorithms, Tools, and Techniques</h1>
+<nav aria-label="Breadcrumb" style="font-size:0.85em;margin-bottom:16px;color:#666;">
+    <a href="https://baguette.art/" style="color:#1a8917;text-decoration:none;">Home</a>
+    <span style="margin:0 6px;">/</span>
+    <a href="https://baguette.art/articles/" style="color:#1a8917;text-decoration:none;">Articles</a>
+    <span style="margin:0 6px;">/</span>
+    <span>Free Maze Generator Tools for Game Designers:</span>
+</nav>
+<h1>Free Maze Generator Tools for Game Designers: Algorithms, Tools, and Techniques</h1>
         <div class="article-meta">
             <span>Feb 26, 2026</span> &middot; <span>10 min read</span>
             <br>
@@ -255,6 +273,15 @@
         <p>Once you are comfortable with DFS, experiment with Prim's and Kruskal's to understand how different algorithms produce different exploration feels. Then start combining techniques: base generation plus room placement plus difficulty zoning. That combination is the foundation of most commercial procedural level generation systems.</p>
 
         <p>For more tools that support the game development workflow, from shader editors to sprite creation to input testing, see our overview of <a href="/articles/best-free-browser-tools-for-indie-game-developers.html">free browser tools for indie game developers</a>. And for a broader perspective on when browser-based tools make sense versus installing desktop software, our <a href="/articles/browser-tools-vs-desktop-apps-which-should-you-use.html">browser tools vs desktop apps comparison</a> covers the full picture.</p>
-    </article>
+    
+    <section style="margin-top:48px;padding-top:32px;border-top:1px solid #e6e6e6;">
+        <h2 style="font-size:1.3em;margin-bottom:20px;">Related Articles</h2>
+        <ul style="list-style:none;padding:0;">
+        <li style="margin-bottom:12px;"><a href="/articles/best-free-browser-tools-for-indie-game-developers.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Best Free Browser Tools for Indie Game Developers in 2026</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/procedural-generation-techniques-for-beginners.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code</a></li>
+        <li style="margin-bottom:12px;"><a href="/articles/building-your-first-browser-game-2026.html" style="color:#1a8917;text-decoration:none;font-size:1em;">Building Your First Browser Game in 2026: A Beginner's Guide to HTML5 Game Development</a></li>
+        </ul>
+    </section>
+</article>
 </body>
 </html>
