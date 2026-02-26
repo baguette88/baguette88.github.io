@@ -3,3 +3,4 @@
 *.env
 .env.*
 .claude/
+__pycache__/
