@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Your First Browser Game in 2026: A Beginner's Guide to HTML5 Game Development</title>
+    <meta name="description" content="Step-by-step guide to making your first browser game with HTML5 Canvas, Phaser, or Three.js. Covers game loops, sprites, collision, and deployment.">
+    <meta name="author" content="Baguette Tools">
+    <meta property="og:title" content="Building Your First Browser Game in 2026: A Beginner's Guide to HTML5 Game Development">
+    <meta property="og:description" content="Learn to build and deploy browser games from scratch using HTML5 Canvas, Phaser, and Three.js with practical code examples.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://baguette.art/articles/building-your-first-browser-game-2026.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Building Your First Browser Game in 2026: A Beginner's Guide to HTML5 Game Development",
+        "description": "A practical beginner's guide to building browser games using HTML5 Canvas, Phaser, Three.js, and vanilla JavaScript, covering game loops, sprites, collision detection, and deployment.",
+        "datePublished": "2026-02-26T12:00:00Z",
+        "dateModified": "2026-02-26T12:00:00Z",
+        "author": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://baguette.art/articles/building-your-first-browser-game-2026.html"
+        },
+        "keywords": ["how to make a browser game", "build HTML5 game tutorial", "browser game development", "Phaser game tutorial", "Canvas game beginner"],
+        "mentions": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "SpaceCraft AI",
+                "url": "https://baguette.art/SpaceCraftAI/spacecraftai.html",
+                "applicationCategory": "GameApplication",
+                "description": "AI-powered browser-based space game built with HTML5 Canvas"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "LazyMaze",
+                "url": "https://baguette.art/lazymaze",
+                "applicationCategory": "GameApplication",
+                "description": "Browser-based maze generator useful for procedural level design"
+            }
+        ]
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .article-meta {
+            color: #6b6b6b;
+            font-size: 0.85em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        h2 {
+            font-size: 1.4em;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #292929;
+        }
+        a {
+            color: #1a8917;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        blockquote {
+            border-left: 3px solid #1a8917;
+            padding-left: 20px;
+            margin: 28px 0;
+            color: #555;
+            font-style: italic;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0 28px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>Building Your First Browser Game in 2026</h1>
+        <div class="article-meta">
+            Baguette Tools &middot; February 2026 &middot; 11 min read
+            <br>
+            <span class="tag">Game Dev</span>
+            <span class="tag">HTML5</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Tutorial</span>
+        </div>
+
+        <p>Browser games have a unique advantage over every other type of game: zero friction to play. No download, no install, no app store approval, no platform-specific build. You share a URL and the player is in the game. That simplicity is why browser games continue to thrive even as native game engines grow more powerful every year.</p>
+
+        <p>If you know basic HTML, CSS, and JavaScript, you already have enough to build a browser game. This guide walks through the process from choosing a framework to deploying your finished game on GitHub Pages, with practical code examples at each step.</p>
+
+        <h2>Choosing Your Framework</h2>
+
+        <p>The first decision is how much abstraction you want between your code and the pixels on screen. There are three practical tiers for browser game development in 2026.</p>
+
+        <h3>Vanilla Canvas (No Framework)</h3>
+
+        <p>The HTML5 Canvas API gives you a 2D drawing surface and nothing else. You handle the game loop, rendering, input, physics, and asset loading yourself. This is the best way to learn because nothing is hidden from you. Every frame update, every collision check, every sprite draw is your code.</p>
+
+        <p>Choose vanilla Canvas when: you want to learn how games actually work under the hood, your game is simple (one screen, few entities), or you want the smallest possible file size.</p>
+
+        <h3>Phaser (2D Framework)</h3>
+
+        <p>Phaser is the most popular 2D game framework for the browser. It handles the game loop, sprite management, physics (Arcade and Matter.js), input, audio, tilemaps, animations, and scene management. You write game logic; Phaser handles the plumbing.</p>
+
+        <p>As of 2026, Phaser 3 is the stable version with excellent documentation and a massive community. Phaser 4 is in development but not yet recommended for beginners.</p>
+
+        <p>Choose Phaser when: you want to build a real game without reinventing infrastructure, your game involves tilemaps or complex physics, or you want access to a large ecosystem of plugins and examples.</p>
+
+        <h3>Three.js (3D in the Browser)</h3>
+
+        <p>If your game has any 3D elements, Three.js is the standard. It wraps WebGL in a scene-graph API that handles cameras, lighting, materials, geometry, and rendering. The learning curve is steeper than 2D alternatives, but the visual results can be stunning.</p>
+
+        <p>Choose Three.js when: you want 3D graphics, your game involves spatial navigation or 3D environments, or you are interested in shader programming.</p>
+
+        <p>For your first game, start with vanilla Canvas. You will build a deeper understanding that pays off when you later move to Phaser or Three.js.</p>
+
+        <h2>The Game Loop: The Heartbeat of Every Game</h2>
+
+        <p>Every game, from Pong to a modern open-world RPG, runs on the same fundamental loop: read input, update state, render the frame, repeat. In the browser, this loop is driven by <code>requestAnimationFrame</code>.</p>
+
+        <p>Here is the minimal game loop:</p>
+
+<pre><code>const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+let lastTime = 0;
+
+function gameLoop(timestamp) {
+    const deltaTime = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
+
+    update(deltaTime);
+    render();
+
+    requestAnimationFrame(gameLoop);
+}
+
+function update(dt) {
+    // Update game state based on elapsed time
+}
+
+function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Draw everything
+}
+
+requestAnimationFrame(gameLoop);</code></pre>
+
+        <p>The <code>deltaTime</code> variable is critical. It represents how many seconds have passed since the last frame. By multiplying all movement and animation speeds by <code>deltaTime</code>, your game runs at the same speed regardless of frame rate. A player on a 144Hz monitor sees the same game speed as a player on a 60Hz display. Without delta time, your game speeds up and slows down with the frame rate.</p>
+
+        <h2>Sprite Sheets and Animation</h2>
+
+        <p>A sprite sheet is a single image containing multiple frames of animation arranged in a grid. Instead of loading 30 separate PNG files for a walk animation, you load one sprite sheet and draw different regions of it each frame.</p>
+
+        <p>Drawing a sprite from a sheet uses the nine-argument version of <code>drawImage</code>:</p>
+
+<pre><code>// Source: which part of the sprite sheet to read
+// Destination: where and how large to draw it on the canvas
+ctx.drawImage(
+    spriteSheet,
+    sourceX, sourceY,       // Top-left of the frame in the sheet
+    frameWidth, frameHeight, // Size of one frame
+    destX, destY,           // Where to draw on canvas
+    destWidth, destHeight   // Size to draw
+);</code></pre>
+
+        <p>To animate, you advance the source X position each frame (or each few frames, depending on the animation speed you want). When you reach the end of a row, wrap back to the beginning.</p>
+
+        <p>Free sprite sheets are available from OpenGameArt.org, itch.io asset packs, and Kenney.nl. For custom art, browser-based pixel editors work well. Many indie developers create assets with simple tools and iterate on art after the gameplay feels right.</p>
+
+        <h2>Handling Input</h2>
+
+        <p>Browser games typically use keyboard and mouse (or touch on mobile). The cleanest pattern is to track input state in an object and read it during the update phase, rather than responding to events directly:</p>
+
+<pre><code>const keys = {};
+
+window.addEventListener('keydown', e =&gt; {
+    keys[e.code] = true;
+});
+
+window.addEventListener('keyup', e =&gt; {
+    keys[e.code] = false;
+});
+
+function update(dt) {
+    if (keys['ArrowLeft']) player.x -= player.speed * dt;
+    if (keys['ArrowRight']) player.x += player.speed * dt;
+    if (keys['Space'] &amp;&amp; player.onGround) player.jump();
+}</code></pre>
+
+        <p>This decouples input from rendering. The <code>keydown</code> event fires repeatedly when a key is held, which can cause stuttering if you move the player directly in the event handler. Tracking state and reading it in the update loop gives you smooth, consistent movement.</p>
+
+        <h2>Collision Detection</h2>
+
+        <p>Collision detection is where most beginners hit a wall (sometimes literally). For 2D games, there are two main approaches:</p>
+
+        <h3>Axis-Aligned Bounding Box (AABB)</h3>
+
+        <p>The simplest and fastest method. Each entity has a rectangular bounding box, and two boxes overlap if and only if they overlap on both axes simultaneously:</p>
+
+<pre><code>function collides(a, b) {
+    return a.x &lt; b.x + b.width &amp;&amp;
+           a.x + a.width &gt; b.x &amp;&amp;
+           a.y &lt; b.y + b.height &amp;&amp;
+           a.y + a.height &gt; b.y;
+}</code></pre>
+
+        <p>AABB works for most 2D games. Rectangles are fast to check, and unless your entities have very irregular shapes, the approximation is close enough that players will not notice.</p>
+
+        <h3>Circle Collision</h3>
+
+        <p>For round objects (balls, planets, bullets), circle collision is more natural and just as fast:</p>
+
+<pre><code>function circleCollides(a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance &lt; a.radius + b.radius;
+}</code></pre>
+
+        <p>For performance, you can skip the <code>Math.sqrt</code> by comparing squared distances. This matters when you have hundreds of entities checking collisions every frame.</p>
+
+        <h3>Spatial Partitioning</h3>
+
+        <p>When you have many entities, checking every pair is too slow (it scales as O(n^2)). Spatial partitioning structures like a grid, quadtree, or spatial hash divide the world into regions so you only check entities that are near each other. Phaser handles this automatically with its physics systems, but if you are building from scratch, a simple grid (divide the world into cells and only check entities in the same or adjacent cells) is the easiest optimization to implement.</p>
+
+        <h2>Level Design: Procedural vs. Hand-Crafted</h2>
+
+        <p>You need levels, and you have two fundamental approaches.</p>
+
+        <p><strong>Hand-crafted levels</strong> give you precise control over pacing, difficulty, and aesthetics. Tools like Tiled (a free tilemap editor) let you paint levels visually and export JSON that your game can load. This is the right choice for games where level design IS the game: platformers, puzzle games, and story-driven experiences.</p>
+
+        <p><strong>Procedural generation</strong> creates levels algorithmically. This gives you infinite variety but less control. Maze generation algorithms are a great starting point for procedural level design. You can explore how these work in practice with <a href="https://baguette.art/lazymaze">LazyMaze</a>, a browser-based maze generator that demonstrates several common algorithms including recursive backtracking and Prim's algorithm. Understanding maze generation gives you a foundation for more complex procedural techniques like dungeon generation, terrain creation, and cave systems.</p>
+
+        <p>Many successful games combine both approaches: hand-crafted templates with procedural variation. You design the macro structure and let the algorithm fill in the details.</p>
+
+        <h2>Adding AI to Your Game</h2>
+
+        <p>Even simple games benefit from basic AI. Enemy movement patterns, NPC behavior, and difficulty scaling all fall under game AI. Here are the building blocks:</p>
+
+        <ul>
+            <li><strong>State machines:</strong> The simplest AI architecture. An enemy is always in one state (patrol, chase, attack, flee) and transitions between states based on conditions (player distance, health level). Implement as a switch statement in the entity's update method.</li>
+            <li><strong>Pathfinding:</strong> A* is the standard algorithm for finding the shortest path on a grid. It is surprisingly straightforward to implement and handles weighted terrain, obstacles, and diagonal movement.</li>
+            <li><strong>Steering behaviors:</strong> For games with continuous (non-grid) movement, Craig Reynolds' steering behaviors (seek, flee, arrive, wander, pursue, evade) produce natural-looking motion from simple vector math.</li>
+        </ul>
+
+        <p>For an example of AI integrated into a browser game, take a look at <a href="https://baguette.art/SpaceCraftAI/spacecraftai.html">SpaceCraft AI</a>, which uses AI-driven behaviors for ship navigation and combat in a space environment built entirely with HTML5 Canvas.</p>
+
+        <h2>Audio</h2>
+
+        <p>Sound transforms a game from a visual exercise into an experience. The Web Audio API is powerful but complex. For a first game, the simpler <code>Audio</code> constructor works fine:</p>
+
+<pre><code>const jumpSound = new Audio('jump.wav');
+jumpSound.volume = 0.5;
+
+// In your jump function:
+jumpSound.currentTime = 0; // Reset to start
+jumpSound.play();</code></pre>
+
+        <p>Free sound effects are available from Freesound.org, Kenney.nl, and SFXR (a browser-based sound effect generator that is perfect for retro games). Keep file sizes small by using short WAV files for effects and OGG/MP3 for background music.</p>
+
+        <h2>Performance Optimization</h2>
+
+        <p>Browser games run in a shared environment with other tabs, extensions, and the browser itself. Performance matters more than in native development. Key principles:</p>
+
+        <ul>
+            <li><strong>Minimize draw calls.</strong> Batch similar drawing operations. Draw all background tiles first, then all entities, then all UI elements. Switching between drawing operations is expensive.</li>
+            <li><strong>Use offscreen canvases.</strong> Pre-render complex or static elements to an offscreen canvas, then draw that canvas to the main canvas in a single operation each frame.</li>
+            <li><strong>Object pooling.</strong> Do not create and garbage-collect objects every frame. Pre-allocate arrays of bullets, particles, and effects, and recycle them. GC pauses cause visible stuttering.</li>
+            <li><strong>Limit canvas size to what you need.</strong> A 1920x1080 canvas redraws 2 million pixels per frame. If your game's art style works at 480x270 (quarter resolution), render at that size and CSS-scale the canvas up. The pixel art look is a bonus.</li>
+        </ul>
+
+        <h2>Deploying on GitHub Pages</h2>
+
+        <p>The simplest free hosting for a browser game is GitHub Pages. Here is the process:</p>
+
+        <ol>
+            <li>Create a GitHub repository for your game.</li>
+            <li>Push your game files (HTML, JS, CSS, assets) to the <code>main</code> branch.</li>
+            <li>Go to Settings &gt; Pages in your repository.</li>
+            <li>Set the source to "Deploy from a branch" and select <code>main</code>.</li>
+            <li>Your game is live at <code>https://yourusername.github.io/repo-name/</code>.</li>
+        </ol>
+
+        <p>GitHub Pages serves static files with HTTPS, a global CDN, and no cost. It is the standard deployment target for indie browser games, <a href="ecosystem-simulation-guide-for-educators-2026.html">educational simulations</a>, and creative web projects. The only limitation is that there is no server-side processing, which means no multiplayer without a separate backend. For single-player and local multiplayer games, it is perfect.</p>
+
+        <p>Netlify and Vercel are alternatives with similar free tiers and slightly more features (like form handling and serverless functions), which can be useful if you eventually add leaderboards or analytics.</p>
+
+        <h2>Your First Game: A Practical Roadmap</h2>
+
+        <p>Theory is useful, but building is better. Here is a concrete plan for your first browser game, assuming you start this week:</p>
+
+        <ol>
+            <li><strong>Day 1: Moving square.</strong> Set up the game loop, draw a colored square, and move it with arrow keys. This validates your entire toolchain: editor, browser, dev server, and your understanding of the loop.</li>
+            <li><strong>Day 2: Add an objective.</strong> Place a target on screen. When the player square touches it, increment a score and move the target to a random position. You now have collision detection and a game state.</li>
+            <li><strong>Day 3: Add an obstacle.</strong> Place enemies that move in patterns. If the player touches an enemy, the game ends. Add a restart mechanism. You now have lose conditions and game flow.</li>
+            <li><strong>Day 4: Polish.</strong> Replace squares with sprites. Add a sound effect for scoring and another for dying. Add a start screen and a game-over screen with the final score.</li>
+            <li><strong>Day 5: Deploy.</strong> Push to GitHub, enable Pages, and share the URL. Congratulations, you have shipped a browser game.</li>
+        </ol>
+
+        <p>This five-day sprint produces something small but complete. It covers every fundamental concept: game loop, rendering, input, collision, state management, assets, and deployment. From here, you can iterate on the same game (add levels, power-ups, difficulty scaling) or start a new project with Phaser or Three.js, bringing your understanding of the fundamentals with you.</p>
+
+        <h2>Where to Go Next</h2>
+
+        <p>After your first game, the branching paths are wide open:</p>
+
+        <ul>
+            <li><strong>Platformers:</strong> Add gravity, jumping, and tile-based levels. Phaser's Arcade physics makes this straightforward.</li>
+            <li><strong>Puzzle games:</strong> Grid-based logic, match-3 mechanics, or Sokoban-style push puzzles. These are great for learning game state management.</li>
+            <li><strong>Visual polish:</strong> Learn about particle systems, screen shake, easing functions, and <a href="color-theory-for-web-developers-practical-guide.html">color theory</a> to make your games feel better without adding gameplay complexity.</li>
+            <li><strong>Multiplayer:</strong> WebSockets and WebRTC enable real-time multiplayer in the browser. This is a significant step up in complexity but opens up entirely new game genres.</li>
+            <li><strong>Game jams:</strong> Ludum Dare, Global Game Jam, and itch.io jams give you a deadline, a theme, and an audience. There is no faster way to improve than shipping a game in 48 hours.</li>
+        </ul>
+
+        <p>The browser is the most accessible game platform that exists. Your players are one click away from playing. Start building.</p>
+
+    </article>
+</body>
+</html>

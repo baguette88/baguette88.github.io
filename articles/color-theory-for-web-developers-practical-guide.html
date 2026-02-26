@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theory for Web Developers: A Practical Guide to Choosing Website Colors</title>
+    <meta name="description" content="Practical color theory for web design. Learn color schemes, accessibility, contrast ratios, palette extraction, and modern CSS color functions.">
+    <meta name="author" content="Baguette Tools">
+    <meta property="og:title" content="Color Theory for Web Developers: A Practical Guide to Choosing Website Colors">
+    <meta property="og:description" content="Everything web developers need to know about color: schemes, accessibility, CSS functions, and palette tools.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://baguette.art/articles/color-theory-for-web-developers-practical-guide.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Color Theory for Web Developers: A Practical Guide to Choosing Website Colors",
+        "description": "A practical reference for web developers covering color wheel theory, complementary and analogous schemes, accessibility and WCAG contrast ratios, palette extraction tools, and modern CSS color functions.",
+        "datePublished": "2026-02-26T12:00:00Z",
+        "dateModified": "2026-02-26T12:00:00Z",
+        "author": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://baguette.art/articles/color-theory-for-web-developers-practical-guide.html"
+        },
+        "keywords": ["color theory for web design", "choosing website colors", "web color accessibility", "WCAG contrast ratio", "CSS color functions"],
+        "mentions": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Color Thief",
+                "url": "https://colorthief.netlify.app",
+                "applicationCategory": "DesignApplication",
+                "description": "Browser-based tool for extracting dominant color palettes from images"
+            }
+        ]
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .article-meta {
+            color: #6b6b6b;
+            font-size: 0.85em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        h2 {
+            font-size: 1.4em;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #292929;
+        }
+        a {
+            color: #1a8917;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        blockquote {
+            border-left: 3px solid #1a8917;
+            padding-left: 20px;
+            margin: 28px 0;
+            color: #555;
+            font-style: italic;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0 28px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-right: 4px;
+            border: 1px solid #ddd;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>Color Theory for Web Developers: A Practical Guide</h1>
+        <div class="article-meta">
+            Baguette Tools &middot; February 2026 &middot; 11 min read
+            <br>
+            <span class="tag">Design</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Accessibility</span>
+            <span class="tag">Color</span>
+        </div>
+
+        <p>Most web developers choose colors by instinct, habit, or copying what looks good on other sites. That approach works until it does not: until a client asks why the call-to-action button does not "pop," until an accessibility audit flags half your text as unreadable, or until a design that looked great on your monitor appears washed out on someone else's screen.</p>
+
+        <p>Color theory is not art school abstraction. It is a practical framework that answers concrete questions: which colors work together, why certain combinations feel harmonious while others clash, and how to ensure every user can actually read your content. This guide covers the fundamentals that matter for web development, with CSS code you can use immediately.</p>
+
+        <h2>The Color Wheel: Your Starting Point</h2>
+
+        <p>The color wheel arranges hues in a circle based on their wavelength relationships. It was formalized by Isaac Newton and refined by Johannes Itten into the twelve-hue wheel used in design education today. For web work, the key insight is simple: the position of colors relative to each other on the wheel predicts how they will look together.</p>
+
+        <p>The wheel has three categories of colors:</p>
+
+        <ul>
+            <li><strong>Primary colors</strong> (red, blue, yellow in traditional theory; red, green, blue in light/screens) cannot be created by mixing other colors.</li>
+            <li><strong>Secondary colors</strong> are created by mixing two primaries: orange, green, purple (traditional) or cyan, magenta, yellow (light).</li>
+            <li><strong>Tertiary colors</strong> are created by mixing a primary with an adjacent secondary: red-orange, yellow-green, blue-violet, and so on.</li>
+        </ul>
+
+        <p>For digital design, think in terms of HSL (hue, saturation, lightness). The hue is the position on the wheel measured in degrees: 0 is red, 120 is green, 240 is blue. Saturation controls intensity (0% is gray, 100% is full color). Lightness controls brightness (0% is black, 100% is white, 50% is the pure color).</p>
+
+        <h2>Color Schemes That Work</h2>
+
+        <p>Color schemes are formulas for picking colors that are guaranteed to have a certain visual relationship. They are not rules to follow blindly; they are starting points that save you from guessing.</p>
+
+        <h3>Complementary</h3>
+
+        <p>Two colors directly opposite each other on the wheel. Examples: blue and orange, red and green, purple and yellow. Complementary pairs create maximum contrast and visual energy. They are excellent for making an element stand out: a blue page with an orange button, for instance.</p>
+
+        <p>In CSS, if your primary color is <code>hsl(220, 70%, 50%)</code>, its complement is <code>hsl(40, 70%, 50%)</code> (add 180 degrees to the hue).</p>
+
+        <p>The danger with complementary schemes is vibration: placing two fully saturated complements next to each other creates an optical buzz that is physically uncomfortable. The fix is to desaturate one or both colors, or use different lightness values.</p>
+
+        <h3>Analogous</h3>
+
+        <p>Three colors adjacent to each other on the wheel, typically spanning about 60 degrees total. Example: blue, blue-green, green. Analogous schemes feel calm and unified because the colors share underlying hues. They work well for backgrounds, gradients, and interfaces where you want coherence rather than contrast.</p>
+
+        <p>Most of the web's most pleasant designs use analogous schemes for their base palette and then add a single complementary accent for interactive elements.</p>
+
+        <h3>Triadic</h3>
+
+        <p>Three colors equally spaced around the wheel (120 degrees apart). Example: red, blue, yellow. Triadic schemes are vibrant and balanced. They give you three distinct colors that work together harmoniously, which is useful for data visualization, dashboards, and designs that need to distinguish between multiple categories.</p>
+
+        <p>Triadic schemes can be overwhelming if all three colors are used at full saturation. A common approach is to choose one as the dominant color, one as a secondary, and one as an accent used sparingly.</p>
+
+        <h3>Split-Complementary</h3>
+
+        <p>Instead of using the direct complement, use the two colors adjacent to it. If your base is blue (220 degrees), the complement would be yellow-orange (40 degrees), and the split-complementary pair would be approximately 20 degrees (red-orange) and 60 degrees (yellow). This retains the contrast of a complementary scheme but is more forgiving and less likely to vibrate.</p>
+
+        <h3>Monochromatic</h3>
+
+        <p>A single hue at different saturation and lightness levels. Example: dark navy, medium blue, light blue, pale blue. Monochromatic schemes are the safest choice. They cannot clash, they always feel unified, and they scale gracefully. If you are unsure, start monochromatic and add one accent color later.</p>
+
+        <h2>Psychological Effects of Color</h2>
+
+        <p>Colors carry associations that vary somewhat by culture but have broad general patterns in Western web design:</p>
+
+        <ul>
+            <li><strong>Blue:</strong> Trust, stability, professionalism. Dominant in finance, healthcare, and enterprise software. Facebook, LinkedIn, PayPal, and nearly every bank website lead with blue.</li>
+            <li><strong>Red:</strong> Urgency, energy, passion. Used for sales, alerts, errors, and calls to action. Netflix, YouTube, and Target use red as their primary brand color.</li>
+            <li><strong>Green:</strong> Growth, health, success. Prominent in environmental brands, financial gains (stocks going up), and success states in UI. Spotify and Robinhood are notable green brands.</li>
+            <li><strong>Orange:</strong> Warmth, enthusiasm, affordability. Common in food, entertainment, and brands that want to feel approachable without the urgency of red. Amazon's smile arrow is orange.</li>
+            <li><strong>Purple:</strong> Luxury, creativity, wisdom. Used by premium brands and creative platforms. Twitch, Cadbury, and Hallmark use purple prominently.</li>
+            <li><strong>Yellow:</strong> Optimism, attention, caution. Difficult to use as a primary color on screens because of readability concerns, but effective for highlights and warnings.</li>
+            <li><strong>Black:</strong> Sophistication, luxury, authority. Premium brands and fashion (Chanel, Nike) use black-dominated designs.</li>
+            <li><strong>White:</strong> Cleanliness, simplicity, space. Apple's design language is defined by white space.</li>
+        </ul>
+
+        <p>These associations influence user behavior. Studies have found that red call-to-action buttons outperform green ones in some contexts (the urgency effect), while green buttons perform better in health and environmental contexts (the trust effect). There is no universal "best button color." The right choice depends on your specific audience and the emotional context of the action.</p>
+
+        <h2>Accessibility: Contrast Ratios and WCAG</h2>
+
+        <p>Color accessibility is not optional. Approximately 8% of men and 0.5% of women have some form of color vision deficiency. Beyond that, everyone encounters low-contrast situations: screens in direct sunlight, aging eyes, dim screens to save battery. The Web Content Accessibility Guidelines (WCAG) define minimum contrast ratios that ensure readability for the widest possible audience.</p>
+
+        <h3>The Numbers</h3>
+
+        <ul>
+            <li><strong>WCAG AA (minimum):</strong> 4.5:1 contrast ratio for normal text, 3:1 for large text (18px bold or 24px regular).</li>
+            <li><strong>WCAG AAA (enhanced):</strong> 7:1 for normal text, 4.5:1 for large text.</li>
+            <li><strong>Non-text elements:</strong> 3:1 for UI components and graphical objects (buttons, icons, form borders).</li>
+        </ul>
+
+        <p>Contrast ratio compares the relative luminance of two colors on a scale from 1:1 (identical) to 21:1 (black on white). To check ratios, use browser DevTools: Chrome's color picker shows the contrast ratio when you inspect a text element. Firefox has a similar feature in its accessibility inspector.</p>
+
+        <h3>Common Failures</h3>
+
+        <ul>
+            <li><strong>Light gray text on white backgrounds.</strong> The popular <code>#999 on #fff</code> combination has a contrast ratio of only 2.85:1, failing even AA standards. Use <code>#595959</code> or darker for body text on white.</li>
+            <li><strong>Colored text on colored backgrounds.</strong> Two mid-tone colors can both look vivid but have almost no luminance contrast between them. Blue text on a purple background is a frequent offender.</li>
+            <li><strong>Relying on color alone to convey information.</strong> Red/green for error/success states is invisible to the most common form of color blindness. Always pair color with a secondary indicator: an icon, text label, or pattern.</li>
+            <li><strong>Placeholder text.</strong> Browser default placeholder color is often too light. If users need to read placeholder text to understand a form field, it needs sufficient contrast.</li>
+        </ul>
+
+        <h3>Designing for Color Blindness</h3>
+
+        <p>The three main types of color vision deficiency are protanopia (reduced red sensitivity), deuteranopia (reduced green sensitivity), and tritanopia (reduced blue sensitivity). The first two are by far the most common, which is why red-green is the most problematic color combination.</p>
+
+        <p>Practical strategies:</p>
+        <ul>
+            <li>Use blue and orange instead of red and green for opposing states. This combination is distinguishable by nearly all forms of color blindness.</li>
+            <li>Add texture, icons, or labels to color-coded elements.</li>
+            <li>Test your design with a color blindness simulator. Chrome DevTools includes one under Rendering > Emulate vision deficiencies.</li>
+        </ul>
+
+        <h2>Extracting Palettes from Existing Designs</h2>
+
+        <p>Sometimes the best way to choose colors is to extract them from something that already works: a photograph, a brand asset, a competitor's site, or a piece of art that captures the mood you want.</p>
+
+        <p><a href="https://colorthief.netlify.app">Color Thief</a> is a browser-based tool that analyzes an image and extracts its dominant colors as a usable palette. Upload a photograph or screenshot, and it returns the primary color plus a palette of supporting colors ranked by prominence in the image. This is particularly useful when you need to build a web design that feels cohesive with existing photography or brand materials.</p>
+
+        <p>The technique works because photographs with good composition already have harmonious color relationships. A sunset photo naturally contains an analogous warm palette. A forest scene provides a range of greens with earth-tone accents. By extracting these palettes programmatically, you get color schemes grounded in real-world visual harmony rather than abstract theory.</p>
+
+        <p>Once you have an extracted palette, you can refine it: adjust lightness values to ensure contrast ratios pass WCAG checks, desaturate slightly for backgrounds, and choose one color as the accent for interactive elements. If you are working with product images or photographs that need preparation before palette extraction, <a href="how-to-crop-images-online-without-photoshop.html">cropping and framing your source image</a> to isolate the most relevant region will produce a cleaner palette.</p>
+
+        <h2>CSS Color Functions: The Modern Toolkit</h2>
+
+        <p>CSS has evolved far beyond hex codes and named colors. Modern color functions give you precise control and make color manipulation possible directly in your stylesheets.</p>
+
+        <h3>HSL: The Designer's Choice</h3>
+
+<pre><code>/* Base color */
+--primary: hsl(220, 70%, 50%);
+
+/* Lighter variant (increase lightness) */
+--primary-light: hsl(220, 70%, 70%);
+
+/* Darker variant (decrease lightness) */
+--primary-dark: hsl(220, 70%, 30%);
+
+/* Desaturated variant */
+--primary-muted: hsl(220, 30%, 50%);
+
+/* Complement (add 180 to hue) */
+--accent: hsl(40, 70%, 50%);</code></pre>
+
+        <p>HSL is intuitive because each parameter maps to a human-understandable concept. Need a lighter version? Increase lightness. Need a muted version? Decrease saturation. Need the complement? Add 180 to the hue. This is far easier than trying to mentally adjust RGB values.</p>
+
+        <h3>OKLCH: The Perceptually Uniform Option</h3>
+
+<pre><code>/* OKLCH: lightness, chroma, hue */
+--primary: oklch(55% 0.2 250);
+
+/* Same perceived lightness, different hue */
+--secondary: oklch(55% 0.2 150);</code></pre>
+
+        <p>OKLCH is the most significant color advancement in CSS in years. Unlike HSL, where <code>hsl(60, 100%, 50%)</code> (yellow) and <code>hsl(240, 100%, 50%)</code> (blue) have wildly different perceived brightness despite the same lightness value, OKLCH keeps perceived lightness consistent across hues. This means you can create color palettes where different hues genuinely look like they have the same visual weight.</p>
+
+        <p>Browser support for OKLCH is excellent as of 2026. Use it for design systems where perceptual consistency matters, especially for data visualization and accessible color sets.</p>
+
+        <h3>color-mix(): Blending in CSS</h3>
+
+<pre><code>/* Mix two colors */
+--blend: color-mix(in oklch, var(--primary) 60%, var(--secondary));
+
+/* Tint (mix with white) */
+--tint: color-mix(in srgb, var(--primary), white 30%);
+
+/* Shade (mix with black) */
+--shade: color-mix(in srgb, var(--primary), black 20%);</code></pre>
+
+        <p>The <code>color-mix()</code> function lets you derive new colors from existing ones without preprocessors. Combined with custom properties, it enables dynamic theme generation directly in CSS. Specify the color space for mixing (<code>in oklch</code> for perceptual mixing, <code>in srgb</code> for traditional mixing) to control the blending behavior.</p>
+
+        <h3>Relative Color Syntax</h3>
+
+<pre><code>/* Darken a color by reducing lightness */
+--dark: hsl(from var(--primary) h s calc(l - 20%));
+
+/* Desaturate */
+--muted: hsl(from var(--primary) h calc(s - 40%) l);
+
+/* Shift hue */
+--shifted: hsl(from var(--primary) calc(h + 30) s l);</code></pre>
+
+        <p>Relative color syntax lets you take an existing color, decompose it into components, and modify individual channels. This is the CSS-native equivalent of Sass's <code>darken()</code>, <code>lighten()</code>, and <code>adjust-hue()</code> functions, but it works at runtime with dynamic values.</p>
+
+        <h2>Building a Practical Color System</h2>
+
+        <p>Here is a step-by-step process for building a color system for a web project:</p>
+
+        <ol>
+            <li><strong>Choose one primary color.</strong> This is your brand color, the one that appears on your logo, primary buttons, and links. Define it in HSL or OKLCH.</li>
+            <li><strong>Generate neutrals.</strong> Create a gray scale with 9-11 steps from near-white to near-black. Use the same hue as your primary but at very low saturation (2-5%). This gives your grays a subtle warmth or coolness that ties them to your brand.</li>
+            <li><strong>Add a complementary or split-complementary accent.</strong> This color is for secondary actions, highlights, and visual interest.</li>
+            <li><strong>Define semantic colors.</strong> Success (green), warning (yellow/orange), error (red), info (blue). These should be distinct from your brand and accent colors to avoid confusion.</li>
+            <li><strong>Generate light and dark variants.</strong> For each color, create at least three variants: a light tint (for backgrounds), the base (for text and icons), and a dark shade (for hover states and borders).</li>
+            <li><strong>Check every text/background combination.</strong> Use DevTools or a contrast checker to verify that all text meets WCAG AA at minimum. Fix failures by adjusting lightness, not by choosing entirely new colors.</li>
+        </ol>
+
+        <p>Store everything in CSS custom properties at the <code>:root</code> level. This makes theme switching (light/dark mode) straightforward: you override the custom properties in a <code>prefers-color-scheme</code> media query.</p>
+
+        <h2>Common Mistakes and How to Avoid Them</h2>
+
+        <ul>
+            <li><strong>Too many colors.</strong> Most effective web designs use 2-3 colors plus neutrals. Every additional color makes the palette harder to maintain and harder for users to parse. If you need more variety, use lightness and saturation variants of your existing colors.</li>
+            <li><strong>Saturated backgrounds.</strong> A fully saturated background color (like <code>hsl(220, 100%, 50%)</code>) overwhelms text and causes eye fatigue. Backgrounds should be desaturated. Keep high saturation for small elements: buttons, links, badges.</li>
+            <li><strong>Inconsistent hover states.</strong> If your link color is blue and your hover state is green, you are using two unrelated colors for a single element. Hover states should be a variant (darker, lighter, or desaturated) of the base color.</li>
+            <li><strong>Forgetting dark mode.</strong> Colors that work on white backgrounds rarely work on dark backgrounds without adjustment. Saturated colors that look rich on white appear garish on dark gray. Reduce saturation and increase lightness for dark mode variants.</li>
+            <li><strong>Not testing on multiple screens.</strong> Colors render differently on every monitor. Test on at least one laptop screen, one external monitor, and one phone. If a color choice only works on your calibrated display, it does not work. For projects where you are <a href="building-your-first-browser-game-2026.html">building interactive browser experiences</a>, testing color rendering across devices is especially important because game and app interfaces need instant readability.</li>
+        </ul>
+
+        <h2>Quick Reference: CSS Color Cheat Sheet</h2>
+
+<pre><code>/* Named colors (limited but readable) */
+color: tomato;
+color: cornflowerblue;
+
+/* Hex (most common, not intuitive) */
+color: #3b82f6;
+color: #3b82f680;  /* with alpha */
+
+/* RGB */
+color: rgb(59, 130, 246);
+color: rgb(59 130 246 / 50%);  /* modern syntax */
+
+/* HSL (most intuitive for humans) */
+color: hsl(220, 70%, 50%);
+color: hsl(220 70% 50% / 80%);
+
+/* OKLCH (perceptually uniform) */
+color: oklch(55% 0.2 250);
+color: oklch(55% 0.2 250 / 70%);
+
+/* color-mix (derive new colors) */
+color: color-mix(in oklch, #3b82f6 70%, white);
+
+/* Relative syntax (modify existing) */
+color: hsl(from var(--base) h s calc(l + 15%));</code></pre>
+
+        <p>Color is one of the most powerful tools in web design, and the gap between "picking colors that look okay" and "choosing colors with intention" is smaller than most developers think. Learn the wheel, use HSL, check your contrast, and build a system of custom properties. The result is a design that looks professional, works for everyone, and is easy to maintain.</p>
+
+    </article>
+</body>
+</html>
