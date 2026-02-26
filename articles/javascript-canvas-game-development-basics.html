@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Canvas Game Development Basics: Build Your First HTML5 Game</title>
+    <meta name="description" content="Build a JavaScript canvas game from scratch. Covers game loops, sprite rendering, keyboard input, collision detection, and a simple platformer example.">
+    <meta name="author" content="Baguette Tools">
+    <meta property="og:title" content="JavaScript Canvas Game Development Basics: Build Your First HTML5 Game">
+    <meta property="og:description" content="A hands-on tutorial for building HTML5 canvas games with JavaScript, covering game loops, rendering, input handling, collision detection, and deployment.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://baguette.art/articles/javascript-canvas-game-development-basics.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "JavaScript Canvas Game Development Basics: Build Your First HTML5 Game",
+        "description": "A practical tutorial on building HTML5 canvas games with vanilla JavaScript, covering the game loop, requestAnimationFrame, sprite rendering, keyboard input, collision detection, and deploying a simple platformer on GitHub Pages.",
+        "datePublished": "2026-02-26T12:00:00Z",
+        "dateModified": "2026-02-26T12:00:00Z",
+        "author": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://baguette.art/articles/javascript-canvas-game-development-basics.html"
+        },
+        "keywords": ["javascript canvas game tutorial", "HTML5 canvas game loop", "canvas game development", "requestAnimationFrame game", "browser game javascript"],
+        "mentions": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "SpaceCraft AI",
+                "url": "https://baguette.art/SpaceCraftAI/spacecraftai.html",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web Browser",
+                "description": "AI-powered browser-based space game built with HTML5 Canvas and JavaScript"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "LazyMaze",
+                "url": "https://lazymaze.netlify.app",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web Browser",
+                "description": "Browser-based procedural maze generator built with JavaScript Canvas"
+            }
+        ]
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .article-meta {
+            color: #6b6b6b;
+            font-size: 0.85em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        h2 {
+            font-size: 1.4em;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #292929;
+        }
+        a {
+            color: #1a8917;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        blockquote {
+            border-left: 3px solid #1a8917;
+            padding-left: 20px;
+            margin: 28px 0;
+            color: #555;
+            font-style: italic;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0 28px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>JavaScript Canvas Game Development Basics</h1>
+        <div class="article-meta">
+            Baguette Tools &middot; February 2026 &middot; 14 min read
+            <br>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Canvas</span>
+            <span class="tag">Game Dev</span>
+            <span class="tag">Tutorial</span>
+        </div>
+
+        <p>The HTML5 Canvas API and vanilla JavaScript are everything you need to build a game that runs in any browser. No framework, no build system, no package manager. One HTML file, one JavaScript file, and a browser. That simplicity is why Canvas remains the best starting point for learning game development in 2026, even with more powerful tools available.</p>
+
+        <p>This tutorial builds a working game from the ground up. You will learn how the game loop works, how to draw sprites, how to handle keyboard input, how to detect collisions, and how to put it all together into a simple platformer. By the end, you will have a playable game and the knowledge to build anything else on Canvas.</p>
+
+        <h2>Canvas API Basics</h2>
+
+        <p>The Canvas element gives you a 2D drawing surface that you control pixel by pixel through JavaScript. Start with the HTML:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Game&lt;/title&gt;
+    &lt;style&gt;
+        * { margin: 0; padding: 0; }
+        canvas {
+            display: block;
+            background: #1a1a2e;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;canvas id="game" width="800" height="600"&gt;&lt;/canvas&gt;
+    &lt;script src="game.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <p>In your JavaScript file, grab the canvas and its 2D rendering context:</p>
+
+<pre><code>const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+// Drawing primitives
+ctx.fillStyle = '#e94560';
+ctx.fillRect(100, 100, 50, 50);        // Filled rectangle
+
+ctx.strokeStyle = '#0f3460';
+ctx.lineWidth = 2;
+ctx.strokeRect(200, 100, 50, 50);      // Outlined rectangle
+
+ctx.beginPath();
+ctx.arc(400, 125, 25, 0, Math.PI * 2); // Circle
+ctx.fillStyle = '#16213e';
+ctx.fill();
+
+ctx.fillStyle = '#fff';
+ctx.font = '24px monospace';
+ctx.fillText('Score: 0', 10, 30);       // Text</code></pre>
+
+        <p>These four operations, filled rectangles, stroked rectangles, arcs, and text, are enough to build complete games. More complex shapes use <code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code>, and <code>closePath()</code>. Image sprites use <code>drawImage()</code>. But for learning, colored rectangles are your best friend because they keep the focus on game logic rather than asset loading.</p>
+
+        <h2>The Game Loop</h2>
+
+        <p>A game loop is the heartbeat of any game. It runs continuously, updating game state and redrawing the screen every frame. In the browser, the correct way to build a game loop is <code>requestAnimationFrame</code>, which synchronizes your loop with the display's refresh rate (typically 60 fps).</p>
+
+<pre><code>let lastTime = 0;
+
+function gameLoop(timestamp) {
+    // Calculate delta time in seconds
+    const dt = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
+
+    // 1. Process input (handled by event listeners)
+
+    // 2. Update game state
+    update(dt);
+
+    // 3. Clear and redraw
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    render();
+
+    // 4. Request next frame
+    requestAnimationFrame(gameLoop);
+}
+
+// Start the loop
+requestAnimationFrame(gameLoop);</code></pre>
+
+        <p>The critical detail is <strong>delta time</strong> (<code>dt</code>). The time between frames varies based on system load and refresh rate. If you move a character by a fixed number of pixels per frame, the game runs faster on a 144 Hz monitor than a 60 Hz one. By multiplying movement by <code>dt</code> (time elapsed since last frame), you make the game run at the same speed regardless of frame rate.</p>
+
+<pre><code>// Wrong: frame-rate dependent
+player.x += 5;
+
+// Right: frame-rate independent
+player.x += 300 * dt;  // 300 pixels per second, regardless of fps</code></pre>
+
+        <p>This is the single most important concept in game loop design. Every velocity, every timer, every animation should be multiplied by delta time.</p>
+
+        <h2>Sprite Rendering</h2>
+
+        <p>A sprite is any visual element in your game. For prototyping, draw sprites as colored rectangles. For polished games, load image files.</p>
+
+        <h3>Rectangle Sprites</h3>
+
+<pre><code>const player = {
+    x: 100,
+    y: 400,
+    width: 32,
+    height: 48,
+    color: '#e94560',
+    velocityX: 0,
+    velocityY: 0
+};
+
+function renderPlayer() {
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+}</code></pre>
+
+        <h3>Image Sprites</h3>
+
+<pre><code>const spriteImage = new Image();
+spriteImage.src = 'player.png';
+
+// Wait for the image to load before starting the game
+spriteImage.onload = function() {
+    requestAnimationFrame(gameLoop);
+};
+
+function renderPlayer() {
+    // Draw entire image
+    ctx.drawImage(spriteImage, player.x, player.y);
+
+    // Or draw a specific region (sprite sheet)
+    // ctx.drawImage(spriteImage,
+    //     srcX, srcY, srcWidth, srcHeight,  // Source rectangle
+    //     player.x, player.y, 32, 48        // Destination rectangle
+    // );
+}</code></pre>
+
+        <p>For sprite sheet animation, cycle through frames by changing the source rectangle over time:</p>
+
+<pre><code>const animation = {
+    frameWidth: 32,
+    frameHeight: 48,
+    frameCount: 4,
+    currentFrame: 0,
+    frameTimer: 0,
+    frameInterval: 0.15  // seconds per frame
+};
+
+function updateAnimation(dt) {
+    animation.frameTimer += dt;
+    if (animation.frameTimer >= animation.frameInterval) {
+        animation.frameTimer = 0;
+        animation.currentFrame = (animation.currentFrame + 1) % animation.frameCount;
+    }
+}
+
+function renderAnimatedSprite() {
+    const srcX = animation.currentFrame * animation.frameWidth;
+    ctx.drawImage(spriteImage,
+        srcX, 0, animation.frameWidth, animation.frameHeight,
+        player.x, player.y, player.width, player.height
+    );
+}</code></pre>
+
+        <h2>Keyboard Input</h2>
+
+        <p>The standard pattern for game input is to track which keys are currently held down using a Set or object, then check that state in the update function. Do not move the player inside the event handler directly, because keydown events fire repeatedly at the OS key repeat rate, which is not tied to your game loop.</p>
+
+<pre><code>const keys = new Set();
+
+document.addEventListener('keydown', (e) => {
+    keys.add(e.code);
+    e.preventDefault();  // Prevent page scrolling with arrow keys
+});
+
+document.addEventListener('keyup', (e) => {
+    keys.delete(e.code);
+});
+
+function update(dt) {
+    const speed = 300; // pixels per second
+
+    if (keys.has('ArrowLeft') || keys.has('KeyA')) {
+        player.velocityX = -speed;
+    } else if (keys.has('ArrowRight') || keys.has('KeyD')) {
+        player.velocityX = speed;
+    } else {
+        player.velocityX = 0;
+    }
+
+    // Apply velocity
+    player.x += player.velocityX * dt;
+    player.y += player.velocityY * dt;
+}</code></pre>
+
+        <p>Using <code>e.code</code> instead of <code>e.key</code> is important. <code>e.code</code> refers to the physical key position on the keyboard, so WASD works correctly regardless of keyboard layout (AZERTY, QWERTZ, etc.).</p>
+
+        <h2>Collision Detection</h2>
+
+        <p>For rectangle-based games, Axis-Aligned Bounding Box (AABB) collision detection is all you need. Two rectangles overlap if and only if they overlap on both axes:</p>
+
+<pre><code>function rectsOverlap(a, b) {
+    return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+    );
+}</code></pre>
+
+        <p>This function returns <code>true</code> if rectangles <code>a</code> and <code>b</code> overlap at all. It works for player-enemy collisions, projectile hits, item pickups, and wall collisions. For a game with fewer than a few hundred entities, checking every pair every frame is perfectly fast. Optimization (spatial hashing, quad trees) only matters when you have thousands of collidable objects.</p>
+
+        <h3>Platform Collision (One-Directional)</h3>
+
+        <p>In a platformer, you need to know which side the collision happened on. The standard approach is to resolve horizontal and vertical movement separately:</p>
+
+<pre><code>function updatePlayer(dt) {
+    // Horizontal movement
+    player.x += player.velocityX * dt;
+    for (const platform of platforms) {
+        if (rectsOverlap(player, platform)) {
+            if (player.velocityX > 0) {
+                player.x = platform.x - player.width; // Push left
+            } else if (player.velocityX < 0) {
+                player.x = platform.x + platform.width; // Push right
+            }
+            player.velocityX = 0;
+        }
+    }
+
+    // Vertical movement
+    player.velocityY += gravity * dt;
+    player.y += player.velocityY * dt;
+    player.onGround = false;
+
+    for (const platform of platforms) {
+        if (rectsOverlap(player, platform)) {
+            if (player.velocityY > 0) {
+                player.y = platform.y - player.height; // Land on top
+                player.velocityY = 0;
+                player.onGround = true;
+            } else if (player.velocityY < 0) {
+                player.y = platform.y + platform.height; // Hit ceiling
+                player.velocityY = 0;
+            }
+        }
+    }
+}</code></pre>
+
+        <p>By splitting movement into two passes, each axis is resolved independently. This prevents corner cases where diagonal movement phases through walls.</p>
+
+        <h2>Building a Simple Platformer</h2>
+
+        <p>Let us combine everything into a working platformer. The player can move left and right, jump, and land on platforms.</p>
+
+<pre><code>const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const keys = new Set();
+
+const gravity = 1200;
+const jumpForce = -500;
+const moveSpeed = 300;
+
+const player = {
+    x: 100, y: 100,
+    width: 28, height: 40,
+    velocityX: 0, velocityY: 0,
+    onGround: false,
+    color: '#e94560'
+};
+
+const platforms = [
+    { x: 0,   y: 550, width: 800, height: 50, color: '#16213e' },
+    { x: 200, y: 430, width: 150, height: 20, color: '#0f3460' },
+    { x: 450, y: 330, width: 150, height: 20, color: '#0f3460' },
+    { x: 150, y: 230, width: 150, height: 20, color: '#0f3460' },
+    { x: 500, y: 150, width: 200, height: 20, color: '#0f3460' }
+];
+
+const coins = [
+    { x: 260, y: 400, size: 12, collected: false },
+    { x: 510, y: 300, size: 12, collected: false },
+    { x: 210, y: 200, size: 12, collected: false },
+    { x: 580, y: 120, size: 12, collected: false }
+];
+
+let score = 0;
+
+document.addEventListener('keydown', (e) => { keys.add(e.code); e.preventDefault(); });
+document.addEventListener('keyup', (e) => { keys.delete(e.code); });
+
+function update(dt) {
+    // Horizontal input
+    if (keys.has('ArrowLeft') || keys.has('KeyA')) {
+        player.velocityX = -moveSpeed;
+    } else if (keys.has('ArrowRight') || keys.has('KeyD')) {
+        player.velocityX = moveSpeed;
+    } else {
+        player.velocityX = 0;
+    }
+
+    // Jump
+    if ((keys.has('ArrowUp') || keys.has('KeyW') || keys.has('Space'))
+        && player.onGround) {
+        player.velocityY = jumpForce;
+        player.onGround = false;
+    }
+
+    // Gravity
+    player.velocityY += gravity * dt;
+
+    // Move horizontal, resolve collisions
+    player.x += player.velocityX * dt;
+    for (const p of platforms) {
+        if (rectsOverlap(player, p)) {
+            if (player.velocityX > 0) player.x = p.x - player.width;
+            else if (player.velocityX < 0) player.x = p.x + p.width;
+            player.velocityX = 0;
+        }
+    }
+
+    // Move vertical, resolve collisions
+    player.y += player.velocityY * dt;
+    player.onGround = false;
+    for (const p of platforms) {
+        if (rectsOverlap(player, p)) {
+            if (player.velocityY > 0) {
+                player.y = p.y - player.height;
+                player.onGround = true;
+            } else {
+                player.y = p.y + p.height;
+            }
+            player.velocityY = 0;
+        }
+    }
+
+    // Coin collection
+    for (const coin of coins) {
+        if (coin.collected) continue;
+        const coinRect = {
+            x: coin.x - coin.size,
+            y: coin.y - coin.size,
+            width: coin.size * 2,
+            height: coin.size * 2
+        };
+        if (rectsOverlap(player, coinRect)) {
+            coin.collected = true;
+            score += 100;
+        }
+    }
+
+    // Screen bounds
+    if (player.x < 0) player.x = 0;
+    if (player.x + player.width > canvas.width) {
+        player.x = canvas.width - player.width;
+    }
+}
+
+function rectsOverlap(a, b) {
+    return a.x < b.x + b.width && a.x + a.width > b.x
+        && a.y < b.y + b.height && a.y + a.height > b.y;
+}
+
+function render() {
+    // Platforms
+    for (const p of platforms) {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.width, p.height);
+    }
+
+    // Coins
+    for (const coin of coins) {
+        if (coin.collected) continue;
+        ctx.beginPath();
+        ctx.arc(coin.x, coin.y, coin.size, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffd700';
+        ctx.fill();
+    }
+
+    // Player
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+
+    // Score
+    ctx.fillStyle = '#fff';
+    ctx.font = '20px monospace';
+    ctx.fillText('Score: ' + score, 16, 32);
+}
+
+let lastTime = 0;
+function gameLoop(timestamp) {
+    const dt = Math.min((timestamp - lastTime) / 1000, 0.05);
+    lastTime = timestamp;
+
+    update(dt);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    render();
+
+    requestAnimationFrame(gameLoop);
+}
+requestAnimationFrame(gameLoop);</code></pre>
+
+        <p>Notice the <code>Math.min(dt, 0.05)</code> cap on delta time. If the browser tab loses focus and regains it, the timestamp jump could be several seconds, causing the player to teleport through walls. Capping delta time at 50ms (20 fps minimum) prevents physics explosions from large time steps.</p>
+
+        <p>This pattern, a player controlled by keyboard, affected by gravity, colliding with platforms, collecting items, is the foundation of countless games. <a href="https://baguette.art/SpaceCraftAI/spacecraftai.html">SpaceCraft AI</a> uses this same Canvas approach for a space-themed game with AI opponents, demonstrating how far you can take vanilla Canvas and JavaScript without any framework.</p>
+
+        <h2>Adding Polish</h2>
+
+        <h3>Screen Shake</h3>
+
+<pre><code>let shakeTimer = 0;
+let shakeIntensity = 0;
+
+function triggerShake(intensity, duration) {
+    shakeIntensity = intensity;
+    shakeTimer = duration;
+}
+
+function render() {
+    ctx.save();
+    if (shakeTimer > 0) {
+        const offsetX = (Math.random() - 0.5) * shakeIntensity;
+        const offsetY = (Math.random() - 0.5) * shakeIntensity;
+        ctx.translate(offsetX, offsetY);
+    }
+    // ... draw everything ...
+    ctx.restore();
+}
+
+// In update:
+if (shakeTimer > 0) shakeTimer -= dt;</code></pre>
+
+        <h3>Particles</h3>
+
+<pre><code>const particles = [];
+
+function spawnParticles(x, y, count, color) {
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x, y,
+            vx: (Math.random() - 0.5) * 200,
+            vy: (Math.random() - 0.5) * 200,
+            life: 0.5 + Math.random() * 0.5,
+            size: 2 + Math.random() * 3,
+            color
+        });
+    }
+}
+
+function updateParticles(dt) {
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.life -= dt;
+        if (p.life <= 0) particles.splice(i, 1);
+    }
+}
+
+function renderParticles() {
+    for (const p of particles) {
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
+    ctx.globalAlpha = 1;
+}</code></pre>
+
+        <p>Spawn particles when the player lands, collects a coin, or takes damage. Small visual flourishes like these make the game feel responsive and alive with minimal code.</p>
+
+        <h2>Deploying on GitHub Pages</h2>
+
+        <p>One of the best things about Canvas games is deployment simplicity. Your game is static files: HTML, JavaScript, and optionally images and audio. Push to a GitHub repository, enable GitHub Pages in settings, and your game is live at <code>username.github.io/repo-name</code>.</p>
+
+<pre><code>git init
+git add index.html game.js
+git commit -m "Initial game release"
+git remote add origin git@github.com:username/my-game.git
+git push -u origin main
+# Enable GitHub Pages in repository settings</code></pre>
+
+        <p>No build step, no server, no configuration. Share the URL and anyone with a browser can play your game instantly. This zero-friction distribution is the fundamental advantage of browser games over native applications.</p>
+
+        <h2>Where to Go from Here</h2>
+
+        <p>With the fundamentals covered in this tutorial, you have several natural directions to explore:</p>
+
+        <ul>
+            <li><strong>Procedural content:</strong> Instead of hand-placing platforms, generate them algorithmically. Our <a href="https://baguette.art/articles/procedural-generation-techniques-for-beginners.html">procedural generation guide</a> covers the algorithms you would use for random level generation, from simple noise-based terrain to full dungeon generators.</li>
+            <li><strong>State management:</strong> Add a title screen, pause menu, game over screen, and high score table using a state machine pattern. Each state has its own update and render function, and the game loop delegates to the active state.</li>
+            <li><strong>Audio:</strong> The Web Audio API handles sound effects and music. Load audio files with <code>new Audio('sound.mp3')</code> for simple effects, or use the AudioContext API for precise timing and effects processing.</li>
+            <li><strong>Mobile support:</strong> Add touch controls with <code>touchstart</code>, <code>touchmove</code>, and <code>touchend</code> events. Render virtual buttons on the canvas. Resize the canvas to fill the screen with <code>window.innerWidth</code> and <code>window.innerHeight</code>.</li>
+            <li><strong>WebGL shaders:</strong> For advanced visual effects that the 2D Canvas API cannot handle, transition to WebGL rendering. Our <a href="https://baguette.art/articles/building-your-first-browser-game-2026.html">browser game building guide</a> covers framework options including Three.js for 3D.</li>
+        </ul>
+
+        <p>The platformer code in this tutorial is under 150 lines. A complete game with multiple levels, enemies, animations, and a scoring system might be 500 to 1,000 lines. That is remarkably compact for a fully functional game, and it is one of the reasons vanilla Canvas remains a compelling choice. No dependencies to manage, no build system to configure, no framework updates to track. Just JavaScript and pixels.</p>
+
+    </article>
+</body>
+</html>

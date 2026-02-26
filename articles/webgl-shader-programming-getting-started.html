@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGL Shader Programming: Getting Started with GLSL for Beginners</title>
+    <meta name="description" content="Learn WebGL shader programming from scratch. Covers vertex and fragment shaders, GLSL basics, uniforms, varyings, and your first visual effects.">
+    <meta name="author" content="Baguette Tools">
+    <meta property="og:title" content="WebGL Shader Programming: Getting Started with GLSL for Beginners">
+    <meta property="og:description" content="A practical introduction to WebGL shader programming covering GLSL syntax, vertex and fragment shaders, uniforms, and building your first shader effects.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://baguette.art/articles/webgl-shader-programming-getting-started.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "WebGL Shader Programming: Getting Started with GLSL for Beginners",
+        "description": "A beginner-friendly guide to WebGL shader programming covering GLSL syntax, the graphics pipeline, vertex and fragment shaders, uniforms, varyings, and practical shader effects with code examples.",
+        "datePublished": "2026-02-26T12:00:00Z",
+        "dateModified": "2026-02-26T12:00:00Z",
+        "author": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://baguette.art/articles/webgl-shader-programming-getting-started.html"
+        },
+        "keywords": ["webgl shader tutorial", "GLSL shader beginner", "fragment shader", "vertex shader", "WebGL programming", "shader effects"],
+        "mentions": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Shader Machine",
+                "url": "https://baguette.art/shadermachine/",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web Browser",
+                "description": "Browser-based GLSL shader editor and experimentation tool"
+            }
+        ]
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .article-meta {
+            color: #6b6b6b;
+            font-size: 0.85em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        h2 {
+            font-size: 1.4em;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #292929;
+        }
+        a {
+            color: #1a8917;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        blockquote {
+            border-left: 3px solid #1a8917;
+            padding-left: 20px;
+            margin: 28px 0;
+            color: #555;
+            font-style: italic;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0 28px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>WebGL Shader Programming: Getting Started with GLSL</h1>
+        <div class="article-meta">
+            Baguette Tools &middot; February 2026 &middot; 14 min read
+            <br>
+            <span class="tag">WebGL</span>
+            <span class="tag">GLSL</span>
+            <span class="tag">Shaders</span>
+            <span class="tag">Graphics Programming</span>
+        </div>
+
+        <p>Shaders are the programs that run on your GPU and determine how every pixel on screen is colored. They are behind every visual effect you see in modern games and web graphics: lighting, shadows, reflections, distortions, post-processing, and procedural textures. If you have ever wondered how websites create those mesmerizing animated backgrounds or how games render realistic water, the answer is shaders.</p>
+
+        <p>WebGL brings GPU-accelerated shader programming to the browser with zero plugins. You write shaders in GLSL (OpenGL Shading Language), a C-like language that runs massively parallel on the GPU. This guide starts from scratch and takes you through the fundamentals you need to write your first shader effects.</p>
+
+        <h2>What Are Shaders?</h2>
+
+        <p>A shader is a small program that runs on the graphics processing unit (GPU) instead of the CPU. The GPU is designed to execute the same operation on thousands of data points simultaneously. A shader tells the GPU what to do with each vertex and each pixel in parallel.</p>
+
+        <p>This parallelism is why shaders are fast. Your CPU processes instructions sequentially. Your GPU runs the same shader code on every pixel of a 1920x1080 screen simultaneously, which is over two million executions per frame. At 60 frames per second, that is 124 million shader executions per second. No amount of CPU optimization can match that throughput for pixel-level operations.</p>
+
+        <h3>The Graphics Pipeline</h3>
+
+        <p>WebGL uses a two-stage programmable pipeline. You write two shaders that work together:</p>
+
+        <ol>
+            <li><strong>Vertex Shader:</strong> Runs once per vertex. Takes vertex positions, applies transformations (scale, rotate, translate, project), and passes data to the fragment shader. Input: 3D vertex coordinates. Output: 2D screen coordinates.</li>
+            <li><strong>Fragment Shader:</strong> Runs once per pixel (fragment) inside a rendered shape. Determines the final color of each pixel. Input: interpolated data from the vertex shader. Output: an RGBA color value.</li>
+        </ol>
+
+        <p>Between these two stages, the GPU rasterizes the geometry, determining which pixels fall inside each triangle. For each of those pixels, it runs your fragment shader. This is where most of the visual magic happens.</p>
+
+        <h2>GLSL Basics</h2>
+
+        <p>GLSL looks like C but with built-in types for vectors, matrices, and texture operations. Here are the fundamentals you need before writing your first shader.</p>
+
+        <h3>Data Types</h3>
+
+<pre><code>// Scalars
+float x = 1.0;       // Always use .0 for floats
+int count = 5;
+bool active = true;
+
+// Vectors (2, 3, or 4 components)
+vec2 position = vec2(0.5, 0.3);
+vec3 color = vec3(1.0, 0.0, 0.0);    // Red
+vec4 rgba = vec4(1.0, 0.0, 0.0, 1.0); // Red, full opacity
+
+// Swizzling: access components by name
+float r = color.r;       // 1.0
+vec2 xy = rgba.xy;        // vec2(1.0, 0.0)
+vec3 bgr = color.bgr;    // vec3(0.0, 0.0, 1.0) - reversed!
+
+// Matrices
+mat2 rotation2D;
+mat3 normalMatrix;
+mat4 modelViewProjection;</code></pre>
+
+        <p>Swizzling is one of GLSL's most useful features. You can access vector components using <code>.xyzw</code>, <code>.rgba</code>, or <code>.stpq</code> notation, and you can rearrange them freely. <code>color.rrr</code> creates a <code>vec3</code> where all three components are the red channel value, which is a quick way to visualize a single channel as grayscale.</p>
+
+        <h3>Built-in Functions</h3>
+
+        <p>GLSL provides dozens of mathematical functions that run efficiently on the GPU. The most commonly used in shader effects:</p>
+
+<pre><code>// Interpolation
+mix(a, b, t)          // Linear interpolation: a*(1-t) + b*t
+smoothstep(e0, e1, x) // Smooth Hermite interpolation between 0 and 1
+step(edge, x)         // Returns 0.0 if x < edge, else 1.0
+clamp(x, min, max)    // Constrains x between min and max
+
+// Trigonometry
+sin(x), cos(x), tan(x)
+atan(y, x)            // Two-argument arctangent
+
+// Geometry
+length(v)             // Vector length
+distance(a, b)        // Distance between two points
+normalize(v)          // Unit vector in same direction
+dot(a, b)             // Dot product
+cross(a, b)           // Cross product (vec3 only)
+reflect(I, N)         // Reflection vector
+
+// Math
+abs(x), floor(x), ceil(x), fract(x)
+mod(x, y)             // Modulo
+pow(x, y)             // Power
+sqrt(x)               // Square root
+min(a, b), max(a, b)</code></pre>
+
+        <h3>Qualifiers: Uniforms and Varyings</h3>
+
+        <p>Shaders need to receive data from your JavaScript code and pass data between stages. GLSL uses qualifier keywords for this:</p>
+
+        <ul>
+            <li><strong><code>uniform</code>:</strong> A value sent from JavaScript that stays constant for all vertices and fragments in a single draw call. Use for time, resolution, mouse position, textures, and transformation matrices.</li>
+            <li><strong><code>attribute</code> (vertex shader only):</strong> Per-vertex input data like position, normal, and texture coordinates. In WebGL 2, these are called <code>in</code> variables.</li>
+            <li><strong><code>varying</code>:</strong> Data passed from the vertex shader to the fragment shader. The GPU automatically interpolates these values across the surface of each triangle. In WebGL 2, use <code>out</code> in the vertex shader and <code>in</code> in the fragment shader.</li>
+        </ul>
+
+<pre><code>// Vertex Shader
+attribute vec3 aPosition;     // Per-vertex position from JavaScript
+uniform mat4 uModelViewProj;  // Transformation matrix from JavaScript
+varying vec2 vUV;             // Passed to fragment shader
+
+void main() {
+    vUV = aPosition.xy * 0.5 + 0.5;  // Map -1..1 to 0..1
+    gl_Position = uModelViewProj * vec4(aPosition, 1.0);
+}
+
+// Fragment Shader
+precision mediump float;
+varying vec2 vUV;             // Received from vertex shader (interpolated)
+uniform float uTime;          // Time in seconds from JavaScript
+
+void main() {
+    vec3 color = vec3(vUV.x, vUV.y, sin(uTime) * 0.5 + 0.5);
+    gl_FragColor = vec4(color, 1.0);
+}</code></pre>
+
+        <h2>Your First Shader Effect</h2>
+
+        <p>Let us build a complete working example: a full-screen animated gradient. This is the standard starting point for shader programming because it demonstrates the pipeline without geometric complexity.</p>
+
+        <h3>The JavaScript Setup</h3>
+
+        <p>WebGL requires boilerplate to compile shaders, create buffers, and set up the rendering context. Here is the minimal setup for a full-screen shader:</p>
+
+<pre><code>const canvas = document.getElementById('glCanvas');
+const gl = canvas.getContext('webgl');
+
+// Full-screen quad (two triangles covering the viewport)
+const vertices = new Float32Array([
+    -1, -1,   1, -1,   -1, 1,
+    -1,  1,   1, -1,    1, 1
+]);
+
+// Create buffer
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+// Compile shader function
+function compileShader(gl, source, type) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error(gl.getShaderInfoLog(shader));
+        return null;
+    }
+    return shader;
+}
+
+// Create program
+const vertShader = compileShader(gl, vertexSource, gl.VERTEX_SHADER);
+const fragShader = compileShader(gl, fragmentSource, gl.FRAGMENT_SHADER);
+const program = gl.createProgram();
+gl.attachShader(program, vertShader);
+gl.attachShader(program, fragShader);
+gl.linkProgram(program);
+gl.useProgram(program);
+
+// Set up attribute
+const posLoc = gl.getAttribLocation(program, 'aPosition');
+gl.enableVertexAttribArray(posLoc);
+gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+// Get uniform locations
+const timeLoc = gl.getUniformLocation(program, 'uTime');
+const resLoc = gl.getUniformLocation(program, 'uResolution');
+
+// Render loop
+function render(time) {
+    time *= 0.001; // Convert to seconds
+    gl.uniform1f(timeLoc, time);
+    gl.uniform2f(resLoc, canvas.width, canvas.height);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+}
+requestAnimationFrame(render);</code></pre>
+
+        <h3>The Vertex Shader</h3>
+
+<pre><code>attribute vec2 aPosition;
+varying vec2 vUV;
+
+void main() {
+    vUV = aPosition * 0.5 + 0.5; // Map from -1..1 to 0..1
+    gl_Position = vec4(aPosition, 0.0, 1.0);
+}</code></pre>
+
+        <p>This is as simple as a vertex shader gets. It passes through the vertex position and computes a UV coordinate for the fragment shader. The UV coordinate maps the screen from (0,0) at bottom-left to (1,1) at top-right.</p>
+
+        <h3>The Fragment Shader</h3>
+
+<pre><code>precision mediump float;
+varying vec2 vUV;
+uniform float uTime;
+uniform vec2 uResolution;
+
+void main() {
+    // Correct for aspect ratio
+    vec2 uv = vUV;
+    uv.x *= uResolution.x / uResolution.y;
+
+    // Animated color gradient
+    float r = sin(uv.x * 3.0 + uTime) * 0.5 + 0.5;
+    float g = sin(uv.y * 3.0 + uTime * 1.3) * 0.5 + 0.5;
+    float b = sin((uv.x + uv.y) * 2.0 + uTime * 0.7) * 0.5 + 0.5;
+
+    gl_FragColor = vec4(r, g, b, 1.0);
+}</code></pre>
+
+        <p>This fragment shader produces a smoothly animated color field. The <code>sin</code> functions create oscillating values, and the different frequencies and time multipliers ensure the three color channels move independently, creating a constantly shifting palette.</p>
+
+        <h2>Common Shader Patterns</h2>
+
+        <h3>Distance Fields</h3>
+
+        <p>Signed Distance Fields (SDFs) are the foundation of many 2D shader effects. An SDF function returns the distance from any point to a shape's surface. Negative values are inside the shape, positive values are outside.</p>
+
+<pre><code>// Circle SDF
+float sdCircle(vec2 p, float r) {
+    return length(p) - r;
+}
+
+// Box SDF
+float sdBox(vec2 p, vec2 size) {
+    vec2 d = abs(p) - size;
+    return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
+}
+
+// Usage in fragment shader
+void main() {
+    vec2 uv = vUV * 2.0 - 1.0;  // Center: map 0..1 to -1..1
+    float d = sdCircle(uv, 0.5);
+
+    // Sharp edge
+    float shape = step(0.0, -d);
+
+    // Soft edge (anti-aliased)
+    float soft = smoothstep(0.01, -0.01, d);
+
+    gl_FragColor = vec4(vec3(soft), 1.0);
+}</code></pre>
+
+        <p>SDFs are powerful because you can combine them with boolean operations (union, intersection, subtraction) and add effects like outlines and glows simply by checking different distance thresholds.</p>
+
+        <h3>Procedural Noise</h3>
+
+        <p>Since GLSL does not have a built-in noise function in WebGL 1, you often implement your own hash-based noise:</p>
+
+<pre><code>// Simple hash-based noise
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f); // Smoothstep curve
+
+    float a = hash(i);
+    float b = hash(i + vec2(1.0, 0.0));
+    float c = hash(i + vec2(0.0, 1.0));
+    float d = hash(i + vec2(1.0, 1.0));
+
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}</code></pre>
+
+        <p>With this noise function you can create clouds, fire, water caustics, terrain textures, and any effect that needs organic-looking variation.</p>
+
+        <h2>Tools for Experimenting</h2>
+
+        <h3>Shader Machine</h3>
+
+        <p>If you want to experiment with GLSL shaders without writing all the WebGL boilerplate, <a href="https://baguette.art/shadermachine/">Shader Machine</a> provides a browser-based editor where you write only the fragment shader and see results in real time. It handles the canvas setup, vertex shader, and uniform passing so you can focus on the creative code. This is the fastest way to iterate on shader ideas.</p>
+
+        <h3>ShaderToy</h3>
+
+        <p>ShaderToy is the largest community for shader art, with thousands of published shaders you can read, modify, and learn from. The key difference from a standalone WebGL setup is that ShaderToy provides several built-in uniforms (<code>iTime</code>, <code>iResolution</code>, <code>iMouse</code>) and uses <code>mainImage(out vec4 fragColor, in vec2 fragCoord)</code> as the entry point instead of <code>gl_FragColor</code>. The GLSL itself is the same.</p>
+
+        <p>ShaderToy is excellent for learning techniques from experienced shader programmers. Browse the "new" tab, find an effect you like, read the code, and modify it. Shader code is typically short enough that you can understand an entire effect in one sitting.</p>
+
+        <h3>VS Code Extensions</h3>
+
+        <p>If you prefer working in your editor, the "Shader languages support" extension provides GLSL syntax highlighting, and "glsl-canvas" gives you a live preview pane. This setup is closer to a production workflow where your shaders are separate <code>.glsl</code> files loaded by your application.</p>
+
+        <h2>Common Mistakes</h2>
+
+        <p><strong>Integer division.</strong> In GLSL, <code>1/2</code> is integer division and returns <code>0</code>, not <code>0.5</code>. Always use <code>1.0/2.0</code> for float division. This is the most common bug for developers coming from JavaScript where number types are implicit.</p>
+
+        <p><strong>Missing precision qualifier.</strong> Fragment shaders in WebGL 1 require a precision statement: <code>precision mediump float;</code> at the top. Without it, the shader will not compile on mobile devices. Use <code>mediump</code> unless you have a specific reason to need <code>highp</code>.</p>
+
+        <p><strong>Branching performance.</strong> GPUs run shader instances in lock-step groups (warps/wavefronts). An <code>if</code> statement that evaluates differently across pixels forces both branches to execute. Prefer mathematical alternatives: use <code>step()</code> instead of <code>if</code>, <code>mix()</code> instead of conditional assignment, and <code>clamp()</code> instead of min/max chains.</p>
+
+        <p><strong>Forgetting to normalize.</strong> Direction vectors must be normalized before use in dot products and reflections. A non-unit vector in a lighting calculation produces incorrect intensity values. Always call <code>normalize()</code> on direction vectors.</p>
+
+        <h2>From Shaders to Games</h2>
+
+        <p>Shaders are not just for abstract art. In game development, shaders handle lighting, shadows, particle effects, post-processing (bloom, blur, color grading), and UI effects. If you are building browser games, even simple ones using the Canvas 2D API, understanding shaders opens up a performance tier that CPU rendering cannot match.</p>
+
+        <p>For a practical walkthrough of building browser games with the Canvas API and game loops, see our <a href="https://baguette.art/articles/building-your-first-browser-game-2026.html">guide to building your first browser game</a>. Once you have a game running on Canvas 2D, migrating the rendering to WebGL with custom shaders is the natural next step for adding visual polish.</p>
+
+        <p>The shader programming learning curve is steep at first because the mental model is different from sequential programming. You are not telling the computer what to do step by step. You are defining a function that runs independently for every pixel, with no knowledge of what neighboring pixels are doing. Once that mental shift clicks, shaders become one of the most rewarding areas of programming because the feedback loop is immediate and visual. Write code, see pixels change, iterate.</p>
+
+    </article>
+</body>
+</html>

@@ -6,6 +6,11 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://baguette.art/articles/</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://baguette.art/SpaceCraftAI/spacecraftai.html</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
@@ -26,12 +31,169 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://baguette.art/articles/</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <loc>https://baguette.art/articles/best-crt-alternatives-for-retro-gaming-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://baguette.art/articles/best-free-browser-tools-for-indie-game-developers.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/best-free-tools-for-remote-workers-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/best-free-tools-for-teachers-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/best-retro-gaming-controllers-for-modern-pcs-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/browser-tools-vs-desktop-apps-which-should-you-use.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/building-your-first-browser-game-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/canva-alternatives-free-design-tools-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/color-theory-for-web-developers-practical-guide.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/docusign-alternatives-free-esignature-tools.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/ecosystem-simulation-guide-for-educators-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/essential-browser-bookmarks-every-student-needs.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/free-color-palette-generators-compared-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/free-document-signing-tools-no-signup-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/free-maze-generator-tools-for-game-designers.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/gameboy-color-buying-guide-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/github-pages-portfolio-seo-guide-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/how-to-crop-images-online-without-photoshop.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/how-to-reduce-software-subscription-costs-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/how-to-spot-fake-retro-game-cartridges.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/how-to-test-game-controller-drift-complete-guide.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/javascript-canvas-game-development-basics.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/n64-collecting-beginners-guide-2026.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/photoshop-alternatives-that-run-in-your-browser.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/privacy-first-browser-tools-no-account-required.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/procedural-generation-techniques-for-beginners.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/retro-game-console-restoration-tips.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://baguette.art/articles/snes-vs-genesis-which-retro-console-to-collect.html</loc>
     <lastmod>2026-02-26</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
@@ -51,77 +213,11 @@
   <url>
     <loc>https://baguette.art/articles/ultimate-guide-n64-controller-maintenance-2026.html</loc>
     <lastmod>2026-02-26</lastmod>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/how-to-test-game-controller-drift-complete-guide.html</loc>
-    <lastmod>2026-02-26</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://baguette.art/articles/best-retro-gaming-controllers-for-modern-pcs-2026.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/n64-collecting-beginners-guide-2026.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/retro-game-console-restoration-tips.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/free-color-palette-generators-compared-2026.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/free-document-signing-tools-no-signup-2026.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/browser-tools-vs-desktop-apps-which-should-you-use.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/free-maze-generator-tools-for-game-designers.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/ecosystem-simulation-guide-for-educators-2026.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/how-to-crop-images-online-without-photoshop.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/building-your-first-browser-game-2026.html</loc>
-    <lastmod>2026-02-26</lastmod>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://baguette.art/articles/color-theory-for-web-developers-practical-guide.html</loc>
+    <loc>https://baguette.art/articles/webgl-shader-programming-getting-started.html</loc>
     <lastmod>2026-02-26</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>

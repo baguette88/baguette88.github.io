@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code</title>
+    <meta name="description" content="Learn procedural generation from scratch. Covers cellular automata, noise functions, L-systems, and wave function collapse with pseudocode examples.">
+    <meta name="author" content="Baguette Tools">
+    <meta property="og:title" content="Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code">
+    <meta property="og:description" content="A practical beginner guide to procedural generation covering core algorithms, game applications, and step-by-step pseudocode examples.">
+    <meta property="og:type" content="article">
+    <link rel="canonical" href="https://baguette.art/articles/procedural-generation-techniques-for-beginners.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Procedural Generation Techniques for Beginners: Algorithms, Applications, and Code",
+        "description": "A comprehensive beginner guide to procedural generation covering cellular automata, Perlin noise, L-systems, wave function collapse, and practical game applications with pseudocode examples.",
+        "datePublished": "2026-02-26T12:00:00Z",
+        "dateModified": "2026-02-26T12:00:00Z",
+        "author": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Baguette Tools",
+            "url": "https://baguette.art"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://baguette.art/articles/procedural-generation-techniques-for-beginners.html"
+        },
+        "keywords": ["procedural generation tutorial", "procedural generation beginner guide", "cellular automata game", "Perlin noise terrain", "wave function collapse", "L-systems"],
+        "mentions": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "LazyMaze",
+                "url": "https://lazymaze.netlify.app",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web Browser",
+                "description": "Browser-based procedural maze generator for game designers"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "EcoSim",
+                "url": "https://ecosim.netlify.app",
+                "applicationCategory": "EducationalApplication",
+                "operatingSystem": "Web Browser",
+                "description": "Browser-based ecosystem simulation demonstrating emergent procedural behavior"
+            }
+        ]
+    }
+    </script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+        article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .article-meta {
+            color: #6b6b6b;
+            font-size: 0.85em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        h2 {
+            font-size: 1.4em;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 1.15em;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #292929;
+        }
+        a {
+            color: #1a8917;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 28px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        blockquote {
+            border-left: 3px solid #1a8917;
+            padding-left: 20px;
+            margin: 28px 0;
+            color: #555;
+            font-style: italic;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0 28px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>Procedural Generation Techniques for Beginners</h1>
+        <div class="article-meta">
+            Baguette Tools &middot; February 2026 &middot; 13 min read
+            <br>
+            <span class="tag">Game Dev</span>
+            <span class="tag">Algorithms</span>
+            <span class="tag">Procedural Generation</span>
+            <span class="tag">Tutorial</span>
+        </div>
+
+        <p>Every time you start a new world in Minecraft, the terrain is different. Every run in Spelunky puts you in a dungeon you have never seen before. Every galaxy in No Man's Sky is unique. None of this content was designed by a human artist sitting at a desk. It was all generated by algorithms at runtime. That is procedural generation, and it is one of the most powerful techniques in game development.</p>
+
+        <p>This guide covers the core algorithms behind procedural generation, explains when to use each one, and provides pseudocode you can translate into any language. Whether you are building a roguelike, a terrain simulator, or just want to understand how these systems work, this is where to start.</p>
+
+        <h2>What Is Procedural Generation?</h2>
+
+        <p>Procedural generation is the creation of content through algorithms rather than manual design. Instead of placing every tree, wall, and enemy by hand, you write rules that produce content automatically. The output can be deterministic (same seed produces same result) or stochastic (randomized each time).</p>
+
+        <p>The key advantages are scale and replayability. A single developer cannot hand-design a million unique levels, but an algorithm can generate them in milliseconds. Players get a fresh experience each session, which is why procedural generation dominates the roguelike genre and has become standard in survival and sandbox games.</p>
+
+        <p>Procedural generation is not limited to level design. It is used for terrain, textures, music, dialogue, enemy behavior, item stats, quests, and even entire ecosystems. Tools like <a href="https://ecosim.netlify.app">EcoSim</a> demonstrate how simple rules can produce complex emergent behavior in simulated populations, an application of procedural thinking applied to biology rather than architecture.</p>
+
+        <h2>Core Algorithms</h2>
+
+        <p>There are four foundational algorithms that cover the majority of procedural generation use cases in games. Each has a different strength, and understanding all four lets you pick the right tool for any content type.</p>
+
+        <h3>1. Cellular Automata</h3>
+
+        <p>Cellular automata operate on a grid where each cell has a state (alive or dead, wall or floor). Each step, every cell updates its state based on the states of its neighbors. The classic example is Conway's Game of Life, but the game development application is cave generation.</p>
+
+        <p>The algorithm is simple. Start with a grid where each cell has a random chance (typically 45-55%) of being a wall. Then run several iterations where each cell counts its wall neighbors in a 3x3 area. If a cell has more than 4 wall neighbors, it becomes a wall. Otherwise, it becomes floor.</p>
+
+<pre><code>// Cellular Automata Cave Generation
+function generateCave(width, height, fillChance, iterations):
+    grid = new Grid(width, height)
+
+    // Step 1: Random fill
+    for each cell in grid:
+        cell.isWall = random() < fillChance
+
+    // Step 2: Smooth with neighbor rules
+    repeat iterations times:
+        newGrid = copy(grid)
+        for each cell at (x, y) in grid:
+            wallCount = countWallNeighbors(grid, x, y)
+            if wallCount > 4:
+                newGrid[x][y].isWall = true
+            else if wallCount < 4:
+                newGrid[x][y].isWall = false
+        grid = newGrid
+
+    return grid
+
+function countWallNeighbors(grid, x, y):
+    count = 0
+    for dx from -1 to 1:
+        for dy from -1 to 1:
+            if dx == 0 and dy == 0: continue
+            nx, ny = x + dx, y + dy
+            if outOfBounds(nx, ny) or grid[nx][ny].isWall:
+                count += 1
+    return count</code></pre>
+
+        <p>After 4 to 6 iterations, the random noise transforms into organic-looking cave systems with smooth walls and open chambers. The result feels natural because the smoothing rule mimics erosion. Adjusting the fill chance and iteration count gives you control over how dense or open the caves are.</p>
+
+        <p>Cellular automata are ideal for organic shapes: caves, islands, forest density maps, and terrain erosion. They are not suited for structured content like buildings or corridors because the output is inherently blobby.</p>
+
+        <h3>2. Noise Functions (Perlin and Simplex)</h3>
+
+        <p>Noise functions generate smooth, continuous random values across a coordinate space. Unlike pure random numbers which jump erratically between values, noise functions produce gradients where nearby coordinates have similar values. This smoothness is what makes them useful for terrain.</p>
+
+        <p>Perlin noise (created by Ken Perlin in 1983 for the film Tron) and its successor Simplex noise are the workhorses of terrain generation. The basic idea is to sample the noise function at each point on your grid, and use the returned value (typically between -1 and 1) to determine height, biome, moisture, or any other continuous property.</p>
+
+<pre><code>// Terrain Generation with Layered Noise
+function generateTerrain(width, height):
+    heightMap = new Grid(width, height)
+
+    for x from 0 to width:
+        for y from 0 to height:
+            // Layer multiple octaves for detail
+            elevation  = noise(x * 0.01, y * 0.01) * 1.0    // Large features
+            elevation += noise(x * 0.05, y * 0.05) * 0.5    // Medium detail
+            elevation += noise(x * 0.10, y * 0.10) * 0.25   // Fine detail
+
+            // Normalize to 0-1 range
+            heightMap[x][y] = (elevation + 1.75) / 3.5
+
+    return heightMap
+
+function assignBiome(elevation, moisture):
+    if elevation < 0.3: return "water"
+    if elevation < 0.35: return "beach"
+    if elevation > 0.8: return "mountain"
+    if moisture > 0.6: return "forest"
+    if moisture < 0.3: return "desert"
+    return "grassland"</code></pre>
+
+        <p>The layering technique (called octaves or fractal noise) is the key insight. A single noise sample produces bland rolling hills. Layering multiple samples at different frequencies and amplitudes creates realistic terrain with both large-scale features like mountain ranges and small-scale features like rocky outcrops.</p>
+
+        <p>Noise is deterministic for a given seed, which means you can regenerate the same world from a seed number. This is how Minecraft worlds work: the seed controls every noise sample, so sharing a seed shares the entire world.</p>
+
+        <h3>3. L-Systems</h3>
+
+        <p>L-systems (Lindenmayer systems) are string-rewriting grammars originally developed to model plant growth. You start with an axiom string and apply rewriting rules iteratively. The resulting string is then interpreted as drawing commands.</p>
+
+<pre><code>// L-System Tree Generation
+axiom = "F"
+rules:
+    F -> "F[+F]F[-F]F"
+
+// Interpretation:
+// F = draw forward
+// + = turn right by angle
+// - = turn left by angle
+// [ = save position and angle (push stack)
+// ] = restore position and angle (pop stack)
+
+function generateTree(iterations, angle):
+    current = axiom
+    repeat iterations times:
+        next = ""
+        for each char in current:
+            if char in rules:
+                next += rules[char]
+            else:
+                next += char
+        current = next
+
+    // Now interpret the string as turtle graphics
+    drawLSystem(current, angle)</code></pre>
+
+        <p>With just 3 iterations of the rule above, you get a branching structure that looks like a bush. With 5 iterations, it resembles a full tree. Different rules and angles produce wildly different plant types: ferns, flowers, coral, lightning bolts, river networks.</p>
+
+        <p>L-systems excel at anything with recursive branching structure. They are less useful for terrain or room layouts because their output is inherently tree-shaped (pun intended). In games, they are most commonly used for vegetation, but they also work for dungeon corridor networks and even city street layouts when combined with other techniques.</p>
+
+        <h3>4. Wave Function Collapse</h3>
+
+        <p>Wave Function Collapse (WFC) is the newest of these four algorithms, published by Maxim Gumin in 2016. It works by observing patterns in a sample input and generating new output that follows the same local rules. Think of it as a constraint solver for tile placement.</p>
+
+        <p>The algorithm starts with a grid where every cell can be any tile (maximum entropy). It then repeatedly selects the cell with the lowest entropy (fewest remaining options), collapses it to a specific tile, and propagates constraints to neighboring cells. If a contradiction occurs (a cell has zero valid options), it backtracks.</p>
+
+<pre><code>// Wave Function Collapse (Simplified)
+function waveFunctionCollapse(width, height, tileRules):
+    // Initialize: every cell can be any tile
+    grid = new Grid(width, height)
+    for each cell in grid:
+        cell.possibleTiles = allTiles.copy()
+
+    while any cell has multiple possibilities:
+        // Find the cell with fewest options (lowest entropy)
+        cell = findLowestEntropy(grid)
+
+        // Collapse: pick one tile (weighted random)
+        chosen = weightedRandom(cell.possibleTiles)
+        cell.possibleTiles = [chosen]
+
+        // Propagate constraints to neighbors
+        propagate(grid, cell, tileRules)
+
+    return grid
+
+function propagate(grid, startCell, rules):
+    stack = [startCell]
+    while stack is not empty:
+        cell = stack.pop()
+        for each neighbor of cell:
+            // Remove tiles that conflict with cell's possibilities
+            changed = false
+            for tile in neighbor.possibleTiles:
+                if not compatible(cell.possibleTiles, tile, direction):
+                    neighbor.possibleTiles.remove(tile)
+                    changed = true
+            if changed:
+                stack.push(neighbor)</code></pre>
+
+        <p>WFC produces output that respects adjacency constraints, making it perfect for tile-based games. It generates maps that look hand-designed because the tile relationships are derived from actual designs. It is used in production games like Townscaper and Bad North for level generation.</p>
+
+        <p>The downside is complexity. WFC requires well-defined tile adjacency rules (which tiles can sit next to which), and the backtracking can be slow on large grids. For beginners, it is the hardest of the four algorithms to implement from scratch.</p>
+
+        <h2>Applications in Games</h2>
+
+        <h3>Terrain Generation</h3>
+
+        <p>Noise functions are the standard for terrain. Layer Perlin or Simplex noise for elevation, use a separate noise field for moisture, and combine them through a biome lookup table. Add erosion simulation (hydraulic or thermal) for realistic valleys and ridges. This is the pipeline used by most open-world survival games.</p>
+
+        <h3>Dungeon and Level Generation</h3>
+
+        <p>Dungeons typically use a hybrid approach. Binary Space Partitioning (BSP) divides the space into rooms, then corridors connect them. Alternatively, cellular automata create organic caves, and graph algorithms ensure connectivity. The roguelike community has decades of research on this problem, and most approaches combine multiple algorithms.</p>
+
+        <h3>Maze Generation</h3>
+
+        <p>Maze generation is the most accessible entry point for learning procedural generation. Algorithms like Depth-First Search, Prim's, and Kruskal's each produce mazes with different characteristics: long winding corridors, many short branches, or uniform distribution of dead ends.</p>
+
+        <p>If you want to experiment with maze generation without writing code first, <a href="https://lazymaze.netlify.app">LazyMaze</a> lets you generate and customize mazes directly in the browser. It is a useful reference for seeing how different parameters affect the output before you implement your own generator. For a deeper look at the algorithms behind maze generators, see our <a href="https://baguette.art/articles/free-maze-generator-tools-for-game-designers.html">guide to maze generator tools and algorithms</a>.</p>
+
+        <h3>Ecosystem Simulation</h3>
+
+        <p>Procedural generation is not just about static content. When you define rules for entity behavior, birth, death, feeding, and movement, you get emergent simulation. An ecosystem simulator does not manually script what happens. It defines the rules and lets the system evolve.</p>
+
+        <p>Predator-prey dynamics, resource competition, and mutation are all emergent properties that arise from simple per-entity rules. This is procedural generation applied to behavior rather than geometry, and the results can be surprisingly lifelike. <a href="https://ecosim.netlify.app">EcoSim</a> demonstrates this approach with populations of organisms that eat, reproduce, and die based on local conditions.</p>
+
+        <h2>Choosing the Right Algorithm</h2>
+
+        <p>Here is a practical decision framework:</p>
+
+        <ul>
+            <li><strong>Organic shapes</strong> (caves, islands, clouds): Cellular automata</li>
+            <li><strong>Continuous terrain</strong> (heightmaps, moisture, temperature): Noise functions</li>
+            <li><strong>Branching structures</strong> (trees, rivers, lightning, veins): L-systems</li>
+            <li><strong>Tile-based layouts</strong> (rooms, city blocks, platformer levels): Wave Function Collapse</li>
+            <li><strong>Mazes and corridors</strong>: Graph algorithms (DFS, Prim's, Kruskal's)</li>
+            <li><strong>Emergent behavior</strong> (ecosystems, economies, traffic): Agent-based simulation</li>
+        </ul>
+
+        <p>Most real games combine multiple techniques. A dungeon might use BSP for room placement, cellular automata for cave sections, noise for decorating surfaces, and L-systems for underground vegetation. The algorithms are building blocks, not complete solutions.</p>
+
+        <h2>Getting Started: Your First Procedural Generator</h2>
+
+        <p>If you have never written a procedural generator before, start with maze generation. It is the simplest to implement, produces visually satisfying results immediately, and teaches the core concept of algorithmic content creation.</p>
+
+        <p>Here is a minimal Depth-First Search maze generator:</p>
+
+<pre><code>// DFS Maze Generator
+function generateMaze(width, height):
+    grid = new Grid(width, height)
+    // All walls up initially
+    for each cell in grid:
+        cell.walls = {north: true, south: true, east: true, west: true}
+        cell.visited = false
+
+    stack = []
+    current = grid[0][0]
+    current.visited = true
+    stack.push(current)
+
+    while stack is not empty:
+        neighbors = getUnvisitedNeighbors(current)
+        if neighbors is not empty:
+            next = random(neighbors)
+            removeWallBetween(current, next)
+            next.visited = true
+            stack.push(current)
+            current = next
+        else:
+            current = stack.pop()
+
+    return grid</code></pre>
+
+        <p>This produces a perfect maze (exactly one path between any two cells) with long, winding corridors. It runs in O(n) time where n is the number of cells, so it is fast even for large grids. From here, you can experiment with different algorithms, add loops by removing random walls, or use the maze as the skeleton for a dungeon layout.</p>
+
+        <h2>Common Pitfalls</h2>
+
+        <p>A few things trip up beginners consistently:</p>
+
+        <p><strong>Not seeding your random number generator.</strong> If you want reproducible results (and you do, for debugging and for letting players share seeds), always seed your RNG. Most languages have a seed function for their built-in random module.</p>
+
+        <p><strong>Ignoring connectivity.</strong> Generated content often has disconnected regions. Always run a flood fill or union-find after generation to verify that all important areas are reachable, or add a corridor-carving step to connect components.</p>
+
+        <p><strong>Over-relying on one technique.</strong> Pure noise terrain looks like rolling hills forever. Pure cellular automata caves all feel the same. Layering techniques and adding hand-authored landmarks or special rooms makes generated content feel designed rather than random.</p>
+
+        <p><strong>Generating too much at once.</strong> Generate content as the player needs it (chunked generation), not all at startup. This keeps load times fast and memory usage bounded. Minecraft generates chunks of 16x16x256 blocks on demand, not the entire world at launch.</p>
+
+        <h2>Where to Go Next</h2>
+
+        <p>Once you have a maze generator working, try implementing cellular automata caves. Then try combining them: use the maze for corridors and cellular automata for open chambers. That combination alone is enough to build a roguelike dungeon generator.</p>
+
+        <p>For the rendering side, our <a href="https://baguette.art/articles/building-your-first-browser-game-2026.html">guide to building your first browser game</a> covers the Canvas API, game loops, and sprite rendering that you will need to visualize your procedurally generated content.</p>
+
+        <p>Procedural generation is one of those rare techniques that scales with your ambition. A weekend project can use a simple maze algorithm. A multi-year project can combine noise, WFC, L-systems, and agent simulation into a world-building pipeline. The fundamentals are the same either way: define rules, run the algorithm, and let the computer create content that no human could design by hand.</p>
+
+    </article>
+</body>
+</html>
