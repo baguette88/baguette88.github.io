@@ -1,0 +1,10 @@
+{
+  "name": "Baguette Tools",
+  "short_name": "BaguetteTools",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00d4ff",
+  "description": "Free browser tools and games for developers and designers",
+  "icons": []
+}

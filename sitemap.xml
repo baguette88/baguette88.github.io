@@ -2,46 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://baguette.art/</loc>
-    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://baguette.art/SpaceCraftAI/spacecraftai.html</loc>
+    <priority>0.8</priority>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://baguette.art/imagecropper/cropperhub.html</loc>
+    <priority>0.8</priority>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://baguette.art/DocSigner/signerhub.html</loc>
+    <priority>0.8</priority>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://baguette.art/shadermachine/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://baguette.art/articles/best-free-browser-tools-for-indie-game-developers.html</loc>
     <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://baguette.art/articles/streamline-your-design-workflow-free-tools-2026.html</loc>
     <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://baguette.art/articles/top-free-online-tools-you-didnt-know-existed.html</loc>
     <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://baguette.art/articles/ultimate-guide-n64-controller-maintenance-2026.html</loc>
     <lastmod>2026-02-26</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

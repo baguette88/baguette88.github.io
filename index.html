@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baguette's Professional Tools</title>
+    <title>Baguette Tools - Free Browser Tools for Developers &amp; Designers</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Free browser tools and games by Baguette. Image Cropper, DocSigner, Shader Machine, LazyMaze, Drift Detector, Color Thief, and more.">
     <meta name="keywords" content="baguette, web tools, image cropper, docsigner, shader machine, lazymaze, drift detector, color thief, ecosim, spacecraft ai, free online tools, browser games">
     <meta name="author" content="Baguette">
     <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="PLACEHOLDER">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://baguette.art/">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00d4ff">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://www.ebay.com">
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Baguette's Professional Tools">
+    <meta property="og:title" content="Baguette Tools - Free Browser Tools for Developers &amp; Designers">
     <meta property="og:description" content="Free browser tools and games by Baguette. Image Cropper, DocSigner, Shader Machine, LazyMaze, Drift Detector, Color Thief, and more.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://baguette.art/">
@@ -24,166 +33,148 @@
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@baguettesdoteth">
-    <meta name="twitter:title" content="Baguette's Professional Tools">
+    <meta name="twitter:title" content="Baguette Tools - Free Browser Tools for Developers &amp; Designers">
     <meta name="twitter:description" content="Free browser tools and games by Baguette. Image Cropper, DocSigner, Shader Machine, LazyMaze, Drift Detector, Color Thief, and more.">
+
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <script type="application/ld+json">
-    [
-        {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Baguette Tools",
-            "url": "https://baguette.art",
-            "description": "A portfolio of games, simulations, and web tools by Baguette.",
-            "publisher": {
-                "@id": "https://baguette.art/#organization"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": "https://baguette.art/#organization",
-            "name": "Baguette Tools",
-            "url": "https://baguette.art",
-            "sameAs": [
-                "https://x.com/baguettesdoteth"
-            ]
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Games, Sims & Tools",
-            "description": "All games, simulations, and tools available on baguette.art.",
-            "numberOfItems": 8,
-            "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "EcoSim",
-                    "description": "An interactive ecosystem simulation exploring emergent behaviors in virtual environments.",
-                    "url": "https://ecosim.netlify.app"
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": "Baguette Tools",
+                "url": "https://baguette.art/",
+                "description": "Free browser tools and games for developers and designers",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://baguette.art/?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
                 },
-                {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "SpaceCraft AI",
-                    "description": "An AI-driven space simulation game with procedural generation and intelligent agents.",
-                    "url": "https://baguette.art"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Shader Machine",
-                    "description": "Create stunning visual effects with a powerful shader programming tool.",
-                    "url": "https://baguette.art/shadermachine"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 4,
-                    "name": "Image Cropper",
-                    "description": "Easily crop and resize images with an intuitive image manipulation tool.",
-                    "url": "https://baguette.art/imagecropper"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 5,
-                    "name": "DocSigner",
-                    "description": "Securely sign and manage documents with an advanced document signing tool.",
-                    "url": "https://baguette.art/DocSigner"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 6,
-                    "name": "LazyMaze",
-                    "description": "Generate complex mazes for level design with an easy-to-use maze generator.",
-                    "url": "https://lazymaze.netlify.app"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 7,
-                    "name": "Drift Detector",
-                    "description": "Test your PS4 controller for drift issues with a comprehensive testing tool.",
-                    "url": "https://driftdetector.netlify.app"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 8,
-                    "name": "Color Thief",
-                    "description": "Extract color palettes and dominant colors from images with a powerful color analysis tool.",
-                    "url": "https://colorthief.netlify.app"
+                "publisher": {
+                    "@id": "https://baguette.art/#organization"
                 }
-            ]
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "EcoSim",
-            "url": "https://ecosim.netlify.app",
-            "applicationCategory": "GameApplication",
-            "operatingSystem": "Web",
-            "description": "An interactive ecosystem simulation exploring emergent behaviors in virtual environments.",
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
             },
-            "author": {
-                "@id": "https://baguette.art/#organization"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "LazyMaze",
-            "url": "https://lazymaze.netlify.app",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Web",
-            "description": "Generate complex mazes for level design with an easy-to-use maze generator.",
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+            {
+                "@type": "Organization",
+                "@id": "https://baguette.art/#organization",
+                "name": "Baguette Tools",
+                "url": "https://baguette.art/",
+                "sameAs": [
+                    "https://x.com/baguettesdoteth",
+                    "https://www.ebay.com/str/jbtoyz",
+                    "https://github.com/baguette88"
+                ]
             },
-            "author": {
-                "@id": "https://baguette.art/#organization"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Drift Detector",
-            "url": "https://driftdetector.netlify.app",
-            "applicationCategory": "UtilitiesApplication",
-            "operatingSystem": "Web",
-            "description": "Test your PS4 controller for drift issues with a comprehensive testing tool.",
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+            {
+                "@type": "ItemList",
+                "name": "Games, Sims & Tools",
+                "description": "All games, simulations, and tools available on baguette.art.",
+                "numberOfItems": 8,
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "EcoSim",
+                        "description": "An interactive ecosystem simulation exploring emergent behaviors.",
+                        "url": "https://ecosim.netlify.app"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "SpaceCraft AI",
+                        "description": "An AI-driven space simulation game.",
+                        "url": "https://baguette.art/SpaceCraftAI/spacecraftai.html"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Shader Machine",
+                        "description": "Create stunning visual effects with a powerful shader programming tool.",
+                        "url": "https://baguette.art/shadermachine/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 4,
+                        "name": "Image Cropper",
+                        "description": "Easily crop and resize images.",
+                        "url": "https://baguette.art/imagecropper/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 5,
+                        "name": "DocSigner",
+                        "description": "Securely sign and manage documents.",
+                        "url": "https://baguette.art/DocSigner/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 6,
+                        "name": "LazyMaze",
+                        "description": "Generate complex mazes for level design.",
+                        "url": "https://lazymaze.netlify.app/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 7,
+                        "name": "Drift Detector",
+                        "description": "Test controllers for drift issues.",
+                        "url": "https://driftdetector.netlify.app/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 8,
+                        "name": "Color Thief",
+                        "description": "Extract color palettes and dominant colors from images.",
+                        "url": "https://colorthief.netlify.app/"
+                    }
+                ]
             },
-            "author": {
-                "@id": "https://baguette.art/#organization"
-            }
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Color Thief",
-            "url": "https://colorthief.netlify.app",
-            "applicationCategory": "DesignApplication",
-            "operatingSystem": "Web",
-            "description": "Extract color palettes and dominant colors from images with a powerful color analysis tool.",
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+            {
+                "@type": "SoftwareApplication",
+                "name": "EcoSim",
+                "url": "https://ecosim.netlify.app",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                "author": { "@id": "https://baguette.art/#organization" }
             },
-            "author": {
-                "@id": "https://baguette.art/#organization"
+            {
+                "@type": "SoftwareApplication",
+                "name": "LazyMaze",
+                "url": "https://lazymaze.netlify.app",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                "author": { "@id": "https://baguette.art/#organization" }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "Drift Detector",
+                "url": "https://driftdetector.netlify.app",
+                "applicationCategory": "UtilitiesApplication",
+                "operatingSystem": "Web",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                "author": { "@id": "https://baguette.art/#organization" }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "Color Thief",
+                "url": "https://colorthief.netlify.app",
+                "applicationCategory": "DesignApplication",
+                "operatingSystem": "Web",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                "author": { "@id": "https://baguette.art/#organization" }
+            },
+            {
+                "@type": "Store",
+                "name": "JB Toyz",
+                "url": "https://www.ebay.com/str/jbtoyz",
+                "description": "Retro gaming controllers, consoles, and accessories. Specializing in N64, GameBoy, SNES, and other classic gaming hardware."
             }
-        }
-    ]
+        ]
+    }
     </script>
 </head>
 <body>
@@ -266,5 +257,22 @@
     <footer>
         <p>&copy; 2024&ndash;2026 Baguette. All rights reserved.</p>
     </footer>
+    <noscript>
+        <nav>
+            <h2>Baguette Tools - Free Browser Tools for Developers and Designers</h2>
+            <ul>
+                <li><a href="/">Baguette Tools - Home</a></li>
+                <li><a href="/imagecropper/">Image Cropper - Free Online Image Cropping Tool</a></li>
+                <li><a href="/DocSigner/">DocSigner - Free Document Signing Tool</a></li>
+                <li><a href="/shadermachine/">Shader Machine - Visual Shader Editor</a></li>
+                <li><a href="/PaintWeb/">PaintWeb - Free Online Painting Tool</a></li>
+                <li><a href="https://www.ebay.com/str/jbtoyz">JB Toyz - Retro Gaming Controllers &amp; Consoles</a></li>
+                <li><a href="/articles/best-free-browser-tools-for-indie-game-developers.html">Best Free Browser Tools for Indie Game Developers</a></li>
+                <li><a href="/articles/streamline-your-design-workflow-free-tools-2026.html">Streamline Your Design Workflow - Free Tools 2026</a></li>
+                <li><a href="/articles/top-free-online-tools-you-didnt-know-existed.html">Top Free Online Tools You Didn't Know Existed</a></li>
+                <li><a href="/articles/ultimate-guide-n64-controller-maintenance-2026.html">Ultimate Guide to N64 Controller Maintenance 2026</a></li>
+            </ul>
+        </nav>
+    </noscript>
 </body>
 </html>
