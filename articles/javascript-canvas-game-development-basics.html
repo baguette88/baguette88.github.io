@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Canvas Game Development Basics: Build Your First HTML5 Game</title>
+    <title>JavaScript Canvas Game Dev Basics (2026)</title>
     <meta name="description" content="Build a JavaScript canvas game from scratch. Covers game loops, sprite rendering, keyboard input, collision detection, and a simple platformer example.">
     <meta name="author" content="Baguette Tools">
     <meta property="og:title" content="JavaScript Canvas Game Development Basics: Build Your First HTML5 Game">
@@ -61,6 +61,38 @@
             {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://baguette.art/"},
             {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://baguette.art/articles/"},
             {"@type": "ListItem", "position": 3, "name": "JavaScript Canvas Game Development Basics"}
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I make a game using JavaScript Canvas?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Start by creating an HTML file with a canvas element, get the 2D rendering context in JavaScript, and build a game loop using requestAnimationFrame. Draw shapes or images each frame, handle keyboard or mouse input, and add collision detection. The MDN Web Docs Canvas tutorial walks through each step with working examples."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is JavaScript Canvas good for making games?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "JavaScript Canvas is excellent for 2D games and learning game development fundamentals. It handles sprite rendering, input processing, and basic physics well enough for arcade-style games. For more complex projects, frameworks like Phaser.js build on Canvas and add features like physics engines, asset loading, and scene management."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is requestAnimationFrame and why use it for games?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "requestAnimationFrame is a browser API that calls your rendering function at the display's refresh rate, typically 60 times per second. It is better than setInterval for games because it syncs with the display, pauses when the tab is not visible to save resources, and provides smoother animation with less stuttering."
+                }
+            }
         ]
     }
     </script>
