@@ -31,6 +31,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://baguette.art/retro-gaming/</loc>
+    <lastmod>2026-03-03</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://baguette.art/articles/best-crt-alternatives-for-retro-gaming-2026.html</loc>
     <lastmod>2026-02-26</lastmod>
     <priority>0.6</priority>
