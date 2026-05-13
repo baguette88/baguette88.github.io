@@ -358,7 +358,12 @@
   <div><a href="https://github.com/baguette88" target="_blank" rel="noopener">github.com/baguette88</a></div>
 </footer>
 
-<script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const TOUCH   = matchMedia('(hover: none)').matches;
 const SMALL   = matchMedia('(max-width: 800px)').matches;
@@ -400,80 +405,207 @@ document.querySelectorAll('video.hover-play').forEach(v=>{
   document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stop(); });
 });
 
-/* ---------- SHADER CANVASES: throttled, paused off-screen / tab hidden ---------- */
-const palettes = {
-  lava: [[10,4,8],[120,30,10],[255,80,20],[255,210,80]],
-  warp: [[6,8,20],[40,30,120],[120,80,220],[230,180,255]],
-  water:[[2,8,20],[10,40,90],[60,140,200],[200,240,255]],
-  pack: [[10,4,16],[100,20,140],[220,80,200],[255,220,80]],
-};
-function mix(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t)}
-function lerp3(pal,t){ const n=pal.length-1; const f=t*n; const i=Math.floor(f)%n; return mix(pal[i],pal[i+1],f-i); }
-function hash(x,y){ const s=Math.sin(x*127.1+y*311.7)*43758.5453; return s-Math.floor(s); }
-function fbm(x,y){
-  let v=0,a=.5;
-  for(let i=0;i<3;i++){ // 3 octaves (was 4) — cheaper
-    const xi=Math.floor(x), yi=Math.floor(y);
-    const xf=x-xi, yf=y-yi;
-    const u=xf*xf*(3-2*xf), w=yf*yf*(3-2*yf);
-    const a1=hash(xi,yi), b1=hash(xi+1,yi), c1=hash(xi,yi+1), d1=hash(xi+1,yi+1);
-    v += a*((a1*(1-u)+b1*u)*(1-w)+(c1*(1-u)+d1*u)*w);
-    x*=2; y*=2; a*=.5;
-  }
-  return v;
-}
-
-const RES_W = SMALL ? 64 : 96;
-const RES_H = SMALL ? 48 : 72;
-const FPS   = SMALL ? 15 : 20;
+/* ---------- SHADER CANVASES: shared three.js renderer, throttled ---------- */
+const RES_W = SMALL ? 128 : 192;
+const RES_H = SMALL ? 96  : 144;
+const FPS   = SMALL ? 20  : 30;
 const FRAME_MS = 1000 / FPS;
 
-const tickers = [];
+const VERT = /* glsl */`
+  varying vec2 vUv;
+  void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }
+`;
 
-document.querySelectorAll('canvas[data-shader]').forEach(c=>{
-  const ctx = c.getContext('2d', { alpha:false });
-  c.width = RES_W; c.height = RES_H;
-  const img = ctx.createImageData(RES_W, RES_H);
-  const pal = palettes[c.dataset.shader] || palettes.lava;
-  let t = Math.random()*100;
-  let visible = false;
+// Shared GLSL helpers
+const GLSL_COMMON = /* glsl */`
+  uniform float uTime;
+  uniform vec2  uRes;
+  varying vec2  vUv;
 
-  function drawOnce(){
-    t += 0.04;
-    const d = img.data;
-    for(let y=0;y<RES_H;y++) for(let x=0;x<RES_W;x++){
-      const u=x/RES_W*3, v=y/RES_H*3;
-      const n=fbm(u+t,v-t*0.6)*1.2;
-      const col=lerp3(pal, Math.max(0,Math.min(1,n)));
-      const i=(y*RES_W+x)*4;
-      d[i]=col[0]; d[i+1]=col[1]; d[i+2]=col[2]; d[i+3]=255;
+  float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+  float vnoise(vec2 p){
+    vec2 i = floor(p), f = fract(p);
+    float a = hash(i), b = hash(i+vec2(1,0)), c = hash(i+vec2(0,1)), d = hash(i+vec2(1,1));
+    vec2 u = f*f*(3.0-2.0*f);
+    return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+  }
+  float fbm(vec2 p){
+    float v=0.0, a=0.5;
+    for(int i=0;i<5;i++){ v += a*vnoise(p); p*=2.02; a*=0.5; }
+    return v;
+  }
+`;
+
+const FRAGS = {
+  // 1. Voronoi lava
+  lava: GLSL_COMMON + /* glsl */`
+    vec2 hash2(vec2 p){ return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453); }
+    float voro(vec2 x, float t){
+      vec2 n = floor(x), f = fract(x);
+      float md = 1.0;
+      for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++){
+        vec2 g = vec2(float(i),float(j));
+        vec2 o = hash2(n+g);
+        o = 0.5 + 0.5*sin(t + 6.2831*o);
+        vec2 r = g + o - f;
+        md = min(md, dot(r,r));
+      }
+      return md;
     }
-    ctx.putImageData(img,0,0);
+    void main(){
+      vec2 uv = vUv * 4.0;
+      uv += vec2(fbm(uv + uTime*0.15), fbm(uv - uTime*0.15)) * 0.6;
+      float v = voro(uv, uTime*0.4);
+      float crust = smoothstep(0.0, 0.6, v);
+      vec3 c1 = vec3(0.05,0.02,0.03);
+      vec3 c2 = vec3(0.6,0.12,0.04);
+      vec3 c3 = vec3(1.0,0.45,0.05);
+      vec3 c4 = vec3(1.0,0.92,0.55);
+      vec3 col = mix(c4, c3, smoothstep(0.0,0.15,v));
+      col = mix(col, c2, smoothstep(0.1,0.45,v));
+      col = mix(col, c1, smoothstep(0.45,0.95,v));
+      // bloom on cracks
+      col += c4 * pow(1.0 - crust, 6.0) * 1.4;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+
+  // 2. Domain-warped fbm flow
+  warp: GLSL_COMMON + /* glsl */`
+    void main(){
+      vec2 p = vUv * 3.0;
+      float t = uTime * 0.25;
+      vec2 q = vec2(fbm(p + t),       fbm(p + vec2(1.7,9.2) - t));
+      vec2 r = vec2(fbm(p + 3.0*q + vec2(0.0,t*1.3)),
+                    fbm(p + 3.0*q + vec2(t*1.1, 0.0)));
+      float f = fbm(p + 4.0*r);
+      vec3 c1 = vec3(0.02,0.03,0.10);
+      vec3 c2 = vec3(0.20,0.10,0.55);
+      vec3 c3 = vec3(0.55,0.30,0.95);
+      vec3 c4 = vec3(0.95,0.75,1.00);
+      vec3 col = mix(c1, c2, smoothstep(0.0,0.4,f));
+      col = mix(col, c3, smoothstep(0.35,0.7,f));
+      col = mix(col, c4, smoothstep(0.7,0.95,f));
+      col += vec3(0.2,0.1,0.4) * dot(r, r) * 0.6;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+
+  // 3. Fake volumetric water
+  water: GLSL_COMMON + /* glsl */`
+    void main(){
+      vec2 uv = vUv;
+      float t = uTime * 0.6;
+      // stacked caustic waves
+      float h = 0.0;
+      h += sin(uv.x*18.0 + t*1.3 + sin(uv.y*9.0+t)) * 0.5;
+      h += sin(uv.y*22.0 - t*0.8 + cos(uv.x*13.0-t*0.7)) * 0.5;
+      h = h * 0.5 + 0.5;
+      // depth gradient
+      float depth = pow(uv.y, 1.5);
+      vec3 shallow = vec3(0.65, 0.95, 0.90);
+      vec3 deep    = vec3(0.02, 0.10, 0.30);
+      vec3 col = mix(shallow, deep, depth);
+      // caustic highlights
+      float caustic = pow(h, 6.0);
+      col += vec3(0.7, 0.95, 1.0) * caustic * 0.9;
+      // dark crests
+      col *= 0.85 + 0.15 * sin(h*6.2831 + t);
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+
+  // 4. Pack showcase: rotating between styles
+  pack: GLSL_COMMON + /* glsl */`
+    void main(){
+      vec2 p = vUv * 3.0;
+      float t = uTime * 0.4;
+      float seg = mod(uTime * 0.15, 3.0);
+      // base: warp
+      vec2 q = vec2(fbm(p+t), fbm(p-t));
+      float w = fbm(p + 3.0*q);
+      vec3 colA = mix(vec3(0.05,0.02,0.10), vec3(1.0,0.9,0.3), w);
+      // metallic streaks
+      float s = sin((p.x+p.y)*8.0 + t*4.0 + fbm(p*2.0)*6.0)*0.5+0.5;
+      vec3 colB = mix(vec3(0.1,0.05,0.2), vec3(0.95,0.5,1.0), pow(s, 3.0));
+      // ripple
+      float r = sin(length(p-1.5)*14.0 - t*3.0)*0.5+0.5;
+      vec3 colC = mix(vec3(0.0,0.05,0.1), vec3(0.3,1.0,0.9), pow(r, 2.0));
+
+      float a = smoothstep(0.0,1.0, 1.0 - abs(seg-0.5)*2.0);
+      float b = smoothstep(0.0,1.0, 1.0 - abs(seg-1.5)*2.0);
+      float c = smoothstep(0.0,1.0, 1.0 - abs(seg-2.5)*2.0);
+      // wrap third blend so loop is seamless
+      c = max(c, smoothstep(0.0,1.0, 1.0 - abs(seg+0.5)*2.0));
+
+      vec3 col = colA*a + colB*b + colC*c;
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+};
+
+// Shared offscreen renderer
+const offscreen = document.createElement('canvas');
+offscreen.width = RES_W; offscreen.height = RES_H;
+let renderer = null;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas: offscreen, antialias:false, alpha:false, powerPreference:'low-power' });
+  renderer.setPixelRatio(1);
+  renderer.setSize(RES_W, RES_H, false);
+} catch(_) { renderer = null; }
+
+const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const geom = new THREE.PlaneGeometry(2,2);
+
+const tickers = [];
+document.querySelectorAll('canvas[data-shader]').forEach(c=>{
+  const type = c.dataset.shader;
+  const ctx2d = c.getContext('2d', { alpha:false });
+  c.width = RES_W; c.height = RES_H;
+
+  if(!renderer || !FRAGS[type]){
+    ctx2d.fillStyle = '#1a0d24';
+    ctx2d.fillRect(0,0,RES_W,RES_H);
+    return;
   }
 
-  drawOnce(); // always render one static frame so it doesn't look empty
-  if(REDUCED) return;
+  const mat = new THREE.ShaderMaterial({
+    vertexShader: VERT,
+    fragmentShader: FRAGS[type],
+    uniforms: { uTime:{value:Math.random()*10}, uRes:{value:new THREE.Vector2(RES_W,RES_H)} },
+  });
+  const scene = new THREE.Scene();
+  scene.add(new THREE.Mesh(geom, mat));
 
-  tickers.push({ isVisible:()=>visible && !document.hidden, tick:drawOnce, setVisible:v=>visible=v, el:c });
+  let visible = false;
+  function tick(dt){
+    mat.uniforms.uTime.value += dt;
+    renderer.render(scene, camera);
+    ctx2d.drawImage(offscreen, 0, 0);
+  }
+  // initial frame so tile is never blank
+  tick(0);
+  if(REDUCED){ return; }
 
+  tickers.push({ tick, isVisible:()=>visible && !document.hidden, setVisible:v=>visible=v, el:c });
   new IntersectionObserver(es=>{
     es.forEach(e=>{
-      const ticker = tickers.find(t=>t.el===c);
-      if(ticker) ticker.setVisible(e.isIntersecting);
+      const tk = tickers.find(x=>x.el===c);
+      if(tk) tk.setVisible(e.isIntersecting);
     });
   },{ threshold:0.1 }).observe(c);
 });
 
-// Single shared rAF loop — throttled. Skips work when nothing visible.
 let lastTick = 0;
 function loop(now){
+  const dt = (now - lastTick) / 1000;
   if(now - lastTick >= FRAME_MS){
+    for(const t of tickers) if(t.isVisible()) t.tick(Math.min(dt, 0.1));
     lastTick = now;
-    for(const t of tickers) if(t.isVisible()) t.tick();
   }
   requestAnimationFrame(loop);
 }
-if(!REDUCED && tickers.length) requestAnimationFrame(loop);
+if(!REDUCED && renderer && tickers.length) requestAnimationFrame(loop);
 
 /* ---------- Stub buy buttons ---------- */
 document.querySelectorAll('[data-buy]').forEach(a=>{
