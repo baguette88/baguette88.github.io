@@ -79,14 +79,7 @@
   }
   .grid{
     display:grid;gap:24px;
-    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
-  }
-  .grid.hero{
-    grid-template-columns:1fr;
-  }
-  .grid.hero .tile{ aspect-ratio: 21/9; }
-  @media (max-width:720px){
-    .grid.hero .tile{ aspect-ratio: 16/10; }
+    grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
   }
   .tile{
     position:relative;
@@ -113,17 +106,46 @@
       linear-gradient(180deg, rgba(10,10,15,0) 40%, rgba(10,10,15,.92) 100%),
       linear-gradient(135deg,#1a0f08 0%, #2b1a0b 50%, #0a0a0f 100%);
   }
-  .tile video.preview{
-    position:absolute;inset:0;
-    width:100%;height:100%;object-fit:cover;
-    z-index:0;
-    pointer-events:none;
-    filter:saturate(1.05) contrast(1.02);
+  .mb-video{
+    width:100%;height:100%;object-fit:cover;display:block;
+    background:#0a0a0f;
   }
-  .tile .scrim{
-    position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg, rgba(10,10,15,0) 45%, rgba(10,10,15,.92) 100%);
-    pointer-events:none;
+  .tile .meta::before{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:55%;
+    background:linear-gradient(180deg, rgba(10,10,15,0) 0%, rgba(10,10,15,.92) 85%);
+    z-index:-1;
+  }
+  /* Machine Bros art: conveyor belts */
+  .mb-art{
+    position:absolute;inset:0;overflow:hidden;
+  }
+  .mb-art .belt{
+    position:absolute;left:-10%;right:-10%;height:14px;
+    background:repeating-linear-gradient(90deg, #3a2510 0 20px, #1a0f08 20px 40px);
+    border-top:1px solid rgba(255,211,0,.15);
+    border-bottom:1px solid rgba(0,0,0,.6);
+    transform:skewY(-8deg);
+    animation:slide 1.2s linear infinite;
+  }
+  .mb-art .belt.b1{top:38%;opacity:.9}
+  .mb-art .belt.b2{top:58%;opacity:.7;animation-duration:1.6s}
+  .mb-art .belt.b3{top:78%;opacity:.45;animation-duration:2.2s}
+  @keyframes slide{from{background-position:0 0}to{background-position:40px 0}}
+  .mb-art .kart{
+    position:absolute;width:28px;height:20px;border-radius:4px;
+    background:linear-gradient(180deg,var(--accent),#b83100);
+    box-shadow:0 4px 0 #000, 0 0 18px rgba(255,77,26,.6);
+    top:32%;left:62%;
+    transform:skewY(-8deg);
+    animation:jump 1.8s ease-in-out infinite;
+  }
+  @keyframes jump{
+    0%,100%{top:32%}
+    50%{top:20%}
+  }
+  .mb-art::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(600px 200px at 20% 120%, rgba(255,211,0,.15), transparent 60%);
   }
   .tile .meta{
     position:absolute;left:0;right:0;bottom:0;padding:18px 20px;
@@ -133,13 +155,6 @@
   .tile h3{
     font-family:"VT323",monospace;
     font-size:32px;letter-spacing:.06em;line-height:1;
-  }
-  .grid.hero .tile h3{ font-size:64px; letter-spacing:.08em; }
-  .grid.hero .tile .meta{ padding:32px 36px; }
-  .grid.hero .tile .tag{ font-size:13px; margin-top:10px; }
-  @media (max-width:720px){
-    .grid.hero .tile h3{ font-size:40px; }
-    .grid.hero .tile .meta{ padding:20px 22px; }
   }
   .tile .tag{
     font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
@@ -182,11 +197,13 @@
   </header>
 
   <main>
-    <div class="section-title">NOW PLAYING</div>
-    <div class="grid hero">
+    <div class="section-title">GAME DISPLAY CASE — NOW PLAYING</div>
+    <div class="grid">
       <a class="tile" href="https://baguette8.itch.io/mbud" target="_blank" rel="noopener" aria-label="Play Machine Bros">
-        <video class="preview" src="./media/mb-preview.mp4" autoplay muted loop playsinline preload="auto"></video>
-        <div class="scrim"></div>
+        <video class="art mb-video" autoplay loop muted playsinline preload="metadata" aria-hidden="true">
+          <source src="mb-preview.webm" type="video/webm">
+          <source src="mb-preview.mp4" type="video/mp4">
+        </video>
         <div class="meta">
           <div>
             <h3>MACHINE BROS</h3>
@@ -197,7 +214,7 @@
       </a>
     </div>
 
-    <div class="section-title">COMING SOON</div>
+    <div class="section-title">GAME DISPLAY CASE — COMING SOON</div>
     <div class="grid">
       <div class="tile soon" aria-hidden="true">
         <div class="art"></div>
@@ -206,6 +223,22 @@
       <div class="tile soon" aria-hidden="true">
         <div class="art"></div>
         <div class="meta"><div><h3>???</h3><div class="tag">in development</div></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">ASSETS — SHADERS &amp; PACKS</div>
+    <div class="grid">
+      <div class="tile soon" aria-hidden="true">
+        <div class="art"></div>
+        <div class="meta"><div><h3>SHADER PACK 01</h3><div class="tag">three.js · coming soon</div></div></div>
+      </div>
+      <div class="tile soon" aria-hidden="true">
+        <div class="art"></div>
+        <div class="meta"><div><h3>HTML TOY PACK</h3><div class="tag">interactive demos · coming soon</div></div></div>
+      </div>
+      <div class="tile soon" aria-hidden="true">
+        <div class="art"></div>
+        <div class="meta"><div><h3>???</h3><div class="tag">coming soon</div></div></div>
       </div>
     </div>
   </main>
