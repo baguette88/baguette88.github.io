@@ -166,6 +166,10 @@
     background:rgba(255,77,26,.15);color:var(--accent);
     border:1px solid rgba(255,77,26,.35);
   }
+  .badge.soon-badge{
+    background:rgba(255,255,255,.06);color:var(--dim);
+    border:1px solid rgba(255,255,255,.14);
+  }
   /* coming soon tiles */
   .tile.soon{
     cursor:not-allowed;
@@ -216,9 +220,18 @@
 
     <div class="section-title">GAME DISPLAY CASE — COMING SOON</div>
     <div class="grid">
-      <div class="tile soon" aria-hidden="true">
-        <div class="art"></div>
-        <div class="meta"><div><h3>???</h3><div class="tag">in development</div></div></div>
+      <div class="tile" aria-label="INKBLOT — coming soon">
+        <video class="art mb-video" autoplay loop muted playsinline preload="metadata" aria-hidden="true">
+          <source src="inkblot-preview.webm" type="video/webm">
+          <source src="inkblot-preview.mp4" type="video/mp4">
+        </video>
+        <div class="meta">
+          <div>
+            <h3>INKBLOT</h3>
+            <div class="tag">sumi-e ink voyage · three.js</div>
+          </div>
+          <span class="badge soon-badge">Soon</span>
+        </div>
       </div>
       <div class="tile soon" aria-hidden="true">
         <div class="art"></div>
